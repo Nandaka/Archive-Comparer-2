@@ -50,18 +50,23 @@ namespace ArchiveComparer2
             else
             {
                 string text = e.Status.ToString() + ": " + e.Message;
+                lblStatus.Text = text;
+
                 if (e.Status == OperationStatus.COMPLETE)
                 {
-                    lblStatus.Text = text;
                     Fill(e.DupList);
                 }
-                else if (e.Status == OperationStatus.FILTERING || e.Status == OperationStatus.BUILDING_DUPLICATE_LIST)
+
+
+                if (chkLog.Checked)
                 {
-                    lblStatus.Text = text;
-                }
-                else
-                {
-                    if (chkLog.Checked)
+                    if (e.Status == OperationStatus.CALCULATING_CRC || 
+                        e.Status == OperationStatus.ERROR || 
+                        e.Status == OperationStatus.BUILDING_DUPLICATE_LIST)
+                    {
+                        txtLog.Text += text + Environment.NewLine;
+                    }
+                    else if (chkLogAll.Checked)
                     {
                         txtLog.Text += text + Environment.NewLine;
                     }
@@ -214,6 +219,11 @@ namespace ArchiveComparer2
         private void btnReset_Click(object sender, EventArgs e)
         {
             Settings.Default.Reset();
+        }
+
+        private void txtLog_DoubleClick(object sender, EventArgs e)
+        {
+            txtLog.Clear();
         }
     }
 

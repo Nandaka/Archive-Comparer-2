@@ -70,5 +70,17 @@ namespace ArchiveComparer2.Properties {
                 this["BlackListPattern"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LogAll {
+            get {
+                return ((bool)(this["LogAll"]));
+            }
+            set {
+                this["LogAll"] = value;
+            }
+        }
     }
 }

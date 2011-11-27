@@ -62,9 +62,8 @@ namespace ArchiveComparer2.Test
         [TestMethod]
         public void TestMethod1()
         {
-            //
-            // TODO: Add test logic here
-            //
+            int result = String.Compare("a", "b");
+            Assert.IsTrue(result < 0);
         }
     }
 }

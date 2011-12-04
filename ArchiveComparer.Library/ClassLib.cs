@@ -17,7 +17,7 @@ namespace ArchiveComparer2.Library
 
     public enum OperationStatus
     {
-        READY, BUILDING_FILE_LIST, CALCULATING_CRC, BUILDING_DUPLICATE_LIST, COMPARING, FILTERING, COMPLETE, ERROR
+        READY, BUILDING_FILE_LIST, CALCULATING_CRC, BUILDING_DUPLICATE_LIST, COMPARING, FILTERING, COMPLETE, ERROR, PAUSED, RESUMED, STOPPED
     }
 
     public struct ArchiveFileInfoSmall
@@ -69,14 +69,18 @@ namespace ArchiveComparer2.Library
             return str;
         }
 
+        private string _crcString;
         public string ToCRCString()
         {
-            string crc = "";
-            foreach (var item in Items)
+            if (String.IsNullOrEmpty(_crcString))
             {
-                crc += item.Crc;
+                _crcString = "";
+                foreach (var item in Items)
+                {
+                    _crcString += item.Crc;
+                }
             }
-            return crc;
+            return _crcString;
         }
     }
 
@@ -89,6 +93,24 @@ namespace ArchiveComparer2.Library
         {
             Duplicates.Sort(new DuplicateArchiveInfoPercentageComparer());
             if (desc) Duplicates.Reverse();
+        }
+    }
+
+    public class DuplicateSearchOption
+    {
+        public string Path;
+        public int Limit;
+        public string FilePattern;
+        public string BlacklistPattern;
+        public int IgnoreLimit;
+
+        public DuplicateSearchOption(string path, int limit = 90, int ignoreLimit = 5, string filePattern = ".*", string blacklistPattern = "")
+        {
+            this.Path = path;
+            this.Limit = limit;
+            this.IgnoreLimit = ignoreLimit;
+            this.FilePattern = filePattern;
+            this.BlacklistPattern = blacklistPattern;
         }
     }
 
@@ -150,7 +172,9 @@ namespace ArchiveComparer2.Library
             info.Items = new List<ArchiveFileInfoSmall>();
             info.RealSize = extractor.UnpackedSize;
             info.ArchivedSize = extractor.PackedSize;
-                        
+
+            ulong countedSize = 0;
+
             foreach (ArchiveFileInfo af in extractor.ArchiveFileData)
             {
                 if (af.IsDirectory) continue;
@@ -171,6 +195,12 @@ namespace ArchiveComparer2.Library
                 {
                     info.Items.Add(item);
                 }
+                countedSize += af.Size;
+            }
+
+            if (info.RealSize == -1)
+            {
+                info.RealSize = Convert.ToInt64(countedSize);
             }
 
             info.SortItems();
@@ -193,6 +223,8 @@ namespace ArchiveComparer2.Library
         public string Message;
         public OperationStatus Status;
         public List<DuplicateArchiveInfoList> DupList;
+        public int TotalCount;
+        public int CurrentCount;
     }
 
     

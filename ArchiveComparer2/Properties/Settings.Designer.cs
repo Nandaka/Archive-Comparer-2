@@ -82,5 +82,17 @@ namespace ArchiveComparer2.Properties {
                 this["LogAll"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public string IgnoreLimit {
+            get {
+                return ((string)(this["IgnoreLimit"]));
+            }
+            set {
+                this["IgnoreLimit"] = value;
+            }
+        }
     }
 }

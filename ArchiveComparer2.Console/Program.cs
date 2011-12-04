@@ -19,7 +19,10 @@ namespace ArchiveComparer2.Console
 
             ArchiveDuplicateDetector worker = new ArchiveDuplicateDetector();
             worker.Notify +=new ArchiveDuplicateDetector.NotifyEventHandler(worker_Notify);
-            DuplicateSearchOption option = new DuplicateSearchOption(path: @"D:\New Folder");
+
+            List<string> paths = new List<string>();
+            paths.Add(@"D:\New Folder");
+            DuplicateSearchOption option = new DuplicateSearchOption(paths: paths );
             List<DuplicateArchiveInfoList> list = worker.Search(option);
             
             foreach (var item in list)

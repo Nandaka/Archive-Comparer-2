@@ -134,7 +134,7 @@ namespace ArchiveComparer2
             {
                 row.Cells["colSkipped"].Value = data.Skipped.Count;
                 row.Cells["colSkipped"].ToolTipText = ConcatItem(data.Skipped);
-                row.Cells["colItemsCount"].Value = data.Items.Count + " (" + (data.Items.Count - data.Skipped.Count) + ")";
+                row.Cells["colItemsCount"].Value = data.Items.Count + " (" + (data.Items.Count + data.Skipped.Count) + ")";
             }
             else
             {
@@ -147,6 +147,7 @@ namespace ArchiveComparer2
             }
 
             row.Cells["colCrc"].Value = data.ToCRCString();
+            row.Cells["colStatus"].Value = "";
 
             return row;
         }
@@ -182,6 +183,7 @@ namespace ArchiveComparer2
                         {
                             System.IO.File.Delete(filename);
                         }
+                        row.Cells["colStatus"].Value = mode.ToString();
                     }
                     catch (Exception ex)
                     {
@@ -192,6 +194,27 @@ namespace ArchiveComparer2
             MessageBox.Show("Done.");
         }
 
+        public List<string> GetPathList()
+        {
+            List<string> paths = new List<string>();
+            string[] tmp = txtPath.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            paths.AddRange(tmp);
+            paths.Sort();
+            int i = 1;
+            while (paths.Count > i)
+            {
+                string temp = paths[i - 1];
+                if (!temp.EndsWith("\\")) temp += "\\";
+
+                if (paths[i].StartsWith(temp))
+                {
+                    paths.RemoveAt(i);
+                }
+                else ++i;
+            }
+            return paths;
+        }
+
         #region event handler
         void detector_Notify(object sender, NotifyEventArgs e)
         {
@@ -200,7 +223,7 @@ namespace ArchiveComparer2
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            DuplicateSearchOption option = new DuplicateSearchOption( path: txtPath.Text, 
+            DuplicateSearchOption option = new DuplicateSearchOption( paths: GetPathList(), 
                                                                       limit: Convert.ToInt32(txtLimitPercentage.Text),
                                                                       ignoreLimit: Convert.ToInt32(txtIgnoreLimit.Text),
                                                                       filePattern: txtFilePattern.Text,
@@ -285,11 +308,92 @@ namespace ArchiveComparer2
             {
                 if (e.ColumnIndex == dgvResult.Columns["colFilename"].Index)
                 {
-                    Process.Start(dgvResult.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    try
+                    {
+                        Process.Start(dgvResult.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "File Open Error");
+                    }
+                }
+            }
+        }
+        
+        private void btnClearDeleted_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            while( i<dgvResult.Rows.Count ) 
+            {
+                DataGridViewRow row = dgvResult.Rows[i];
+                if (row.Cells["colStatus"].Value.ToString() == DeleteMode.PERMANENT.ToString() ||
+                    row.Cells["colStatus"].Value.ToString() == DeleteMode.RECYCLED.ToString())
+                {
+                    dgvResult.Rows.RemoveAt(i);
+                }
+                else ++i;
+            }
+        }
+
+        private void btnClearResolved_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            int groupCount = 0;
+            string prevGroup = "";
+
+            while (i < dgvResult.Rows.Count)
+            {
+                DataGridViewRow row = dgvResult.Rows[i];
+
+                string currGroup = row.Cells["colDupGroup"].Value.ToString().Trim();
+                if (prevGroup != currGroup)
+                {
+                    if (groupCount == 1)
+                    {
+                        // previous group only have 1 item
+                        --i;
+                        dgvResult.Rows.RemoveAt(i);
+                    }
+                    
+                    prevGroup = currGroup;
+                    groupCount = 1;
+                }
+                else
+                {
+                    ++groupCount;
+                }
+
+                if (row.Cells["colStatus"].Value.ToString() == DeleteMode.PERMANENT.ToString() ||
+                    row.Cells["colStatus"].Value.ToString() == DeleteMode.RECYCLED.ToString())
+                {
+                    dgvResult.Rows.RemoveAt(i);
+                    --groupCount;
+                }
+                else ++i;
+            }
+
+            if (groupCount == 1)
+            {
+                dgvResult.Rows.RemoveAt(i-1);
+            }
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                txtPath.AppendText(Environment.NewLine + folderBrowserDialog1.SelectedPath);
+
+                List<string> paths = GetPathList();
+                txtPath.Text = "";
+                foreach (string path in paths)
+                {
+                    txtPath.AppendText(path + Environment.NewLine);
                 }
             }
         }
         #endregion
+
     }
 
     public enum DeleteMode

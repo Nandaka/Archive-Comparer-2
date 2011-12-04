@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2.Library", "ArchiveComparer.Library\ArchiveComparer2.Library.csproj", "{67956840-1C1E-438A-B05B-13113223D3D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2.Library", "ArchiveComparer2.Library\ArchiveComparer2.Library.csproj", "{67956840-1C1E-438A-B05B-13113223D3D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2.Test", "ArchiveComparer2.Test\ArchiveComparer2.Test.csproj", "{C8050D64-72E2-4B2F-9FF8-837550ABB172}"
 EndProject

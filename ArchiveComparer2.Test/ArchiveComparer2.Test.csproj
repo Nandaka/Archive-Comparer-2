@@ -33,13 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\ArchiveComparer.Library\lib\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="SevenZipSharp">
-      <HintPath>..\ArchiveComparer.Library\lib\SevenZipSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -58,7 +52,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArchiveComparer.Library\ArchiveComparer2.Library.csproj">
+    <ProjectReference Include="..\ArchiveComparer2.Library\ArchiveComparer2.Library.csproj">
       <Project>{67956840-1C1E-438A-B05B-13113223D3D4}</Project>
       <Name>ArchiveComparer2.Library</Name>
     </ProjectReference>

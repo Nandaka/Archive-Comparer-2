@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 using SevenZip;
 using System.IO;
@@ -15,13 +16,12 @@ namespace ArchiveComparer2.Library
     {
         public delegate void NotifyEventHandler(object sender, NotifyEventArgs e);
         public event NotifyEventHandler Notify;
-        private List<DuplicateArchiveInfoList> DupList;
 
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
         private ManualResetEvent _pauseEvent = new ManualResetEvent(true);
         private Thread _thread;
-        
 
+        #region ThreadHelper
         public void Pause()
         {
             _pauseEvent.Reset();
@@ -50,23 +50,57 @@ namespace ArchiveComparer2.Library
             NotifyCaller("Stopped", OperationStatus.STOPPED);
         }
         
+        private void NotifyCaller(string message, OperationStatus status, List<DuplicateArchiveInfoList> dupList = null, int curr = 0, int total = 0)
+        {
+            if (Notify != null)
+            {
+                Notify(this, new NotifyEventArgs() { Message = message, Status = status, DupList = dupList, TotalCount = total, CurrentCount = curr });
+            }
+        }
 
-        // step 1 - build file list
+        private void SearchThreadingImpl(object option)
+        {
+
+            Search((DuplicateSearchOption)option);
+        }
+
+        #endregion
+
+        #region Main Logic
+        /// <summary>
+        /// Step 1 - build file list from given paths
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns>List of FileInfo</returns>
         private List<FileInfo> BuildFileList(DuplicateSearchOption option)
         {
             NotifyCaller("Start building file list.", OperationStatus.BUILDING_FILE_LIST);
 
             List<FileInfo> fileList = new List<FileInfo>();
+            Regex re = new Regex(option.FilePattern, option.FileCaseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
 
             int i = 1;
             int t = option.Paths.Count;
             foreach (var path in option.Paths)
             {
-                NotifyCaller("Building file list: " + path, OperationStatus.BUILDING_FILE_LIST, curr: i, total:t);
-                DirectoryInfo dirList = new DirectoryInfo(path);
-                FileInfo[] tempList = dirList.GetFiles("*", SearchOption.AllDirectories);
-                fileList.AddRange(tempList);
-                ++i;
+                try
+                {
+                    NotifyCaller("Building file list: " + path, OperationStatus.BUILDING_FILE_LIST, curr: i, total: t);
+                    DirectoryInfo dirList = new DirectoryInfo(path);
+                    FileInfo[] tempList = dirList.GetFiles("*", SearchOption.AllDirectories);
+
+                    // filter based on filepattern
+                    var filteredList = from f in tempList
+                                       where re.IsMatch(f.Name)
+                                       select f;
+
+                    fileList.AddRange(filteredList);
+                    ++i;
+                }
+                catch (Exception ex)
+                {
+                    NotifyCaller(ex.Message + " (" + path + ")", OperationStatus.ERROR);
+                }
             }
 
             NotifyCaller("Total File: " + fileList.Count, OperationStatus.BUILDING_FILE_LIST, total: fileList.Count);
@@ -74,26 +108,26 @@ namespace ArchiveComparer2.Library
             return fileList;
         }
 
-        private void SearchDuplicate(DuplicateSearchOption option)
+        /// <summary>
+        /// Step 2: calculate crc
+        /// </summary>
+        /// <param name="fileList"></param>
+        /// <param name="option"></param>
+        /// <returns>List DuplicateArchiveInfo</returns>
+        private List<DuplicateArchiveInfo> CalculateCRC(List<FileInfo> fileList, DuplicateSearchOption option)
         {
             List<DuplicateArchiveInfo> list = new List<DuplicateArchiveInfo>();
-            Regex re = new Regex(option.FilePattern);
 
-            List<FileInfo> fileList = BuildFileList(option);
-            
             int i = 0;
             foreach (FileInfo f in fileList)
             {
                 _pauseEvent.WaitOne(Timeout.Infinite);
+                if (_shutdownEvent.WaitOne(0)) break;
 
-                if (_shutdownEvent.WaitOne(0))
-                    break;
-
-                if (!re.IsMatch(f.Name)) continue;
                 NotifyCaller(f.FullName, OperationStatus.CALCULATING_CRC, curr:i, total:fileList.Count);
                 try
                 {
-                    DuplicateArchiveInfo item = Util.GetArchiveInfo(f.FullName, option.BlacklistPattern);
+                    DuplicateArchiveInfo item = Util.GetArchiveInfo(f.FullName, option.BlacklistPattern, option.BlacklistCaseInsensitive, option.SevenZipPath);
                     item.FileSize = f.Length;
                     item.CreationTime = f.CreationTime;
 
@@ -109,14 +143,20 @@ namespace ArchiveComparer2.Library
 
             NotifyCaller("Complete calculating CRC, total: " + list.Count, OperationStatus.CALCULATING_CRC, total:list.Count);
 
-            BuildDuplicateList(list, option.Limit, option.IgnoreLimit);
+            return list;
         }
 
-        private void BuildDuplicateList(List<DuplicateArchiveInfo> list, int limit, int ignoreLimit)
+        /// <summary>
+        /// Step 3: Build duplicate list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="limit"></param>
+        /// <param name="ignoreLimit"></param>
+        private List<DuplicateArchiveInfoList> BuildDuplicateList(List<DuplicateArchiveInfo> list, DuplicateSearchOption option)
         {
             NotifyCaller("Start building duplicate list.", OperationStatus.BUILDING_DUPLICATE_LIST);
 
-            DupList = new List<DuplicateArchiveInfoList>();
+            List<DuplicateArchiveInfoList> dupList = new List<DuplicateArchiveInfoList>();
 
             list.Sort(new DuplicateArchiveInfoItemCountComparer());
 
@@ -144,7 +184,7 @@ namespace ArchiveComparer2.Library
                 {
                     DuplicateArchiveInfo curr = list[index];
 
-                    if (Compare(ref temp, ref curr, limit, ignoreLimit))
+                    if (Compare(ref temp, ref curr, option))
                     {
                         if (dup.Duplicates == null) dup.Duplicates = new List<DuplicateArchiveInfo>();
                         dup.Duplicates.Add(curr);
@@ -158,10 +198,10 @@ namespace ArchiveComparer2.Library
                     }
                 }
 
-                DupList.Add(dup);
+                dupList.Add(dup);
             }
 
-            foreach (DuplicateArchiveInfoList dup in DupList)
+            foreach (DuplicateArchiveInfoList dup in dupList)
             {
                 if (dup.Duplicates != null)
                 {
@@ -169,9 +209,18 @@ namespace ArchiveComparer2.Library
                 }
             }
             NotifyCaller("Building Duplicate List Complete.", OperationStatus.BUILDING_DUPLICATE_LIST);
+
+            return dupList;
         }
 
-        private bool Compare(ref DuplicateArchiveInfo Origin, ref DuplicateArchiveInfo Duplicate, int limit, int ignoreLimit)
+        /// <summary>
+        /// Check if file is duplicated
+        /// </summary>
+        /// <param name="Origin"></param>
+        /// <param name="Duplicate"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        private bool Compare(ref DuplicateArchiveInfo Origin, ref DuplicateArchiveInfo Duplicate, DuplicateSearchOption option)
         {
             NotifyCaller("Comparing: " + Origin.Filename + " to " + Duplicate.Filename, OperationStatus.COMPARING);
             
@@ -190,16 +239,20 @@ namespace ArchiveComparer2.Library
                     Duplicate.Percentage = 100.0;
                     return true;
                 }
+                else if (option.OnlyPerfectMatch)
+                {
+                    return false;
+                }
             }
-            else
-            {
-                Duplicate.MatchType = MatchType.SUBSET;
-            }
+
+            Duplicate.MatchType = MatchType.SUBSET;
 
             // Check each files in duplicate
             int limitCount;
-            if (ignoreLimit > Duplicate.Items.Count) limitCount = 0;
-            else limitCount = Duplicate.Items.Count - (Duplicate.Items.Count * limit / 100);
+
+            // if only have 'IgnoreLimit' files, then all must match
+            if (option.IgnoreLimit > Duplicate.Items.Count) limitCount = 0;
+            else limitCount = Duplicate.Items.Count - (Duplicate.Items.Count * option.Limit / 100);
 
             int skippedCount = 0;
             int i = 0;
@@ -227,66 +280,58 @@ namespace ArchiveComparer2.Library
             }
 
             double percent = (double)(Duplicate.Items.Count - skippedCount) / Duplicate.Items.Count * 100;
-            if (percent >= limit && skippedCount < limitCount)
+            if (percent >= option.Limit && skippedCount < limitCount)
             {
                 NotifyCaller("Match: " + percent + "%", OperationStatus.COMPARING);
                 Duplicate.Percentage = percent;
                 return true;
             }
-            else
-            {
-                NotifyCaller("Not Match", OperationStatus.COMPARING);
-                if (Duplicate.NoMatches != null) Duplicate.NoMatches.Clear();
-                return false;
-            }
-        }
-                
 
-        private void CleanUpDuplicate()
+            NotifyCaller("Not Match", OperationStatus.COMPARING);
+            if (Duplicate.NoMatches != null) Duplicate.NoMatches.Clear();
+            return false;
+        }
+
+        /// <summary>
+        /// Step 4: Clean up no duplicate
+        /// </summary>
+        /// <param name="dupList"></param>
+        /// <returns></returns>
+        private List<DuplicateArchiveInfoList> CleanUpDuplicate(List<DuplicateArchiveInfoList> dupList)
         {
             int index = 0;
-            while (index < DupList.Count)
+            while (index < dupList.Count)
             {
-                NotifyCaller(" Cleaning " + (index + 1) + " of " + DupList.Count, OperationStatus.FILTERING);
-                if (DupList[index].Duplicates == null)
+                NotifyCaller(" Cleaning " + (index + 1) + " of " + dupList.Count, OperationStatus.FILTERING);
+                if (dupList[index].Duplicates == null)
                 {
-                    NotifyCaller("Removing: " + DupList[index].Original.Filename, OperationStatus.FILTERING);
-                    DupList.RemoveAt(index);
+                    NotifyCaller("Removing: " + dupList[index].Original.Filename, OperationStatus.FILTERING);
+                    dupList.RemoveAt(index);
                 }
                 else
                 {
-                    DupList[index].Original.DupGroup = index;
-                    foreach (var dup in DupList[index].Duplicates)
+                    dupList[index].Original.DupGroup = index;
+                    foreach (var dup in dupList[index].Duplicates)
                     {
                         dup.DupGroup = index;
                     }
                     ++index;
                 }
             }
-            NotifyCaller("Total: " + DupList.Count + " duplicate groups", OperationStatus.COMPLETE, DupList, total:DupList.Count);
+            NotifyCaller("Total: " + dupList.Count + " duplicate groups", OperationStatus.COMPLETE, dupList, total: dupList.Count);
+            return dupList;
         }
-
-        private void NotifyCaller(string message, OperationStatus status, List<DuplicateArchiveInfoList> dupList = null, int curr = 0, int total = 0)
-        {
-            if (Notify != null)
-            {
-                Notify(this, new NotifyEventArgs() { Message = message, Status = status, DupList = dupList, TotalCount = total, CurrentCount = curr });
-            }
-        }
-
-        private void SearchThreadingImpl(object option)
-        {
-            
-            Search((DuplicateSearchOption) option);
-        }
-
+        #endregion
 
         public List<DuplicateArchiveInfoList> Search(DuplicateSearchOption option)
         {
             NotifyCaller("Target Count: " + option.Paths.Count, OperationStatus.READY);
-            SearchDuplicate(option);
-            CleanUpDuplicate();
-            return DupList;
+
+            List<FileInfo> fileList =  BuildFileList(option);
+            List<DuplicateArchiveInfo> list = CalculateCRC(fileList, option);
+            List<DuplicateArchiveInfoList> dupList = BuildDuplicateList(list, option);
+            dupList = CleanUpDuplicate(dupList);
+            return dupList;
         }
 
         public void SearchThreading(DuplicateSearchOption option)

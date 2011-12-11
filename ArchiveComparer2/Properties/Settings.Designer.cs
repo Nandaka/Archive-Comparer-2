@@ -94,5 +94,53 @@ namespace ArchiveComparer2.Properties {
                 this["IgnoreLimit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("lib\\7z.dll")]
+        public string SevenZipPath {
+            get {
+                return ((string)(this["SevenZipPath"]));
+            }
+            set {
+                this["SevenZipPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FileCI {
+            get {
+                return ((bool)(this["FileCI"]));
+            }
+            set {
+                this["FileCI"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BlacklistCI {
+            get {
+                return ((bool)(this["BlacklistCI"]));
+            }
+            set {
+                this["BlacklistCI"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OnlyPerfectMatch {
+            get {
+                return ((bool)(this["OnlyPerfectMatch"]));
+            }
+            set {
+                this["OnlyPerfectMatch"] = value;
+            }
+        }
     }
 }

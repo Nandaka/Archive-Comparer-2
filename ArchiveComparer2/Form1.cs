@@ -126,7 +126,7 @@ namespace ArchiveComparer2
             
             row.Cells["colSize"].Value = data.RealSize.ToString();
             row.Cells["colArchivedSize"].Value = data.ArchivedSize.ToString();
-            row.Cells["colDupGroup"].Value = data.MatchType == MatchType.ORIGINAL ? data.DupGroup.ToString() : data.DupGroup + " ";
+            row.Cells["colDupGroup"].Value = data.MatchType == MatchType.ORIGINAL ? data.DupGroup.ToString("D4") : data.DupGroup.ToString("D4") + " ";
             row.Cells["colFileSize"].Value = data.FileSize;
             row.Cells["colCreationTime"].Value = data.CreationTime;
 
@@ -188,6 +188,7 @@ namespace ArchiveComparer2
                     catch (Exception ex)
                     {
                         Logger.Error(ex.Message + "(" + filename + ").");
+                        row.Cells["colStatus"].Value = ex.Message;
                     }
                 }
             }
@@ -223,11 +224,18 @@ namespace ArchiveComparer2
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            DuplicateSearchOption option = new DuplicateSearchOption( paths: GetPathList(), 
-                                                                      limit: Convert.ToInt32(txtLimitPercentage.Text),
-                                                                      ignoreLimit: Convert.ToInt32(txtIgnoreLimit.Text),
-                                                                      filePattern: txtFilePattern.Text,
-                                                                      blacklistPattern:txtBlackList.Text);
+            DuplicateSearchOption option = new DuplicateSearchOption()
+            {
+                Paths = GetPathList(),
+                Limit = Convert.ToInt32(txtLimitPercentage.Text),
+                IgnoreLimit = Convert.ToInt32(txtIgnoreLimit.Text),
+                FilePattern = txtFilePattern.Text,
+                BlacklistPattern = txtBlackList.Text,
+                FileCaseInsensitive = chkFileCI.Checked,
+                BlacklistCaseInsensitive = chkBlacklistCI.Checked,
+                SevenZipPath = txt7zDllPath.Text,
+                OnlyPerfectMatch = chkOnlyPerfectMatch.Checked
+            };
             detector.SearchThreading(option);
         }
 

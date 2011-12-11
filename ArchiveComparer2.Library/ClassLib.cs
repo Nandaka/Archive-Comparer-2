@@ -99,19 +99,16 @@ namespace ArchiveComparer2.Library
     public class DuplicateSearchOption
     {
         public List<string> Paths;
-        public int Limit;
-        public string FilePattern;
-        public string BlacklistPattern;
-        public int IgnoreLimit;
+        public int Limit = 90;
+        public string FilePattern = ".*";
+        public string BlacklistPattern = "";
+        public int IgnoreLimit = 5;
 
-        public DuplicateSearchOption(List<string> paths, int limit = 90, int ignoreLimit = 5, string filePattern = ".*", string blacklistPattern = "")
-        {
-            this.Paths = paths;
-            this.Limit = limit;
-            this.IgnoreLimit = ignoreLimit;
-            this.FilePattern = filePattern;
-            this.BlacklistPattern = blacklistPattern;
-        }
+        public string SevenZipPath = @"lib\7z.dll";
+        public bool BlacklistCaseInsensitive = false;
+        public bool FileCaseInsensitive = false;
+
+        public bool OnlyPerfectMatch = false;
     }
 
 
@@ -127,13 +124,30 @@ namespace ArchiveComparer2.Library
     {
         public int Compare(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
         {
-            if (x.Percentage == y.Percentage)
-            {
-                if (x.Items.Count == y.Items.Count) return 0;
-                else if (x.Items.Count > y.Items.Count) return -1;
-                else return 1;
-            }
+            int result = ComparePercentage(x, y);
+            if (result == 0) result = CompareItemCount(x, y);
+            if (result == 0) result = CompareFileSize(x, y);
+            return result;
+        }
+
+        private int ComparePercentage(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
+        {
+            if (x.Percentage == y.Percentage) return 0;
             else if (x.Percentage > y.Percentage) return -1;
+            else return 1;
+        }
+
+        private int CompareItemCount(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
+        {
+            if (x.Items.Count == y.Items.Count) return 0;
+            else if (x.Items.Count > y.Items.Count) return -1;
+            else return 1;
+        }
+
+        private int CompareFileSize(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
+        {
+            if (x.FileSize == y.FileSize) return 0;
+            else if (x.FileSize > y.FileSize) return -1;
             else return 1;
         }
     }
@@ -142,8 +156,22 @@ namespace ArchiveComparer2.Library
     {
         public int Compare(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
         {
+            int result = CompareItemCount(x, y);
+            if (result == 0) result = CompareFileSize(x, y);
+            return result;
+        }
+        
+        private int CompareItemCount(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
+        {
             if (x.Items.Count == y.Items.Count) return 0;
             else if (x.Items.Count > y.Items.Count) return -1;
+            else return 1;
+        }
+
+        private int CompareFileSize(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
+        {
+            if (x.FileSize == y.FileSize) return 0;
+            else if (x.FileSize > y.FileSize) return -1;
             else return 1;
         }
     }
@@ -159,13 +187,13 @@ namespace ArchiveComparer2.Library
         /// <param name="filename"></param>
         /// <param name="blackListPattern"></param>
         /// <returns></returns>
-        public static DuplicateArchiveInfo GetArchiveInfo(string filename, string blackListPattern)
+        public static DuplicateArchiveInfo GetArchiveInfo(string filename, string blackListPattern, bool caseInsensitive, string sevenZipPath)
         {
             Logger.Info(filename);
 
-            Regex re = new Regex(blackListPattern);
+            Regex re = new Regex(blackListPattern, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
             DuplicateArchiveInfo info = new DuplicateArchiveInfo();
-            SevenZipExtractor.SetLibraryPath(@"lib\7z.dll");
+            SevenZipExtractor.SetLibraryPath(sevenZipPath);
             SevenZipExtractor extractor = new SevenZipExtractor(filename);
 
             info.Filename = filename;

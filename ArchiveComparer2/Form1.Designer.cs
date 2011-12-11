@@ -60,9 +60,13 @@
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txt7zDllPath = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.chkLogAll = new System.Windows.Forms.CheckBox();
             this.chkLog = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkBlacklistCI = new System.Windows.Forms.CheckBox();
+            this.chkFileCI = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -79,6 +83,7 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pgCount = new System.Windows.Forms.ToolStripProgressBar();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -382,7 +387,6 @@
             this.txtPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtPath.Size = new System.Drawing.Size(324, 57);
             this.txtPath.TabIndex = 7;
-            this.txtPath.Text = "D:\\New Folder";
             // 
             // label1
             // 
@@ -434,14 +438,34 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txt7zDllPath);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.chkLogAll);
             this.groupBox2.Controls.Add(this.chkLog);
             this.groupBox2.Location = new System.Drawing.Point(6, 120);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(434, 100);
+            this.groupBox2.Size = new System.Drawing.Size(459, 100);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Application";
+            // 
+            // txt7zDllPath
+            // 
+            this.txt7zDllPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SevenZipPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txt7zDllPath.Location = new System.Drawing.Point(67, 65);
+            this.txt7zDllPath.Name = "txt7zDllPath";
+            this.txt7zDllPath.Size = new System.Drawing.Size(274, 20);
+            this.txt7zDllPath.TabIndex = 9;
+            this.txt7zDllPath.Text = global::ArchiveComparer2.Properties.Settings.Default.SevenZipPath;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 68);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "7z.dll path";
             // 
             // chkLogAll
             // 
@@ -469,6 +493,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkOnlyPerfectMatch);
+            this.groupBox1.Controls.Add(this.chkBlacklistCI);
+            this.groupBox1.Controls.Add(this.chkFileCI);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
@@ -481,10 +508,34 @@
             this.groupBox1.Controls.Add(this.txtLimitPercentage);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(434, 108);
+            this.groupBox1.Size = new System.Drawing.Size(459, 108);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Matching Setting";
+            // 
+            // chkBlacklistCI
+            // 
+            this.chkBlacklistCI.AutoSize = true;
+            this.chkBlacklistCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.BlacklistCI;
+            this.chkBlacklistCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "BlacklistCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBlacklistCI.Location = new System.Drawing.Point(350, 73);
+            this.chkBlacklistCI.Name = "chkBlacklistCI";
+            this.chkBlacklistCI.Size = new System.Drawing.Size(103, 17);
+            this.chkBlacklistCI.TabIndex = 10;
+            this.chkBlacklistCI.Text = "Case Insensitive";
+            this.chkBlacklistCI.UseVisualStyleBackColor = true;
+            // 
+            // chkFileCI
+            // 
+            this.chkFileCI.AutoSize = true;
+            this.chkFileCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileCI;
+            this.chkFileCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkFileCI.Location = new System.Drawing.Point(352, 21);
+            this.chkFileCI.Name = "chkFileCI";
+            this.chkFileCI.Size = new System.Drawing.Size(103, 17);
+            this.chkFileCI.TabIndex = 9;
+            this.chkFileCI.Text = "Case Insensitive";
+            this.chkFileCI.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -498,7 +549,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(321, 48);
+            this.label6.Location = new System.Drawing.Point(292, 48);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(25, 13);
             this.label6.TabIndex = 8;
@@ -507,7 +558,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(180, 48);
+            this.label5.Location = new System.Drawing.Point(151, 48);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 13);
             this.label5.TabIndex = 6;
@@ -516,7 +567,7 @@
             // txtIgnoreLimit
             // 
             this.txtIgnoreLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "IgnoreLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtIgnoreLimit.Location = new System.Drawing.Point(285, 45);
+            this.txtIgnoreLimit.Location = new System.Drawing.Point(256, 45);
             this.txtIgnoreLimit.Name = "txtIgnoreLimit";
             this.txtIgnoreLimit.Size = new System.Drawing.Size(30, 20);
             this.txtIgnoreLimit.TabIndex = 7;
@@ -578,7 +629,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(277, 226);
+            this.btnReset.Location = new System.Drawing.Point(302, 226);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 5;
@@ -588,7 +639,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(365, 226);
+            this.btnSave.Location = new System.Drawing.Point(390, 226);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 4;
@@ -622,6 +673,18 @@
             this.pgCount.Size = new System.Drawing.Size(100, 16);
             this.pgCount.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pgCount.Visible = false;
+            // 
+            // chkOnlyPerfectMatch
+            // 
+            this.chkOnlyPerfectMatch.AutoSize = true;
+            this.chkOnlyPerfectMatch.Checked = global::ArchiveComparer2.Properties.Settings.Default.OnlyPerfectMatch;
+            this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(336, 47);
+            this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
+            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(117, 17);
+            this.chkOnlyPerfectMatch.TabIndex = 10;
+            this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
+            this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
             // 
             // ArchiveComparer2Form
             // 
@@ -703,6 +766,11 @@
         private System.Windows.Forms.Button btnClearResolved;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.TextBox txt7zDllPath;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox chkBlacklistCI;
+        private System.Windows.Forms.CheckBox chkFileCI;
+        private System.Windows.Forms.CheckBox chkOnlyPerfectMatch;
     }
 }
 

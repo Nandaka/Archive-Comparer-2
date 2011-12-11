@@ -20,5 +20,17 @@
     <Setting Name="IgnoreLimit" Type="System.String" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="SevenZipPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">lib\7z.dll</Value>
+    </Setting>
+    <Setting Name="FileCI" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BlacklistCI" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="OnlyPerfectMatch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

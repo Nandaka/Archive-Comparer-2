@@ -8,8 +8,8 @@
     <ProjectGuid>{67956840-1C1E-438A-B05B-13113223D3D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArchiveComparer.Library</RootNamespace>
-    <AssemblyName>ArchiveComparer.Library</AssemblyName>
+    <RootNamespace>ArchiveComparer2.Library</RootNamespace>
+    <AssemblyName>ArchiveComparer2.Library</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

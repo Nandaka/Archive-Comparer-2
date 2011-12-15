@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
-using SevenZip;
 using System.IO;
 using System.Threading;
 using System.Text.RegularExpressions;
-using log4net;
 
 namespace ArchiveComparer2.Library
 {

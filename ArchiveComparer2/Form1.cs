@@ -18,12 +18,20 @@ namespace ArchiveComparer2
     public partial class ArchiveComparer2Form : Form
     {
         ArchiveDuplicateDetector detector;
-        static ILog Logger = LogManager.GetLogger(typeof(ArchiveComparer2Form).ToString());
+        static ILog Logger;
 
         public ArchiveComparer2Form()
         {
             InitializeComponent();
+
+            log4net.GlobalContext.Properties["Date"] = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss");
             log4net.Config.XmlConfigurator.Configure();
+            if (Logger == null)
+            {
+                Logger = LogManager.GetLogger(typeof(ArchiveComparer2Form));
+            }
+            Logger.Info("Starting Up Archive Comparer 2");
+            
             detector = new ArchiveDuplicateDetector();
             detector.Notify += new ArchiveDuplicateDetector.NotifyEventHandler(detector_Notify);
         }
@@ -40,6 +48,7 @@ namespace ArchiveComparer2
             else
             {
                 string text = e.Status.ToString() + ": " + e.Message;
+                
                 if (e.Status == OperationStatus.PAUSED ||
                     e.Status == OperationStatus.RESUMED ||
                     e.Status == OperationStatus.STOPPED)
@@ -58,6 +67,7 @@ namespace ArchiveComparer2
                     pgCount.Visible = true;
                     pgCount.Maximum = e.TotalCount;
                     pgCount.Value = e.CurrentCount;
+                    pgCount.ToolTipText = e.CurrentCount + "/" + e.TotalCount;
                 }
 
                 if (e.Status == OperationStatus.COMPLETE)
@@ -78,6 +88,17 @@ namespace ArchiveComparer2
                         txtLog.Text += text + Environment.NewLine;
                     }
                 }
+
+                if (chkBFL.Checked && e.Status == OperationStatus.BUILDING_FILE_LIST) Logger.Info(text);
+                else if (chkCCRC.Checked && e.Status == OperationStatus.CALCULATING_CRC) Logger.Debug(text);
+                else if (chkBDL.Checked && e.Status == OperationStatus.BUILDING_DUPLICATE_LIST) Logger.Debug(text);
+                else if (chkCOMP.Checked && e.Status == OperationStatus.COMPARING) Logger.Debug(text);
+                else if (chkFIL.Checked && e.Status == OperationStatus.FILTERING) Logger.Debug(text);
+                else if (e.Status != OperationStatus.BUILDING_FILE_LIST &&
+                        e.Status != OperationStatus.CALCULATING_CRC &&
+                        e.Status != OperationStatus.BUILDING_DUPLICATE_LIST &&
+                        e.Status != OperationStatus.COMPARING &&
+                        e.Status != OperationStatus.FILTERING) Logger.Debug(text);
             }
         }
         
@@ -177,10 +198,12 @@ namespace ArchiveComparer2
                         row.Cells["colCheck"].Value = false;
                         if (mode == DeleteMode.RECYCLED)
                         {
+                            Logger.Info("Delete to Recyle Bin: " + filename);
                             Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filename, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
                         }
                         else if (mode == DeleteMode.PERMANENT)
                         {
+                            Logger.Info("Delete Permanently: " + filename);
                             System.IO.File.Delete(filename);
                         }
                         row.Cells["colStatus"].Value = mode.ToString();
@@ -400,8 +423,12 @@ namespace ArchiveComparer2
                 }
             }
         }
-        #endregion
 
+        private void btnResetColWidth_Click(object sender, EventArgs e)
+        {
+            dgvResult.Columns["colFilename"].Width = dgvResult.Columns["colFilename"].MinimumWidth;
+        }
+        #endregion
     }
 
     public enum DeleteMode

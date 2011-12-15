@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using SevenZip;
-using System.IO;
-using System.Threading;
 using System.Text.RegularExpressions;
-using log4net;
+
 
 namespace ArchiveComparer2.Library
 {
@@ -179,8 +177,6 @@ namespace ArchiveComparer2.Library
     
     public class Util
     {
-        private static ILog Logger = LogManager.GetLogger(typeof(Util));
-
         /// <summary>
         /// Build DuplicateArchiveInfo containing the files' crc, sorted.
         /// </summary>
@@ -189,8 +185,6 @@ namespace ArchiveComparer2.Library
         /// <returns></returns>
         public static DuplicateArchiveInfo GetArchiveInfo(string filename, string blackListPattern, bool caseInsensitive, string sevenZipPath)
         {
-            Logger.Info(filename);
-
             Regex re = new Regex(blackListPattern, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
             DuplicateArchiveInfo info = new DuplicateArchiveInfo();
             SevenZipExtractor.SetLibraryPath(sevenZipPath);
@@ -217,7 +211,6 @@ namespace ArchiveComparer2.Library
                 {
                     if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
                     info.Skipped.Add(item);
-                    Logger.Info("Skipping: " + af.FileName);
                 }
                 else
                 {
@@ -254,6 +247,4 @@ namespace ArchiveComparer2.Library
         public int TotalCount;
         public int CurrentCount;
     }
-
-    
 }

@@ -39,32 +39,25 @@
             this.btnDelRecycled = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.dgvResult = new System.Windows.Forms.DataGridView();
-            this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFilename = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkCCRC = new System.Windows.Forms.CheckBox();
+            this.chkFIL = new System.Windows.Forms.CheckBox();
+            this.chkBDL = new System.Windows.Forms.CheckBox();
+            this.chkCOMP = new System.Windows.Forms.CheckBox();
+            this.chkBFL = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txt7zDllPath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.chkLogAll = new System.Windows.Forms.CheckBox();
             this.chkLog = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
             this.chkBlacklistCI = new System.Windows.Forms.CheckBox();
             this.chkFileCI = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -83,12 +76,27 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pgCount = new System.Windows.Forms.ToolStripProgressBar();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
+            this.btnResetColWidth = new System.Windows.Forms.Button();
+            this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFilename = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -96,16 +104,16 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(800, 373);
+            this.tabControl1.Size = new System.Drawing.Size(800, 425);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -125,7 +133,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(792, 347);
+            this.tabPage1.Size = new System.Drawing.Size(792, 399);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -143,7 +151,7 @@
             // btnClearResolved
             // 
             this.btnClearResolved.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClearResolved.Location = new System.Drawing.Point(189, 321);
+            this.btnClearResolved.Location = new System.Drawing.Point(189, 373);
             this.btnClearResolved.Name = "btnClearResolved";
             this.btnClearResolved.Size = new System.Drawing.Size(87, 23);
             this.btnClearResolved.TabIndex = 17;
@@ -154,7 +162,7 @@
             // btnClearDeleted
             // 
             this.btnClearDeleted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClearDeleted.Location = new System.Drawing.Point(96, 321);
+            this.btnClearDeleted.Location = new System.Drawing.Point(96, 373);
             this.btnClearDeleted.Name = "btnClearDeleted";
             this.btnClearDeleted.Size = new System.Drawing.Size(87, 23);
             this.btnClearDeleted.TabIndex = 16;
@@ -164,7 +172,8 @@
             // 
             // btnPause
             // 
-            this.btnPause.Location = new System.Drawing.Point(581, 4);
+            this.btnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPause.Location = new System.Drawing.Point(630, 4);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(75, 23);
             this.btnPause.TabIndex = 15;
@@ -174,7 +183,8 @@
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(662, 4);
+            this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStop.Location = new System.Drawing.Point(711, 4);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 14;
@@ -185,7 +195,7 @@
             // btnDelPermanent
             // 
             this.btnDelPermanent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelPermanent.Location = new System.Drawing.Point(665, 321);
+            this.btnDelPermanent.Location = new System.Drawing.Point(665, 373);
             this.btnDelPermanent.Name = "btnDelPermanent";
             this.btnDelPermanent.Size = new System.Drawing.Size(121, 23);
             this.btnDelPermanent.TabIndex = 13;
@@ -196,7 +206,7 @@
             // btnDelRecycled
             // 
             this.btnDelRecycled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelRecycled.Location = new System.Drawing.Point(538, 321);
+            this.btnDelRecycled.Location = new System.Drawing.Point(538, 373);
             this.btnDelRecycled.Name = "btnDelRecycled";
             this.btnDelRecycled.Size = new System.Drawing.Size(121, 23);
             this.btnDelRecycled.TabIndex = 12;
@@ -207,7 +217,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClear.Location = new System.Drawing.Point(3, 321);
+            this.btnClear.Location = new System.Drawing.Point(3, 373);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(87, 23);
             this.btnClear.TabIndex = 11;
@@ -220,9 +230,9 @@
             this.dgvResult.AllowUserToAddRows = false;
             this.dgvResult.AllowUserToDeleteRows = false;
             this.dgvResult.AllowUserToOrderColumns = true;
-            this.dgvResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvResult.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgvResult.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -247,127 +257,9 @@
             this.dgvResult.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvResult.RowHeadersVisible = false;
             this.dgvResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResult.Size = new System.Drawing.Size(780, 246);
+            this.dgvResult.Size = new System.Drawing.Size(780, 298);
             this.dgvResult.TabIndex = 10;
             this.dgvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellContentClick);
-            // 
-            // colCheck
-            // 
-            this.colCheck.FillWeight = 20F;
-            this.colCheck.Frozen = true;
-            this.colCheck.HeaderText = "*";
-            this.colCheck.Name = "colCheck";
-            this.colCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colCheck.Width = 20;
-            // 
-            // colDupGroup
-            // 
-            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.colDupGroup.FillWeight = 40F;
-            this.colDupGroup.Frozen = true;
-            this.colDupGroup.HeaderText = "Dup. Group";
-            this.colDupGroup.MinimumWidth = 40;
-            this.colDupGroup.Name = "colDupGroup";
-            this.colDupGroup.ReadOnly = true;
-            this.colDupGroup.Width = 40;
-            // 
-            // colFilename
-            // 
-            this.colFilename.FillWeight = 300F;
-            this.colFilename.Frozen = true;
-            this.colFilename.HeaderText = "Filename";
-            this.colFilename.LinkColor = System.Drawing.Color.Black;
-            this.colFilename.Name = "colFilename";
-            this.colFilename.ReadOnly = true;
-            this.colFilename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colFilename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colFilename.Width = 300;
-            // 
-            // colPercentage
-            // 
-            this.colPercentage.FillWeight = 55F;
-            this.colPercentage.Frozen = true;
-            this.colPercentage.HeaderText = "Match %";
-            this.colPercentage.Name = "colPercentage";
-            this.colPercentage.ReadOnly = true;
-            this.colPercentage.Width = 55;
-            // 
-            // colMatchType
-            // 
-            this.colMatchType.Frozen = true;
-            this.colMatchType.HeaderText = "Match Type";
-            this.colMatchType.Name = "colMatchType";
-            this.colMatchType.ReadOnly = true;
-            // 
-            // colItemsCount
-            // 
-            this.colItemsCount.FillWeight = 50F;
-            this.colItemsCount.HeaderText = "Items Count";
-            this.colItemsCount.Name = "colItemsCount";
-            this.colItemsCount.ReadOnly = true;
-            this.colItemsCount.Width = 50;
-            // 
-            // colNoMatchesCount
-            // 
-            this.colNoMatchesCount.FillWeight = 50F;
-            this.colNoMatchesCount.HeaderText = "No Match";
-            this.colNoMatchesCount.Name = "colNoMatchesCount";
-            this.colNoMatchesCount.ReadOnly = true;
-            this.colNoMatchesCount.Width = 50;
-            // 
-            // colSkipped
-            // 
-            this.colSkipped.FillWeight = 50F;
-            this.colSkipped.HeaderText = "Skipped";
-            this.colSkipped.Name = "colSkipped";
-            this.colSkipped.ReadOnly = true;
-            this.colSkipped.Width = 50;
-            // 
-            // colSize
-            // 
-            this.colSize.FillWeight = 75F;
-            this.colSize.HeaderText = "Real Size";
-            this.colSize.Name = "colSize";
-            this.colSize.ReadOnly = true;
-            this.colSize.Width = 75;
-            // 
-            // colArchivedSize
-            // 
-            this.colArchivedSize.FillWeight = 75F;
-            this.colArchivedSize.HeaderText = "Archived Size";
-            this.colArchivedSize.Name = "colArchivedSize";
-            this.colArchivedSize.ReadOnly = true;
-            this.colArchivedSize.Width = 75;
-            // 
-            // colFileSize
-            // 
-            this.colFileSize.FillWeight = 75F;
-            this.colFileSize.HeaderText = "File Size";
-            this.colFileSize.Name = "colFileSize";
-            this.colFileSize.ReadOnly = true;
-            this.colFileSize.Width = 75;
-            // 
-            // colCreationTime
-            // 
-            this.colCreationTime.FillWeight = 130F;
-            this.colCreationTime.HeaderText = "Creation Time";
-            this.colCreationTime.Name = "colCreationTime";
-            this.colCreationTime.ReadOnly = true;
-            this.colCreationTime.Width = 130;
-            // 
-            // colCrc
-            // 
-            this.colCrc.FillWeight = 150F;
-            this.colCrc.HeaderText = "CRC";
-            this.colCrc.Name = "colCrc";
-            this.colCrc.ReadOnly = true;
-            this.colCrc.Width = 150;
-            // 
-            // colStatus
-            // 
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
             // 
             // btnSearch
             // 
@@ -403,7 +295,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(792, 347);
+            this.tabPage2.Size = new System.Drawing.Size(792, 399);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Log";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -416,7 +308,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(786, 341);
+            this.txtLog.Size = new System.Drawing.Size(786, 393);
             this.txtLog.TabIndex = 10;
             this.txtLog.WordWrap = false;
             this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
@@ -424,6 +316,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.btnReset);
@@ -431,20 +324,95 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(792, 347);
+            this.tabPage3.Size = new System.Drawing.Size(792, 399);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Config";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chkCCRC);
+            this.groupBox3.Controls.Add(this.chkFIL);
+            this.groupBox3.Controls.Add(this.chkBDL);
+            this.groupBox3.Controls.Add(this.chkCOMP);
+            this.groupBox3.Controls.Add(this.chkBFL);
+            this.groupBox3.Location = new System.Drawing.Point(6, 199);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(459, 94);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Logging";
+            // 
+            // chkCCRC
+            // 
+            this.chkCCRC.AutoSize = true;
+            this.chkCCRC.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCCRC;
+            this.chkCCRC.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCCRC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkCCRC.Location = new System.Drawing.Point(9, 42);
+            this.chkCCRC.Name = "chkCCRC";
+            this.chkCCRC.Size = new System.Drawing.Size(128, 17);
+            this.chkCCRC.TabIndex = 14;
+            this.chkCCRC.Text = "CALCULATING_CRC";
+            this.chkCCRC.UseVisualStyleBackColor = true;
+            // 
+            // chkFIL
+            // 
+            this.chkFIL.AutoSize = true;
+            this.chkFIL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logFIL;
+            this.chkFIL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logFIL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkFIL.Location = new System.Drawing.Point(149, 65);
+            this.chkFIL.Name = "chkFIL";
+            this.chkFIL.Size = new System.Drawing.Size(82, 17);
+            this.chkFIL.TabIndex = 12;
+            this.chkFIL.Text = "FILTERING";
+            this.chkFIL.UseVisualStyleBackColor = true;
+            // 
+            // chkBDL
+            // 
+            this.chkBDL.AutoSize = true;
+            this.chkBDL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBDL;
+            this.chkBDL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBDL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBDL.Location = new System.Drawing.Point(149, 19);
+            this.chkBDL.Name = "chkBDL";
+            this.chkBDL.Size = new System.Drawing.Size(172, 17);
+            this.chkBDL.TabIndex = 11;
+            this.chkBDL.Text = "BUILDING_DUPLICATE_LIST";
+            this.chkBDL.UseVisualStyleBackColor = true;
+            // 
+            // chkCOMP
+            // 
+            this.chkCOMP.AutoSize = true;
+            this.chkCOMP.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCOMP;
+            this.chkCOMP.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCOMP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkCOMP.Location = new System.Drawing.Point(149, 42);
+            this.chkCOMP.Name = "chkCOMP";
+            this.chkCOMP.Size = new System.Drawing.Size(91, 17);
+            this.chkCOMP.TabIndex = 13;
+            this.chkCOMP.Text = "COMPARING";
+            this.chkCOMP.UseVisualStyleBackColor = true;
+            // 
+            // chkBFL
+            // 
+            this.chkBFL.AutoSize = true;
+            this.chkBFL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBFL;
+            this.chkBFL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBFL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBFL.Location = new System.Drawing.Point(9, 19);
+            this.chkBFL.Name = "chkBFL";
+            this.chkBFL.Size = new System.Drawing.Size(134, 17);
+            this.chkBFL.TabIndex = 10;
+            this.chkBFL.Text = "BUILDING_FILE_LIST";
+            this.chkBFL.UseVisualStyleBackColor = true;
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnResetColWidth);
             this.groupBox2.Controls.Add(this.txt7zDllPath);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.chkLogAll);
             this.groupBox2.Controls.Add(this.chkLog);
             this.groupBox2.Location = new System.Drawing.Point(6, 120);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(459, 100);
+            this.groupBox2.Size = new System.Drawing.Size(459, 73);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Application";
@@ -452,7 +420,7 @@
             // txt7zDllPath
             // 
             this.txt7zDllPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SevenZipPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txt7zDllPath.Location = new System.Drawing.Point(67, 65);
+            this.txt7zDllPath.Location = new System.Drawing.Point(72, 42);
             this.txt7zDllPath.Name = "txt7zDllPath";
             this.txt7zDllPath.Size = new System.Drawing.Size(274, 20);
             this.txt7zDllPath.TabIndex = 9;
@@ -461,7 +429,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 68);
+            this.label8.Location = new System.Drawing.Point(11, 45);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 13);
             this.label8.TabIndex = 8;
@@ -472,7 +440,7 @@
             this.chkLogAll.AutoSize = true;
             this.chkLogAll.Checked = global::ArchiveComparer2.Properties.Settings.Default.LogAll;
             this.chkLogAll.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "LogAll", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLogAll.Location = new System.Drawing.Point(9, 42);
+            this.chkLogAll.Location = new System.Drawing.Point(156, 19);
             this.chkLogAll.Name = "chkLogAll";
             this.chkLogAll.Size = new System.Drawing.Size(58, 17);
             this.chkLogAll.TabIndex = 7;
@@ -512,6 +480,18 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Matching Setting";
+            // 
+            // chkOnlyPerfectMatch
+            // 
+            this.chkOnlyPerfectMatch.AutoSize = true;
+            this.chkOnlyPerfectMatch.Checked = global::ArchiveComparer2.Properties.Settings.Default.OnlyPerfectMatch;
+            this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(336, 47);
+            this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
+            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(117, 17);
+            this.chkOnlyPerfectMatch.TabIndex = 10;
+            this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
+            this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
             // 
             // chkBlacklistCI
             // 
@@ -629,7 +609,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(302, 226);
+            this.btnReset.Location = new System.Drawing.Point(302, 299);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 5;
@@ -639,7 +619,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(390, 226);
+            this.btnSave.Location = new System.Drawing.Point(390, 299);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 4;
@@ -652,7 +632,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus,
             this.pgCount});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 440);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(824, 22);
             this.statusStrip1.TabIndex = 8;
@@ -674,25 +654,143 @@
             this.pgCount.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pgCount.Visible = false;
             // 
-            // chkOnlyPerfectMatch
+            // btnResetColWidth
             // 
-            this.chkOnlyPerfectMatch.AutoSize = true;
-            this.chkOnlyPerfectMatch.Checked = global::ArchiveComparer2.Properties.Settings.Default.OnlyPerfectMatch;
-            this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(336, 47);
-            this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
-            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(117, 17);
-            this.chkOnlyPerfectMatch.TabIndex = 10;
-            this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
-            this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
+            this.btnResetColWidth.Location = new System.Drawing.Point(318, 15);
+            this.btnResetColWidth.Name = "btnResetColWidth";
+            this.btnResetColWidth.Size = new System.Drawing.Size(135, 23);
+            this.btnResetColWidth.TabIndex = 10;
+            this.btnResetColWidth.Text = "Reset Column Width";
+            this.btnResetColWidth.UseVisualStyleBackColor = true;
+            this.btnResetColWidth.Click += new System.EventHandler(this.btnResetColWidth_Click);
+            // 
+            // colCheck
+            // 
+            this.colCheck.FillWeight = 20F;
+            this.colCheck.Frozen = true;
+            this.colCheck.HeaderText = "*";
+            this.colCheck.Name = "colCheck";
+            this.colCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colCheck.Width = 20;
+            // 
+            // colDupGroup
+            // 
+            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.colDupGroup.FillWeight = 40F;
+            this.colDupGroup.Frozen = true;
+            this.colDupGroup.HeaderText = "Dup. Group";
+            this.colDupGroup.MinimumWidth = 40;
+            this.colDupGroup.Name = "colDupGroup";
+            this.colDupGroup.ReadOnly = true;
+            this.colDupGroup.Width = 40;
+            // 
+            // colFilename
+            // 
+            this.colFilename.FillWeight = 300F;
+            this.colFilename.Frozen = true;
+            this.colFilename.HeaderText = "Filename";
+            this.colFilename.LinkColor = System.Drawing.Color.Black;
+            this.colFilename.MinimumWidth = 300;
+            this.colFilename.Name = "colFilename";
+            this.colFilename.ReadOnly = true;
+            this.colFilename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colFilename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colFilename.Width = 300;
+            // 
+            // colPercentage
+            // 
+            this.colPercentage.FillWeight = 55F;
+            this.colPercentage.Frozen = true;
+            this.colPercentage.HeaderText = "Match %";
+            this.colPercentage.Name = "colPercentage";
+            this.colPercentage.ReadOnly = true;
+            this.colPercentage.Width = 55;
+            // 
+            // colMatchType
+            // 
+            this.colMatchType.Frozen = true;
+            this.colMatchType.HeaderText = "Match Type";
+            this.colMatchType.Name = "colMatchType";
+            this.colMatchType.ReadOnly = true;
+            // 
+            // colItemsCount
+            // 
+            this.colItemsCount.FillWeight = 50F;
+            this.colItemsCount.HeaderText = "Items Count";
+            this.colItemsCount.Name = "colItemsCount";
+            this.colItemsCount.ReadOnly = true;
+            this.colItemsCount.Width = 50;
+            // 
+            // colNoMatchesCount
+            // 
+            this.colNoMatchesCount.FillWeight = 50F;
+            this.colNoMatchesCount.HeaderText = "No Match";
+            this.colNoMatchesCount.Name = "colNoMatchesCount";
+            this.colNoMatchesCount.ReadOnly = true;
+            this.colNoMatchesCount.Width = 50;
+            // 
+            // colSkipped
+            // 
+            this.colSkipped.FillWeight = 50F;
+            this.colSkipped.HeaderText = "Skipped";
+            this.colSkipped.Name = "colSkipped";
+            this.colSkipped.ReadOnly = true;
+            this.colSkipped.Width = 50;
+            // 
+            // colSize
+            // 
+            this.colSize.FillWeight = 75F;
+            this.colSize.HeaderText = "Real Size";
+            this.colSize.Name = "colSize";
+            this.colSize.ReadOnly = true;
+            this.colSize.Width = 75;
+            // 
+            // colArchivedSize
+            // 
+            this.colArchivedSize.FillWeight = 75F;
+            this.colArchivedSize.HeaderText = "Archived Size";
+            this.colArchivedSize.Name = "colArchivedSize";
+            this.colArchivedSize.ReadOnly = true;
+            this.colArchivedSize.Width = 75;
+            // 
+            // colFileSize
+            // 
+            this.colFileSize.FillWeight = 75F;
+            this.colFileSize.HeaderText = "File Size";
+            this.colFileSize.Name = "colFileSize";
+            this.colFileSize.ReadOnly = true;
+            this.colFileSize.Width = 75;
+            // 
+            // colCreationTime
+            // 
+            this.colCreationTime.FillWeight = 130F;
+            this.colCreationTime.HeaderText = "Creation Time";
+            this.colCreationTime.Name = "colCreationTime";
+            this.colCreationTime.ReadOnly = true;
+            this.colCreationTime.Width = 130;
+            // 
+            // colCrc
+            // 
+            this.colCrc.FillWeight = 150F;
+            this.colCrc.HeaderText = "CRC";
+            this.colCrc.Name = "colCrc";
+            this.colCrc.ReadOnly = true;
+            this.colCrc.Width = 150;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
             // 
             // ArchiveComparer2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 410);
+            this.ClientSize = new System.Drawing.Size(824, 462);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "ArchiveComparer2Form";
             this.Text = "Archive Comparer 2";
             this.tabControl1.ResumeLayout(false);
@@ -702,6 +800,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -749,6 +849,21 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnClearDeleted;
+        private System.Windows.Forms.Button btnClearResolved;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.TextBox txt7zDllPath;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox chkBlacklistCI;
+        private System.Windows.Forms.CheckBox chkFileCI;
+        private System.Windows.Forms.CheckBox chkOnlyPerfectMatch;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox chkCCRC;
+        private System.Windows.Forms.CheckBox chkFIL;
+        private System.Windows.Forms.CheckBox chkBDL;
+        private System.Windows.Forms.CheckBox chkCOMP;
+        private System.Windows.Forms.CheckBox chkBFL;
+        private System.Windows.Forms.Button btnResetColWidth;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDupGroup;
         private System.Windows.Forms.DataGridViewLinkColumn colFilename;
@@ -763,14 +878,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCreationTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCrc;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
-        private System.Windows.Forms.Button btnClearResolved;
-        private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.TextBox txt7zDllPath;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox chkBlacklistCI;
-        private System.Windows.Forms.CheckBox chkFileCI;
-        private System.Windows.Forms.CheckBox chkOnlyPerfectMatch;
     }
 }
 

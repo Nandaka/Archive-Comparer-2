@@ -142,5 +142,65 @@ namespace ArchiveComparer2.Properties {
                 this["OnlyPerfectMatch"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool logBFL {
+            get {
+                return ((bool)(this["logBFL"]));
+            }
+            set {
+                this["logBFL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool logCCRC {
+            get {
+                return ((bool)(this["logCCRC"]));
+            }
+            set {
+                this["logCCRC"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool logBDL {
+            get {
+                return ((bool)(this["logBDL"]));
+            }
+            set {
+                this["logBDL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool logCOMP {
+            get {
+                return ((bool)(this["logCOMP"]));
+            }
+            set {
+                this["logCOMP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool logFIL {
+            get {
+                return ((bool)(this["logFIL"]));
+            }
+            set {
+                this["logFIL"] = value;
+            }
+        }
     }
 }

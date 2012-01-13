@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace ArchiveComparer2.Library
 {
 
-    public class ArchiveDuplicateDetector
+    public class ArchiveDuplicateDetector:IDisposable
     {
         public delegate void NotifyEventHandler(object sender, NotifyEventArgs e);
         public event NotifyEventHandler Notify;
@@ -39,17 +39,18 @@ namespace ArchiveComparer2.Library
             // Make sure to resume any paused threads
             _pauseEvent.Set();
 
+            NotifyCaller("Stopped", OperationStatus.STOPPED);
+
             if (_thread != null)
             {
                 // Wait for the thread to exit
                 _thread.Join();
             }
-            NotifyCaller("Stopped", OperationStatus.STOPPED);
         }
         
         private void NotifyCaller(string message, OperationStatus status, List<DuplicateArchiveInfoList> dupList = null, int curr = 0, int total = 0)
         {
-            if (Notify != null)
+            if (Notify != null )
             {
                 Notify(this, new NotifyEventArgs() { Message = message, Status = status, DupList = dupList, TotalCount = total, CurrentCount = curr });
             }
@@ -119,7 +120,8 @@ namespace ArchiveComparer2.Library
             foreach (FileInfo f in fileList)
             {
                 _pauseEvent.WaitOne(Timeout.Infinite);
-                if (_shutdownEvent.WaitOne(0)) break;
+                if (_shutdownEvent.WaitOne(0))
+                    break;
 
                 NotifyCaller(f.FullName, OperationStatus.CALCULATING_CRC, curr:i, total:fileList.Count);
                 try
@@ -162,7 +164,6 @@ namespace ArchiveComparer2.Library
             while (list.Count > 0)
             {
                 _pauseEvent.WaitOne(Timeout.Infinite);
-
                 if (_shutdownEvent.WaitOne(0))
                     break;
 
@@ -339,6 +340,22 @@ namespace ArchiveComparer2.Library
                 _thread = new Thread(ts);
                 _thread.Start(option);
             }
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (_thread != null && _thread.IsAlive)
+            {
+                this.Stop();
+            }
+            if (_pauseEvent != null) _pauseEvent.Close();
+            if (_shutdownEvent != null) _shutdownEvent.Close();
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 

@@ -72,11 +72,12 @@ namespace ArchiveComparer2.Library
         {
             if (String.IsNullOrEmpty(_crcString))
             {
-                _crcString = "";
+                StringBuilder b = new StringBuilder(Items.Count * 8);
                 foreach (var item in Items)
                 {
-                    _crcString += item.Crc;
+                    b.Append(item.Crc);
                 }
+                _crcString = b.ToString();
             }
             return _crcString;
         }
@@ -188,46 +189,44 @@ namespace ArchiveComparer2.Library
             Regex re = new Regex(blackListPattern, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
             DuplicateArchiveInfo info = new DuplicateArchiveInfo();
             SevenZipExtractor.SetLibraryPath(sevenZipPath);
-            SevenZipExtractor extractor = new SevenZipExtractor(filename);
-
-            info.Filename = filename;
-            info.Items = new List<ArchiveFileInfoSmall>();
-            info.RealSize = extractor.UnpackedSize;
-            info.ArchivedSize = extractor.PackedSize;
-
-            ulong countedSize = 0;
-
-            foreach (ArchiveFileInfo af in extractor.ArchiveFileData)
+            using (SevenZipExtractor extractor = new SevenZipExtractor(filename))
             {
-                if (af.IsDirectory) continue;
+                info.Filename = filename;
+                info.Items = new List<ArchiveFileInfoSmall>();
+                info.RealSize = extractor.UnpackedSize;
+                info.ArchivedSize = extractor.PackedSize;
 
-                ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                ulong countedSize = 0;
+
+                foreach (ArchiveFileInfo af in extractor.ArchiveFileData)
+                {
+                    if (af.IsDirectory) continue;
+
+                    ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                        {
+                            Crc = ConvertToHexString(af.Crc),
+                            Filename = af.FileName,
+                            Size = af.Size
+                        };
+                    if (!String.IsNullOrWhiteSpace(blackListPattern) && re.IsMatch(af.FileName))
                     {
-                        Crc = ConvertToHexString(af.Crc),
-                        Filename = af.FileName,
-                        Size = af.Size
-                    };
-                if (!String.IsNullOrWhiteSpace(blackListPattern) && re.IsMatch(af.FileName))
-                {
-                    if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
-                    info.Skipped.Add(item);
+                        if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
+                        info.Skipped.Add(item);
+                    }
+                    else
+                    {
+                        info.Items.Add(item);
+                    }
+                    countedSize += af.Size;
                 }
-                else
+
+                if (info.RealSize == -1)
                 {
-                    info.Items.Add(item);
+                    info.RealSize = Convert.ToInt64(countedSize);
                 }
-                countedSize += af.Size;
+
+                info.SortItems();
             }
-
-            if (info.RealSize == -1)
-            {
-                info.RealSize = Convert.ToInt64(countedSize);
-            }
-
-            info.SortItems();
-
-            extractor.Dispose();
-
             return info;
         }
 

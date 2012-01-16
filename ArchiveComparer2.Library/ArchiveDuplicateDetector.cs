@@ -338,6 +338,7 @@ namespace ArchiveComparer2.Library
             if (_thread == null || _thread.ThreadState == ThreadState.Stopped)
             {
                 _thread = new Thread(ts);
+                _thread.Priority = ThreadPriority.Lowest;
                 _thread.Start(option);
             }
         }

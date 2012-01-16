@@ -202,5 +202,17 @@ namespace ArchiveComparer2.Properties {
                 this["logFIL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int threadPriority {
+            get {
+                return ((int)(this["threadPriority"]));
+            }
+            set {
+                this["threadPriority"] = value;
+            }
+        }
     }
 }

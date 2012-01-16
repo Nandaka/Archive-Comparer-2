@@ -4,6 +4,7 @@ using System.Text;
 
 using SevenZip;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 
 namespace ArchiveComparer2.Library
@@ -108,6 +109,8 @@ namespace ArchiveComparer2.Library
         public bool FileCaseInsensitive = false;
 
         public bool OnlyPerfectMatch = false;
+
+        public ThreadPriority Priority = ThreadPriority.Lowest;
     }
 
 

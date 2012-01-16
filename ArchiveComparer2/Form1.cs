@@ -34,6 +34,8 @@ namespace ArchiveComparer2
             
             detector = new ArchiveDuplicateDetector();
             detector.Notify += new ArchiveDuplicateDetector.NotifyEventHandler(detector_Notify);
+
+            cbxPriority.SelectedIndex = Properties.Settings.Default.threadPriority;
         }
         
         private delegate void NotifyCallback(NotifyEventArgs e);
@@ -55,6 +57,7 @@ namespace ArchiveComparer2
                 {
                     this.Enabled = true;
                     MessageBox.Show(e.Message);
+                    lblStatus.Text = e.Message;
                 }
 
                 if (e.Status == OperationStatus.BUILDING_FILE_LIST ||
@@ -72,6 +75,8 @@ namespace ArchiveComparer2
 
                 if (e.Status == OperationStatus.COMPLETE)
                 {
+                    btnStop.Enabled = false;
+                    btnPause.Enabled = false;
                     Fill(e.DupList);
                 }
 
@@ -257,9 +262,12 @@ namespace ArchiveComparer2
                 FileCaseInsensitive = chkFileCI.Checked,
                 BlacklistCaseInsensitive = chkBlacklistCI.Checked,
                 SevenZipPath = txt7zDllPath.Text,
-                OnlyPerfectMatch = chkOnlyPerfectMatch.Checked
+                OnlyPerfectMatch = chkOnlyPerfectMatch.Checked,
+                Priority = (ThreadPriority ) cbxPriority.SelectedIndex
             };
             detector.SearchThreading(option);
+            btnPause.Enabled = true;
+            btnStop.Enabled = true;
         }
 
         private void txtLog_TextChanged(object sender, EventArgs e)
@@ -290,6 +298,7 @@ namespace ArchiveComparer2
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.threadPriority = cbxPriority.SelectedIndex;
             Settings.Default.Save();
         }
 

@@ -118,7 +118,7 @@ namespace ArchiveComparer2.Library
     {
         public int Compare(ArchiveFileInfoSmall x, ArchiveFileInfoSmall y)
         {
-            return String.Compare(x.Crc, y.Crc);
+            return string.Compare(x.Crc, y.Crc, true, System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 

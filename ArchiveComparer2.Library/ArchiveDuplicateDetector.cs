@@ -257,7 +257,8 @@ namespace ArchiveComparer2.Library
             int j = 0;
             while (i < Origin.Items.Count && j < Duplicate.Items.Count && skippedCount <= limitCount)
             {
-                int result = String.Compare(Origin.Items[i].Crc, Duplicate.Items[j].Crc);
+                // compare the from the biggest crc.
+                int result = string.Compare(Origin.Items[i].Crc, Duplicate.Items[j].Crc, true, System.Globalization.CultureInfo.InvariantCulture);
                 if (result == 0)
                 {
                     ++i; ++j;
@@ -275,6 +276,13 @@ namespace ArchiveComparer2.Library
                     Duplicate.NoMatches.Add(Duplicate.Items[j]);
                     ++j;
                 }
+            }
+
+            if (j < Duplicate.Items.Count)
+            {
+                if (Duplicate.NoMatches == null) Duplicate.NoMatches = new List<ArchiveFileInfoSmall>();
+                Duplicate.NoMatches.AddRange(Duplicate.Items.GetRange(j, Duplicate.Items.Count - j));
+                skippedCount = Duplicate.NoMatches.Count;
             }
 
             double percent = (double)(Duplicate.Items.Count - skippedCount) / Duplicate.Items.Count * 100;

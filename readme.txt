@@ -13,3 +13,12 @@ Build Notes
 ===========
 - Download all the required library and put it inside 
   'ArchiveComparer2.Library/lib' before compiling.
+
+Bugs
+===========
+1. Sometimes there will be grouping even tough the CRC strings is clearly differrent.
+
+Changelog
+===========
+- 20120121
+  - Fix noMatch crc detection.

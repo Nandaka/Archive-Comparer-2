@@ -165,7 +165,10 @@ namespace ArchiveComparer2.Library
             {
                 _pauseEvent.WaitOne(Timeout.Infinite);
                 if (_shutdownEvent.WaitOne(0))
+                {
+                    NotifyCaller("Stopping...", OperationStatus.BUILDING_DUPLICATE_LIST);
                     break;
+                }
 
                 ++i;
                 DuplicateArchiveInfoList dup = new DuplicateArchiveInfoList();

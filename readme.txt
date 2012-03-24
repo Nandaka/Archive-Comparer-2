@@ -20,5 +20,8 @@ Bugs
 
 Changelog
 ===========
+- 20120325
+  - Fix stop button behaviour.
+
 - 20120121
   - Fix noMatch crc detection.

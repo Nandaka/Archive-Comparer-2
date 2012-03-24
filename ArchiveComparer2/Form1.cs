@@ -338,7 +338,6 @@ namespace ArchiveComparer2
             {
                 lblStatus.Text = "Stopping...";
                 detector.Stop();
-                this.Enabled = false;
             }
         }
 

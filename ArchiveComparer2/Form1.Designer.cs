@@ -811,6 +811,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "ArchiveComparer2Form";
             this.Text = "Archive Comparer 2";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ArchiveComparer2Form_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

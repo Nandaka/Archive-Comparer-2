@@ -230,10 +230,13 @@ namespace ArchiveComparer2
             paths.AddRange(tmp);
             paths.Sort();
             int i = 1;
+            for (int j = 0; j < paths.Count; ++j)
+            {
+                if (!paths[j].EndsWith("\\")) paths[j] += "\\";
+            }
             while (paths.Count > i)
             {
-                string temp = paths[i - 1];
-                if (!temp.EndsWith("\\")) temp += "\\";
+                string temp = paths[i - 1];                
 
                 if (paths[i].StartsWith(temp))
                 {
@@ -437,6 +440,18 @@ namespace ArchiveComparer2
             dgvResult.Columns["colFilename"].Width = dgvResult.Columns["colFilename"].MinimumWidth;
         }
         #endregion
+
+        private void ArchiveComparer2Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (dgvResult.Rows.Count > 0)
+            {
+                DialogResult result = MessageBox.Show("The duplicate list is not empty! Do you really want to exit?", "Program Closing", MessageBoxButtons.OKCancel);
+                if (result == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 
     public enum DeleteMode

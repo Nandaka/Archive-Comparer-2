@@ -73,8 +73,16 @@ namespace ArchiveComparer2
                     pgCount.ToolTipText = e.CurrentCount + "/" + e.TotalCount;
                 }
 
+                if (e.Status == OperationStatus.STOPPED)
+                {
+                    btnSearch.Enabled = true;
+                    btnStop.Enabled = false;
+                    btnPause.Enabled = false;
+                }
+
                 if (e.Status == OperationStatus.COMPLETE)
                 {
+                    btnSearch.Enabled = true;
                     btnStop.Enabled = false;
                     btnPause.Enabled = false;
                     Fill(e.DupList);
@@ -112,16 +120,45 @@ namespace ArchiveComparer2
             dgvResult.SuspendLayout();
             for (int i = 0; i < list.Count; ++i)
             {
+                DataGridViewRow rowSep = AddRowSep(list[i].Original);
                 DataGridViewRow row = AddRow(list[i].Original);
 
                 for (int j = 0; j < list[i].Duplicates.Count; ++j)
                 {
                     DataGridViewRow rowDup = AddRow(list[i].Duplicates[j]);                    
-                }
+                }                
             }
 
             dgvResult.ResumeLayout();
 
+        }
+
+        private DataGridViewRow AddRowSep(DuplicateArchiveInfo data)
+        {
+            int index = dgvResult.Rows.Add();
+            DataGridViewRow row = dgvResult.Rows[index];
+            row.DefaultCellStyle.BackColor = Color.DarkGray;
+            row.ReadOnly = true;
+            row.Cells["colDupGroup"].Value = data.DupGroup.ToString("D4");
+
+            string filenameOnly = data.Filename.Substring(data.Filename.LastIndexOf("\\") + 1);
+            row.Cells["colFilename"] = new HMergedCell();
+            var mergedCells = (HMergedCell) row.Cells["colFilename"];
+            mergedCells.LeftColumn = 2;
+            mergedCells.RightColumn = 13;
+            mergedCells.Value = filenameOnly;
+            
+            int nOffset = 2;
+            for (int j = nOffset; j < 14; j++)
+            {
+                row.Cells[j] = new HMergedCell();
+                HMergedCell pCell = (HMergedCell)row.Cells[j];
+                pCell.LeftColumn = 2;
+                pCell.RightColumn = 13;
+                pCell.Value = filenameOnly;
+            }
+            row.Cells["colMatchType"].Value = "SEPARATOR";
+            return row;
         }
 
         private DataGridViewRow AddRow(DuplicateArchiveInfo data)
@@ -271,6 +308,7 @@ namespace ArchiveComparer2
             detector.SearchThreading(option);
             btnPause.Enabled = true;
             btnStop.Enabled = true;
+            btnSearch.Enabled = false;
         }
 
         private void txtLog_TextChanged(object sender, EventArgs e)
@@ -390,11 +428,15 @@ namespace ArchiveComparer2
                 string currGroup = row.Cells["colDupGroup"].Value.ToString().Trim();
                 if (prevGroup != currGroup)
                 {
-                    if (groupCount == 1)
+                    if (groupCount == 2)
                     {
-                        // previous group only have 1 item
+                        // previous group only have 1 item + 1 separator
                         --i;
                         dgvResult.Rows.RemoveAt(i);
+                        if (dgvResult.Rows[i - 1].Cells["colMatchType"].Value.ToString() == "SEPARATOR")
+                        {
+                            dgvResult.Rows.RemoveAt(i - 1);
+                        }
                     }
                     
                     prevGroup = currGroup;
@@ -413,10 +455,14 @@ namespace ArchiveComparer2
                 }
                 else ++i;
             }
-
-            if (groupCount == 1)
+            ++groupCount;
+            if (groupCount == 2)
             {
-                dgvResult.Rows.RemoveAt(i-1);
+                dgvResult.Rows.RemoveAt(i - 1);
+                if (dgvResult.Rows[i - 2].Cells["colMatchType"].Value.ToString() == "SEPARATOR")
+                {
+                    dgvResult.Rows.RemoveAt(i - 2);
+                }
             }
         }
 

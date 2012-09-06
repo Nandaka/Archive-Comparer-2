@@ -225,39 +225,81 @@ namespace ArchiveComparer2
             return result;
         }
 
-        private void Delete(DeleteMode mode)
+        private bool CheckDeleteGroup()
         {
+            string currGroup = null;
+            string prevGroup = null;
+            bool allSelected = true;
             foreach (DataGridViewRow row in dgvResult.Rows)
             {
-                if (true == Convert.ToBoolean(row.Cells["colCheck"].Value))
+                if (row.Cells["colMatchType"].Value.ToString() == "SEPARATOR") continue;
+                currGroup = row.Cells["colDupGroup"].Value.ToString().Trim();
+
+                if (currGroup != prevGroup && prevGroup != null)
                 {
-                    string filename = row.Cells["colFilename"].Value.ToString();
-                    try
+                    if (allSelected)
                     {
-                        Font fnt = new System.Drawing.Font(row.InheritedStyle.Font, FontStyle.Strikeout);
-                        row.DefaultCellStyle.Font = fnt;
-                        row.DefaultCellStyle.BackColor = Color.Red;
-                        row.Cells["colCheck"].Value = false;
-                        if (mode == DeleteMode.RECYCLED)
-                        {
-                            Logger.Info("Delete to Recyle Bin: " + filename);
-                            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filename, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
-                        }
-                        else if (mode == DeleteMode.PERMANENT)
-                        {
-                            Logger.Info("Delete Permanently: " + filename);
-                            System.IO.File.Delete(filename);
-                        }
-                        row.Cells["colStatus"].Value = mode.ToString();
+                        DialogResult result = MessageBox.Show("Delete all for group: " + prevGroup, "Delete All Confirmation", MessageBoxButtons.OKCancel);
+                        if (result == DialogResult.Cancel) return false;
                     }
-                    catch (Exception ex)
+                    allSelected = true;
+                    prevGroup = null;
+                }
+                // last row
+                if (row.Index == row.DataGridView.Rows.GetLastRow(DataGridViewElementStates.None))
+                {
+                    if (allSelected)
                     {
-                        Logger.Error(ex.Message + "(" + filename + ").");
-                        row.Cells["colStatus"].Value = ex.Message;
+                        DialogResult result = MessageBox.Show("Delete all for group: " + currGroup, "Delete All Confirmation", MessageBoxButtons.OKCancel);
+                        if (result == DialogResult.Cancel) return false;
                     }
                 }
+                if (false == Convert.ToBoolean(row.Cells["colCheck"].Value) && 
+                    String.IsNullOrWhiteSpace(row.Cells["colStatus"].Value.ToString()))
+                {
+                    allSelected = false;
+                }
+                prevGroup = currGroup;
             }
-            MessageBox.Show("Done.");
+            return true;
+        }
+
+        private void Delete(DeleteMode mode)
+        {
+            if (CheckDeleteGroup())
+            {
+                foreach (DataGridViewRow row in dgvResult.Rows)
+                {
+                    if (true == Convert.ToBoolean(row.Cells["colCheck"].Value))
+                    {
+                        string filename = row.Cells["colFilename"].Value.ToString();
+                        try
+                        {
+                            Font fnt = new System.Drawing.Font(row.InheritedStyle.Font, FontStyle.Strikeout);
+                            row.DefaultCellStyle.Font = fnt;
+                            row.DefaultCellStyle.BackColor = Color.Red;
+                            row.Cells["colCheck"].Value = false;
+                            if (mode == DeleteMode.RECYCLED)
+                            {
+                                Logger.Info("Delete to Recyle Bin: " + filename);
+                                Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(filename, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                            }
+                            else if (mode == DeleteMode.PERMANENT)
+                            {
+                                Logger.Info("Delete Permanently: " + filename);
+                                System.IO.File.Delete(filename);
+                            }
+                            row.Cells["colStatus"].Value = mode.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Error(ex.Message + "(" + filename + ").");
+                            row.Cells["colStatus"].Value = ex.Message;
+                        }
+                    }
+                }
+                MessageBox.Show("Done.");
+            }
         }
 
         public List<string> GetPathList()

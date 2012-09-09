@@ -100,7 +100,7 @@ namespace ArchiveComparer2
 
                     rectDest = new RectangleF(cellBounds.Left - nWidthLeft, cellBounds.Top, nWidth, cellBounds.Height);
                     graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
-                    graphics.DrawString(strText, cellStyle.Font, Brushes.Black, rectDest, sf);
+                    graphics.DrawString(strText, new Font(cellStyle.Font, FontStyle.Bold), Brushes.White, rectDest, sf);
                 }
                 
                 graphics.ResetClip();

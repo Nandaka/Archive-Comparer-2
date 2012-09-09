@@ -1,2 +1,4 @@
-File Pattern = zip$|rar$|cbz$|cbr$|7z$
-BlackList Pattern = Credit|credit|humbs.db$|pdf$|nfo$|txt$|zip$|rar$|^__MACOSX|license|DS_Store|^\.|bmp$|url$|scan.png$|mp3$
+File Pattern = 
+zip$|rar$|cbz$|cbr$|7z$
+BlackList Pattern = 
+Credit|credit|humbs.db$|pdf$|nfo$|txt$|zip$|rar$|^__MACOSX|license|DS_Store|^\.|bmp$|url$|scan.png$|mp3$|htm$|html$

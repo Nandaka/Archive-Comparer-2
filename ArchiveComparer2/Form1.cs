@@ -137,9 +137,20 @@ namespace ArchiveComparer2
         {
             int index = dgvResult.Rows.Add();
             DataGridViewRow row = dgvResult.Rows[index];
-            row.DefaultCellStyle.BackColor = Color.DarkGray;
+            row.DefaultCellStyle.BackColor = Color.Black;
+
             row.ReadOnly = true;
-            row.Cells["colDupGroup"].Value = data.DupGroup.ToString("D4");
+            var cellCheck = new HMergedCell();
+            cellCheck.LeftColumn = 0;
+            cellCheck.RightColumn = 1;
+            cellCheck.Value = data.DupGroup.ToString("D4");
+            row.Cells["colCheck"] = cellCheck;
+
+            var cellGroup = new HMergedCell();
+            cellGroup.LeftColumn = 0;
+            cellGroup.RightColumn = 1;
+            cellGroup.Value = data.DupGroup.ToString("D4");
+            row.Cells["colDupGroup"] = cellGroup;
 
             string filenameOnly = data.Filename.Substring(data.Filename.LastIndexOf("\\") + 1);
             row.Cells["colFilename"] = new HMergedCell();

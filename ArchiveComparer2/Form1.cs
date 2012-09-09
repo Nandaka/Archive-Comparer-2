@@ -181,7 +181,6 @@ namespace ArchiveComparer2
             if (data.MatchType == MatchType.ORIGINAL)
             {
                 row.DefaultCellStyle.BackColor = Color.DarkGray;
-                row.Cells["colFilename"].Style.Font = new Font(row.InheritedStyle.Font, row.InheritedStyle.Font.Style | FontStyle.Bold);
             }
             else if (data.MatchType == MatchType.EQUALCOUNT)
             {
@@ -281,6 +280,7 @@ namespace ArchiveComparer2
             {
                 foreach (DataGridViewRow row in dgvResult.Rows)
                 {
+                    if (row.Cells["colMatchType"].Value.ToString() == "SEPARATOR") continue;
                     if (true == Convert.ToBoolean(row.Cells["colCheck"].Value))
                     {
                         string filename = row.Cells["colFilename"].Value.ToString();
@@ -455,8 +455,13 @@ namespace ArchiveComparer2
         
         private void btnClearDeleted_Click(object sender, EventArgs e)
         {
+            ClearDeleted();
+        }
+
+        private void ClearDeleted()
+        {
             int i = 0;
-            while( i<dgvResult.Rows.Count ) 
+            while (i < dgvResult.Rows.Count)
             {
                 DataGridViewRow row = dgvResult.Rows[i];
                 if (row.Cells["colStatus"].Value.ToString() == DeleteMode.PERMANENT.ToString() ||
@@ -470,6 +475,11 @@ namespace ArchiveComparer2
 
         private void btnClearResolved_Click(object sender, EventArgs e)
         {
+            // clear deleted rows
+            ClearDeleted();
+
+            // clear group with only 1 row
+
             int i = 0;
             int groupCount = 0;
             string prevGroup = "";
@@ -481,41 +491,33 @@ namespace ArchiveComparer2
                 string currGroup = row.Cells["colDupGroup"].Value.ToString().Trim();
                 if (prevGroup != currGroup)
                 {
-                    if (groupCount == 2)
+                    if (groupCount == 1)
                     {
                         // previous group only have 1 item + 1 separator
                         --i;
                         dgvResult.Rows.RemoveAt(i);
-                        if (dgvResult.Rows[i - 1].Cells["colMatchType"].Value.ToString() == "SEPARATOR")
-                        {
-                            dgvResult.Rows.RemoveAt(i - 1);
-                        }
+                        --i;
+                        dgvResult.Rows.RemoveAt(i);
                     }
-                    
+
                     prevGroup = currGroup;
-                    groupCount = 1;
+                    groupCount = 0;
                 }
                 else
                 {
                     ++groupCount;
                 }
-
-                if (row.Cells["colStatus"].Value.ToString() == DeleteMode.PERMANENT.ToString() ||
-                    row.Cells["colStatus"].Value.ToString() == DeleteMode.RECYCLED.ToString())
-                {
-                    dgvResult.Rows.RemoveAt(i);
-                    --groupCount;
-                }
-                else ++i;
+                ++i;
             }
-            ++groupCount;
+
+            //// clean up last entry
+            if (prevGroup == dgvResult.Rows[i-1].Cells["colDupGroup"].Value.ToString().Trim()) ++groupCount;
             if (groupCount == 2)
             {
-                dgvResult.Rows.RemoveAt(i - 1);
-                if (dgvResult.Rows[i - 2].Cells["colMatchType"].Value.ToString() == "SEPARATOR")
-                {
-                    dgvResult.Rows.RemoveAt(i - 2);
-                }
+                --i;
+                dgvResult.Rows.RemoveAt(i);
+                --i;
+                dgvResult.Rows.RemoveAt(i);
             }
         }
 

@@ -65,6 +65,22 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pgCount = new System.Windows.Forms.ToolStripProgressBar();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.chkCCRC = new System.Windows.Forms.CheckBox();
+            this.chkFIL = new System.Windows.Forms.CheckBox();
+            this.chkBDL = new System.Windows.Forms.CheckBox();
+            this.chkCOMP = new System.Windows.Forms.CheckBox();
+            this.chkBFL = new System.Windows.Forms.CheckBox();
+            this.chkPreventStanby = new System.Windows.Forms.CheckBox();
+            this.txt7zDllPath = new System.Windows.Forms.TextBox();
+            this.chkLogAll = new System.Windows.Forms.CheckBox();
+            this.chkLog = new System.Windows.Forms.CheckBox();
+            this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
+            this.chkBlacklistCI = new System.Windows.Forms.CheckBox();
+            this.chkFileCI = new System.Windows.Forms.CheckBox();
+            this.txtIgnoreLimit = new System.Windows.Forms.TextBox();
+            this.txtBlackList = new System.Windows.Forms.TextBox();
+            this.txtFilePattern = new System.Windows.Forms.TextBox();
+            this.txtLimitPercentage = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,22 +105,6 @@
             this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chkCCRC = new System.Windows.Forms.CheckBox();
-            this.chkFIL = new System.Windows.Forms.CheckBox();
-            this.chkBDL = new System.Windows.Forms.CheckBox();
-            this.chkCOMP = new System.Windows.Forms.CheckBox();
-            this.chkBFL = new System.Windows.Forms.CheckBox();
-            this.chkPreventStanby = new System.Windows.Forms.CheckBox();
-            this.txt7zDllPath = new System.Windows.Forms.TextBox();
-            this.chkLogAll = new System.Windows.Forms.CheckBox();
-            this.chkLog = new System.Windows.Forms.CheckBox();
-            this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
-            this.chkBlacklistCI = new System.Windows.Forms.CheckBox();
-            this.chkFileCI = new System.Windows.Forms.CheckBox();
-            this.txtIgnoreLimit = new System.Windows.Forms.TextBox();
-            this.txtBlackList = new System.Windows.Forms.TextBox();
-            this.txtFilePattern = new System.Windows.Forms.TextBox();
-            this.txtLimitPercentage = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -410,6 +410,7 @@
             this.cbxPriority.Name = "cbxPriority";
             this.cbxPriority.Size = new System.Drawing.Size(121, 21);
             this.cbxPriority.TabIndex = 11;
+            this.cbxPriority.SelectedIndexChanged += new System.EventHandler(this.cbxPriority_SelectedIndexChanged);
             // 
             // btnResetColWidth
             // 
@@ -552,6 +553,183 @@
             this.pgCount.Size = new System.Drawing.Size(100, 16);
             this.pgCount.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pgCount.Visible = false;
+            // 
+            // chkCCRC
+            // 
+            this.chkCCRC.AutoSize = true;
+            this.chkCCRC.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCCRC;
+            this.chkCCRC.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCCRC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkCCRC.Location = new System.Drawing.Point(9, 42);
+            this.chkCCRC.Name = "chkCCRC";
+            this.chkCCRC.Size = new System.Drawing.Size(128, 17);
+            this.chkCCRC.TabIndex = 14;
+            this.chkCCRC.Text = "CALCULATING_CRC";
+            this.chkCCRC.UseVisualStyleBackColor = true;
+            // 
+            // chkFIL
+            // 
+            this.chkFIL.AutoSize = true;
+            this.chkFIL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logFIL;
+            this.chkFIL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logFIL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkFIL.Location = new System.Drawing.Point(149, 65);
+            this.chkFIL.Name = "chkFIL";
+            this.chkFIL.Size = new System.Drawing.Size(82, 17);
+            this.chkFIL.TabIndex = 12;
+            this.chkFIL.Text = "FILTERING";
+            this.chkFIL.UseVisualStyleBackColor = true;
+            // 
+            // chkBDL
+            // 
+            this.chkBDL.AutoSize = true;
+            this.chkBDL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBDL;
+            this.chkBDL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBDL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBDL.Location = new System.Drawing.Point(149, 19);
+            this.chkBDL.Name = "chkBDL";
+            this.chkBDL.Size = new System.Drawing.Size(172, 17);
+            this.chkBDL.TabIndex = 11;
+            this.chkBDL.Text = "BUILDING_DUPLICATE_LIST";
+            this.chkBDL.UseVisualStyleBackColor = true;
+            // 
+            // chkCOMP
+            // 
+            this.chkCOMP.AutoSize = true;
+            this.chkCOMP.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCOMP;
+            this.chkCOMP.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCOMP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkCOMP.Location = new System.Drawing.Point(149, 42);
+            this.chkCOMP.Name = "chkCOMP";
+            this.chkCOMP.Size = new System.Drawing.Size(91, 17);
+            this.chkCOMP.TabIndex = 13;
+            this.chkCOMP.Text = "COMPARING";
+            this.chkCOMP.UseVisualStyleBackColor = true;
+            // 
+            // chkBFL
+            // 
+            this.chkBFL.AutoSize = true;
+            this.chkBFL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBFL;
+            this.chkBFL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBFL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBFL.Location = new System.Drawing.Point(9, 19);
+            this.chkBFL.Name = "chkBFL";
+            this.chkBFL.Size = new System.Drawing.Size(134, 17);
+            this.chkBFL.TabIndex = 10;
+            this.chkBFL.Text = "BUILDING_FILE_LIST";
+            this.chkBFL.UseVisualStyleBackColor = true;
+            // 
+            // chkPreventStanby
+            // 
+            this.chkPreventStanby.AutoSize = true;
+            this.chkPreventStanby.Checked = global::ArchiveComparer2.Properties.Settings.Default.PreventStanby;
+            this.chkPreventStanby.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "PreventStanby", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkPreventStanby.Location = new System.Drawing.Point(220, 19);
+            this.chkPreventStanby.Name = "chkPreventStanby";
+            this.chkPreventStanby.Size = new System.Drawing.Size(93, 17);
+            this.chkPreventStanby.TabIndex = 10;
+            this.chkPreventStanby.Text = "Prevent Sleep";
+            this.chkPreventStanby.UseVisualStyleBackColor = true;
+            // 
+            // txt7zDllPath
+            // 
+            this.txt7zDllPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SevenZipPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txt7zDllPath.Location = new System.Drawing.Point(72, 42);
+            this.txt7zDllPath.Name = "txt7zDllPath";
+            this.txt7zDllPath.Size = new System.Drawing.Size(245, 20);
+            this.txt7zDllPath.TabIndex = 9;
+            this.txt7zDllPath.Text = global::ArchiveComparer2.Properties.Settings.Default.SevenZipPath;
+            // 
+            // chkLogAll
+            // 
+            this.chkLogAll.AutoSize = true;
+            this.chkLogAll.Checked = global::ArchiveComparer2.Properties.Settings.Default.LogAll;
+            this.chkLogAll.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "LogAll", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLogAll.Location = new System.Drawing.Point(156, 19);
+            this.chkLogAll.Name = "chkLogAll";
+            this.chkLogAll.Size = new System.Drawing.Size(58, 17);
+            this.chkLogAll.TabIndex = 7;
+            this.chkLogAll.Text = "Log All";
+            this.chkLogAll.UseVisualStyleBackColor = true;
+            // 
+            // chkLog
+            // 
+            this.chkLog.AutoSize = true;
+            this.chkLog.Checked = global::ArchiveComparer2.Properties.Settings.Default.EnableTextBoxLogging;
+            this.chkLog.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "EnableTextBoxLogging", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLog.Location = new System.Drawing.Point(9, 19);
+            this.chkLog.Name = "chkLog";
+            this.chkLog.Size = new System.Drawing.Size(141, 17);
+            this.chkLog.TabIndex = 6;
+            this.chkLog.Text = "Enable Textbox Logging";
+            this.chkLog.UseVisualStyleBackColor = true;
+            // 
+            // chkOnlyPerfectMatch
+            // 
+            this.chkOnlyPerfectMatch.AutoSize = true;
+            this.chkOnlyPerfectMatch.Checked = global::ArchiveComparer2.Properties.Settings.Default.OnlyPerfectMatch;
+            this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(336, 47);
+            this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
+            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(117, 17);
+            this.chkOnlyPerfectMatch.TabIndex = 10;
+            this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
+            this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
+            // 
+            // chkBlacklistCI
+            // 
+            this.chkBlacklistCI.AutoSize = true;
+            this.chkBlacklistCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.BlacklistCI;
+            this.chkBlacklistCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "BlacklistCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBlacklistCI.Location = new System.Drawing.Point(350, 73);
+            this.chkBlacklistCI.Name = "chkBlacklistCI";
+            this.chkBlacklistCI.Size = new System.Drawing.Size(103, 17);
+            this.chkBlacklistCI.TabIndex = 10;
+            this.chkBlacklistCI.Text = "Case Insensitive";
+            this.chkBlacklistCI.UseVisualStyleBackColor = true;
+            // 
+            // chkFileCI
+            // 
+            this.chkFileCI.AutoSize = true;
+            this.chkFileCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileCI;
+            this.chkFileCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkFileCI.Location = new System.Drawing.Point(352, 21);
+            this.chkFileCI.Name = "chkFileCI";
+            this.chkFileCI.Size = new System.Drawing.Size(103, 17);
+            this.chkFileCI.TabIndex = 9;
+            this.chkFileCI.Text = "Case Insensitive";
+            this.chkFileCI.UseVisualStyleBackColor = true;
+            // 
+            // txtIgnoreLimit
+            // 
+            this.txtIgnoreLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "IgnoreLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtIgnoreLimit.Location = new System.Drawing.Point(256, 45);
+            this.txtIgnoreLimit.Name = "txtIgnoreLimit";
+            this.txtIgnoreLimit.Size = new System.Drawing.Size(30, 20);
+            this.txtIgnoreLimit.TabIndex = 7;
+            this.txtIgnoreLimit.Text = global::ArchiveComparer2.Properties.Settings.Default.IgnoreLimit;
+            // 
+            // txtBlackList
+            // 
+            this.txtBlackList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "BlackListPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtBlackList.Location = new System.Drawing.Point(98, 71);
+            this.txtBlackList.Name = "txtBlackList";
+            this.txtBlackList.Size = new System.Drawing.Size(248, 20);
+            this.txtBlackList.TabIndex = 5;
+            this.txtBlackList.Text = global::ArchiveComparer2.Properties.Settings.Default.BlackListPattern;
+            // 
+            // txtFilePattern
+            // 
+            this.txtFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtFilePattern.Location = new System.Drawing.Point(72, 19);
+            this.txtFilePattern.Name = "txtFilePattern";
+            this.txtFilePattern.Size = new System.Drawing.Size(274, 20);
+            this.txtFilePattern.TabIndex = 1;
+            this.txtFilePattern.Text = global::ArchiveComparer2.Properties.Settings.Default.FilePattern;
+            // 
+            // txtLimitPercentage
+            // 
+            this.txtLimitPercentage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "LimitPercentage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtLimitPercentage.Location = new System.Drawing.Point(98, 45);
+            this.txtLimitPercentage.Name = "txtLimitPercentage";
+            this.txtLimitPercentage.Size = new System.Drawing.Size(26, 20);
+            this.txtLimitPercentage.TabIndex = 3;
+            this.txtLimitPercentage.Text = global::ArchiveComparer2.Properties.Settings.Default.LimitPercentage;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -746,183 +924,6 @@
             this.colStatus.HeaderText = "Status";
             this.colStatus.Name = "colStatus";
             this.colStatus.ReadOnly = true;
-            // 
-            // chkCCRC
-            // 
-            this.chkCCRC.AutoSize = true;
-            this.chkCCRC.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCCRC;
-            this.chkCCRC.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCCRC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkCCRC.Location = new System.Drawing.Point(9, 42);
-            this.chkCCRC.Name = "chkCCRC";
-            this.chkCCRC.Size = new System.Drawing.Size(128, 17);
-            this.chkCCRC.TabIndex = 14;
-            this.chkCCRC.Text = "CALCULATING_CRC";
-            this.chkCCRC.UseVisualStyleBackColor = true;
-            // 
-            // chkFIL
-            // 
-            this.chkFIL.AutoSize = true;
-            this.chkFIL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logFIL;
-            this.chkFIL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logFIL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkFIL.Location = new System.Drawing.Point(149, 65);
-            this.chkFIL.Name = "chkFIL";
-            this.chkFIL.Size = new System.Drawing.Size(82, 17);
-            this.chkFIL.TabIndex = 12;
-            this.chkFIL.Text = "FILTERING";
-            this.chkFIL.UseVisualStyleBackColor = true;
-            // 
-            // chkBDL
-            // 
-            this.chkBDL.AutoSize = true;
-            this.chkBDL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBDL;
-            this.chkBDL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBDL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkBDL.Location = new System.Drawing.Point(149, 19);
-            this.chkBDL.Name = "chkBDL";
-            this.chkBDL.Size = new System.Drawing.Size(172, 17);
-            this.chkBDL.TabIndex = 11;
-            this.chkBDL.Text = "BUILDING_DUPLICATE_LIST";
-            this.chkBDL.UseVisualStyleBackColor = true;
-            // 
-            // chkCOMP
-            // 
-            this.chkCOMP.AutoSize = true;
-            this.chkCOMP.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCOMP;
-            this.chkCOMP.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCOMP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkCOMP.Location = new System.Drawing.Point(149, 42);
-            this.chkCOMP.Name = "chkCOMP";
-            this.chkCOMP.Size = new System.Drawing.Size(91, 17);
-            this.chkCOMP.TabIndex = 13;
-            this.chkCOMP.Text = "COMPARING";
-            this.chkCOMP.UseVisualStyleBackColor = true;
-            // 
-            // chkBFL
-            // 
-            this.chkBFL.AutoSize = true;
-            this.chkBFL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBFL;
-            this.chkBFL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBFL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkBFL.Location = new System.Drawing.Point(9, 19);
-            this.chkBFL.Name = "chkBFL";
-            this.chkBFL.Size = new System.Drawing.Size(134, 17);
-            this.chkBFL.TabIndex = 10;
-            this.chkBFL.Text = "BUILDING_FILE_LIST";
-            this.chkBFL.UseVisualStyleBackColor = true;
-            // 
-            // chkPreventStanby
-            // 
-            this.chkPreventStanby.AutoSize = true;
-            this.chkPreventStanby.Checked = global::ArchiveComparer2.Properties.Settings.Default.PreventStanby;
-            this.chkPreventStanby.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "PreventStanby", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkPreventStanby.Location = new System.Drawing.Point(220, 19);
-            this.chkPreventStanby.Name = "chkPreventStanby";
-            this.chkPreventStanby.Size = new System.Drawing.Size(93, 17);
-            this.chkPreventStanby.TabIndex = 10;
-            this.chkPreventStanby.Text = "Prevent Sleep";
-            this.chkPreventStanby.UseVisualStyleBackColor = true;
-            // 
-            // txt7zDllPath
-            // 
-            this.txt7zDllPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SevenZipPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txt7zDllPath.Location = new System.Drawing.Point(72, 42);
-            this.txt7zDllPath.Name = "txt7zDllPath";
-            this.txt7zDllPath.Size = new System.Drawing.Size(245, 20);
-            this.txt7zDllPath.TabIndex = 9;
-            this.txt7zDllPath.Text = global::ArchiveComparer2.Properties.Settings.Default.SevenZipPath;
-            // 
-            // chkLogAll
-            // 
-            this.chkLogAll.AutoSize = true;
-            this.chkLogAll.Checked = global::ArchiveComparer2.Properties.Settings.Default.LogAll;
-            this.chkLogAll.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "LogAll", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLogAll.Location = new System.Drawing.Point(156, 19);
-            this.chkLogAll.Name = "chkLogAll";
-            this.chkLogAll.Size = new System.Drawing.Size(58, 17);
-            this.chkLogAll.TabIndex = 7;
-            this.chkLogAll.Text = "Log All";
-            this.chkLogAll.UseVisualStyleBackColor = true;
-            // 
-            // chkLog
-            // 
-            this.chkLog.AutoSize = true;
-            this.chkLog.Checked = global::ArchiveComparer2.Properties.Settings.Default.EnableTextBoxLogging;
-            this.chkLog.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "EnableTextBoxLogging", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLog.Location = new System.Drawing.Point(9, 19);
-            this.chkLog.Name = "chkLog";
-            this.chkLog.Size = new System.Drawing.Size(141, 17);
-            this.chkLog.TabIndex = 6;
-            this.chkLog.Text = "Enable Textbox Logging";
-            this.chkLog.UseVisualStyleBackColor = true;
-            // 
-            // chkOnlyPerfectMatch
-            // 
-            this.chkOnlyPerfectMatch.AutoSize = true;
-            this.chkOnlyPerfectMatch.Checked = global::ArchiveComparer2.Properties.Settings.Default.OnlyPerfectMatch;
-            this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(336, 47);
-            this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
-            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(117, 17);
-            this.chkOnlyPerfectMatch.TabIndex = 10;
-            this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
-            this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
-            // 
-            // chkBlacklistCI
-            // 
-            this.chkBlacklistCI.AutoSize = true;
-            this.chkBlacklistCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.BlacklistCI;
-            this.chkBlacklistCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "BlacklistCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkBlacklistCI.Location = new System.Drawing.Point(350, 73);
-            this.chkBlacklistCI.Name = "chkBlacklistCI";
-            this.chkBlacklistCI.Size = new System.Drawing.Size(103, 17);
-            this.chkBlacklistCI.TabIndex = 10;
-            this.chkBlacklistCI.Text = "Case Insensitive";
-            this.chkBlacklistCI.UseVisualStyleBackColor = true;
-            // 
-            // chkFileCI
-            // 
-            this.chkFileCI.AutoSize = true;
-            this.chkFileCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileCI;
-            this.chkFileCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkFileCI.Location = new System.Drawing.Point(352, 21);
-            this.chkFileCI.Name = "chkFileCI";
-            this.chkFileCI.Size = new System.Drawing.Size(103, 17);
-            this.chkFileCI.TabIndex = 9;
-            this.chkFileCI.Text = "Case Insensitive";
-            this.chkFileCI.UseVisualStyleBackColor = true;
-            // 
-            // txtIgnoreLimit
-            // 
-            this.txtIgnoreLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "IgnoreLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtIgnoreLimit.Location = new System.Drawing.Point(256, 45);
-            this.txtIgnoreLimit.Name = "txtIgnoreLimit";
-            this.txtIgnoreLimit.Size = new System.Drawing.Size(30, 20);
-            this.txtIgnoreLimit.TabIndex = 7;
-            this.txtIgnoreLimit.Text = global::ArchiveComparer2.Properties.Settings.Default.IgnoreLimit;
-            // 
-            // txtBlackList
-            // 
-            this.txtBlackList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "BlackListPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtBlackList.Location = new System.Drawing.Point(98, 71);
-            this.txtBlackList.Name = "txtBlackList";
-            this.txtBlackList.Size = new System.Drawing.Size(248, 20);
-            this.txtBlackList.TabIndex = 5;
-            this.txtBlackList.Text = global::ArchiveComparer2.Properties.Settings.Default.BlackListPattern;
-            // 
-            // txtFilePattern
-            // 
-            this.txtFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtFilePattern.Location = new System.Drawing.Point(72, 19);
-            this.txtFilePattern.Name = "txtFilePattern";
-            this.txtFilePattern.Size = new System.Drawing.Size(274, 20);
-            this.txtFilePattern.TabIndex = 1;
-            this.txtFilePattern.Text = global::ArchiveComparer2.Properties.Settings.Default.FilePattern;
-            // 
-            // txtLimitPercentage
-            // 
-            this.txtLimitPercentage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "LimitPercentage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtLimitPercentage.Location = new System.Drawing.Point(98, 45);
-            this.txtLimitPercentage.Name = "txtLimitPercentage";
-            this.txtLimitPercentage.Size = new System.Drawing.Size(26, 20);
-            this.txtLimitPercentage.TabIndex = 3;
-            this.txtLimitPercentage.Text = global::ArchiveComparer2.Properties.Settings.Default.LimitPercentage;
             // 
             // ArchiveComparer2Form
             // 

@@ -559,6 +559,11 @@ namespace ArchiveComparer2
                 }
             }
         }
+
+        private void cbxPriority_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(detector != null) detector.ChangeThreadPriority((ThreadPriority)cbxPriority.SelectedIndex);
+        }
     }
 
     public enum DeleteMode

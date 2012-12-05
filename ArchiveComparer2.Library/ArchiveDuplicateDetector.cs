@@ -363,6 +363,14 @@ namespace ArchiveComparer2.Library
             }
         }
 
+        public void ChangeThreadPriority(ThreadPriority priority)
+        {
+            if (_thread != null)
+            {
+                _thread.Priority = priority;
+            }
+        }
+
         private void Dispose(bool disposing)
         {
             if (_thread != null && _thread.IsAlive)

@@ -361,7 +361,8 @@ namespace ArchiveComparer2
                 BlacklistCaseInsensitive = chkBlacklistCI.Checked,
                 SevenZipPath = txt7zDllPath.Text,
                 OnlyPerfectMatch = chkOnlyPerfectMatch.Checked,
-                Priority = (ThreadPriority ) cbxPriority.SelectedIndex
+                Priority = (ThreadPriority ) cbxPriority.SelectedIndex, 
+                PreventStanby = chkPreventStanby.Checked
             };
             detector.SearchThreading(option);
             btnPause.Enabled = true;

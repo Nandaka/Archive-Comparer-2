@@ -40,8 +40,44 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.dgvResult = new System.Windows.Forms.DataGridView();
             this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFilename = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtPath = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txtLog = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbxPriority = new System.Windows.Forms.ComboBox();
+            this.btnResetColWidth = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pgCount = new System.Windows.Forms.ToolStripProgressBar();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,45 +89,22 @@
             this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.txtPath = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtLog = new System.Windows.Forms.TextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chkCCRC = new System.Windows.Forms.CheckBox();
             this.chkFIL = new System.Windows.Forms.CheckBox();
             this.chkBDL = new System.Windows.Forms.CheckBox();
             this.chkCOMP = new System.Windows.Forms.CheckBox();
             this.chkBFL = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbxPriority = new System.Windows.Forms.ComboBox();
-            this.btnResetColWidth = new System.Windows.Forms.Button();
+            this.chkPreventStanby = new System.Windows.Forms.CheckBox();
             this.txt7zDllPath = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.chkLogAll = new System.Windows.Forms.CheckBox();
             this.chkLog = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
             this.chkBlacklistCI = new System.Windows.Forms.CheckBox();
             this.chkFileCI = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtIgnoreLimit = new System.Windows.Forms.TextBox();
             this.txtBlackList = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtFilePattern = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtLimitPercentage = new System.Windows.Forms.TextBox();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pgCount = new System.Windows.Forms.ToolStripProgressBar();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -273,17 +286,6 @@
             this.colCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colCheck.Width = 20;
             // 
-            // colDupGroup
-            // 
-            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.colDupGroup.FillWeight = 40F;
-            this.colDupGroup.Frozen = true;
-            this.colDupGroup.HeaderText = "Dup. Group";
-            this.colDupGroup.MinimumWidth = 40;
-            this.colDupGroup.Name = "colDupGroup";
-            this.colDupGroup.ReadOnly = true;
-            this.colDupGroup.Width = 40;
-            // 
             // colFilename
             // 
             this.colFilename.FillWeight = 300F;
@@ -296,6 +298,368 @@
             this.colFilename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colFilename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.colFilename.Width = 300;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(371, 32);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 8;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtPath
+            // 
+            this.txtPath.Location = new System.Drawing.Point(41, 6);
+            this.txtPath.Multiline = true;
+            this.txtPath.Name = "txtPath";
+            this.txtPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtPath.Size = new System.Drawing.Size(324, 57);
+            this.txtPath.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Path";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.txtLog);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(792, 399);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Log";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // txtLog
+            // 
+            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLog.Location = new System.Drawing.Point(3, 3);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtLog.Size = new System.Drawing.Size(786, 393);
+            this.txtLog.TabIndex = 10;
+            this.txtLog.WordWrap = false;
+            this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
+            this.txtLog.DoubleClick += new System.EventHandler(this.txtLog_DoubleClick);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox3);
+            this.tabPage3.Controls.Add(this.groupBox2);
+            this.tabPage3.Controls.Add(this.groupBox1);
+            this.tabPage3.Controls.Add(this.btnReset);
+            this.tabPage3.Controls.Add(this.btnSave);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(792, 399);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Config";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chkCCRC);
+            this.groupBox3.Controls.Add(this.chkFIL);
+            this.groupBox3.Controls.Add(this.chkBDL);
+            this.groupBox3.Controls.Add(this.chkCOMP);
+            this.groupBox3.Controls.Add(this.chkBFL);
+            this.groupBox3.Location = new System.Drawing.Point(6, 199);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(459, 94);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Logging";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.chkPreventStanby);
+            this.groupBox2.Controls.Add(this.cbxPriority);
+            this.groupBox2.Controls.Add(this.btnResetColWidth);
+            this.groupBox2.Controls.Add(this.txt7zDllPath);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.chkLogAll);
+            this.groupBox2.Controls.Add(this.chkLog);
+            this.groupBox2.Location = new System.Drawing.Point(6, 120);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(459, 73);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Application";
+            // 
+            // cbxPriority
+            // 
+            this.cbxPriority.FormattingEnabled = true;
+            this.cbxPriority.Items.AddRange(new object[] {
+            "Highest",
+            "AboveNormal",
+            "Normal",
+            "BelowNormal",
+            "Lowest"});
+            this.cbxPriority.Location = new System.Drawing.Point(332, 42);
+            this.cbxPriority.Name = "cbxPriority";
+            this.cbxPriority.Size = new System.Drawing.Size(121, 21);
+            this.cbxPriority.TabIndex = 11;
+            // 
+            // btnResetColWidth
+            // 
+            this.btnResetColWidth.Location = new System.Drawing.Point(318, 15);
+            this.btnResetColWidth.Name = "btnResetColWidth";
+            this.btnResetColWidth.Size = new System.Drawing.Size(135, 23);
+            this.btnResetColWidth.TabIndex = 10;
+            this.btnResetColWidth.Text = "Reset Column Width";
+            this.btnResetColWidth.UseVisualStyleBackColor = true;
+            this.btnResetColWidth.Click += new System.EventHandler(this.btnResetColWidth_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(11, 45);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "7z.dll path";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chkOnlyPerfectMatch);
+            this.groupBox1.Controls.Add(this.chkBlacklistCI);
+            this.groupBox1.Controls.Add(this.chkFileCI);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.txtIgnoreLimit);
+            this.groupBox1.Controls.Add(this.txtBlackList);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtFilePattern);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtLimitPercentage);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(459, 108);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Matching Setting";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(130, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(15, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "%";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(292, 48);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(25, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "files";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(151, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Ignore If Less Than";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 74);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Blacklist Pattern";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "File Pattern";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Limit Percentage";
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(302, 299);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 5;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(390, 299);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus,
+            this.pgCount});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 440);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(824, 22);
+            this.statusStrip1.TabIndex = 8;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(809, 17);
+            this.lblStatus.Spring = true;
+            this.lblStatus.Text = "Status: Ready";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pgCount
+            // 
+            this.pgCount.AutoToolTip = true;
+            this.pgCount.Name = "pgCount";
+            this.pgCount.Size = new System.Drawing.Size(100, 16);
+            this.pgCount.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.pgCount.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn1.FillWeight = 40F;
+            this.dataGridViewTextBoxColumn1.Frozen = true;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Dup. Group";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 55F;
+            this.dataGridViewTextBoxColumn2.Frozen = true;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Match %";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 55;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.Frozen = true;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Match Type";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Items Count";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "No Match";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Skipped";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.FillWeight = 75F;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Real Size";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.FillWeight = 75F;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Archived Size";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.FillWeight = 75F;
+            this.dataGridViewTextBoxColumn9.HeaderText = "File Size";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.FillWeight = 130F;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Creation Time";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 130;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.FillWeight = 150F;
+            this.dataGridViewTextBoxColumn11.HeaderText = "CRC";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Status";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // colDupGroup
+            // 
+            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.colDupGroup.FillWeight = 40F;
+            this.colDupGroup.Frozen = true;
+            this.colDupGroup.HeaderText = "Dup. Group";
+            this.colDupGroup.MinimumWidth = 40;
+            this.colDupGroup.Name = "colDupGroup";
+            this.colDupGroup.ReadOnly = true;
+            this.colDupGroup.Width = 40;
             // 
             // colPercentage
             // 
@@ -383,88 +747,6 @@
             this.colStatus.Name = "colStatus";
             this.colStatus.ReadOnly = true;
             // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(371, 32);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.TabIndex = 8;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // txtPath
-            // 
-            this.txtPath.Location = new System.Drawing.Point(41, 6);
-            this.txtPath.Multiline = true;
-            this.txtPath.Name = "txtPath";
-            this.txtPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtPath.Size = new System.Drawing.Size(324, 57);
-            this.txtPath.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Path";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.txtLog);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(792, 399);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Log";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // txtLog
-            // 
-            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLog.Location = new System.Drawing.Point(3, 3);
-            this.txtLog.Multiline = true;
-            this.txtLog.Name = "txtLog";
-            this.txtLog.ReadOnly = true;
-            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(786, 393);
-            this.txtLog.TabIndex = 10;
-            this.txtLog.WordWrap = false;
-            this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
-            this.txtLog.DoubleClick += new System.EventHandler(this.txtLog_DoubleClick);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.Controls.Add(this.groupBox2);
-            this.tabPage3.Controls.Add(this.groupBox1);
-            this.tabPage3.Controls.Add(this.btnReset);
-            this.tabPage3.Controls.Add(this.btnSave);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(792, 399);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Config";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.chkCCRC);
-            this.groupBox3.Controls.Add(this.chkFIL);
-            this.groupBox3.Controls.Add(this.chkBDL);
-            this.groupBox3.Controls.Add(this.chkCOMP);
-            this.groupBox3.Controls.Add(this.chkBFL);
-            this.groupBox3.Location = new System.Drawing.Point(6, 199);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(459, 94);
-            this.groupBox3.TabIndex = 9;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Logging";
-            // 
             // chkCCRC
             // 
             this.chkCCRC.AutoSize = true;
@@ -525,44 +807,17 @@
             this.chkBFL.Text = "BUILDING_FILE_LIST";
             this.chkBFL.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // chkPreventStanby
             // 
-            this.groupBox2.Controls.Add(this.cbxPriority);
-            this.groupBox2.Controls.Add(this.btnResetColWidth);
-            this.groupBox2.Controls.Add(this.txt7zDllPath);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.chkLogAll);
-            this.groupBox2.Controls.Add(this.chkLog);
-            this.groupBox2.Location = new System.Drawing.Point(6, 120);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(459, 73);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Application";
-            // 
-            // cbxPriority
-            // 
-            this.cbxPriority.FormattingEnabled = true;
-            this.cbxPriority.Items.AddRange(new object[] {
-            "Highest",
-            "AboveNormal",
-            "Normal",
-            "BelowNormal",
-            "Lowest"});
-            this.cbxPriority.Location = new System.Drawing.Point(332, 42);
-            this.cbxPriority.Name = "cbxPriority";
-            this.cbxPriority.Size = new System.Drawing.Size(121, 21);
-            this.cbxPriority.TabIndex = 11;
-            // 
-            // btnResetColWidth
-            // 
-            this.btnResetColWidth.Location = new System.Drawing.Point(318, 15);
-            this.btnResetColWidth.Name = "btnResetColWidth";
-            this.btnResetColWidth.Size = new System.Drawing.Size(135, 23);
-            this.btnResetColWidth.TabIndex = 10;
-            this.btnResetColWidth.Text = "Reset Column Width";
-            this.btnResetColWidth.UseVisualStyleBackColor = true;
-            this.btnResetColWidth.Click += new System.EventHandler(this.btnResetColWidth_Click);
+            this.chkPreventStanby.AutoSize = true;
+            this.chkPreventStanby.Checked = global::ArchiveComparer2.Properties.Settings.Default.PreventStanby;
+            this.chkPreventStanby.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "PreventStanby", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkPreventStanby.Location = new System.Drawing.Point(220, 19);
+            this.chkPreventStanby.Name = "chkPreventStanby";
+            this.chkPreventStanby.Size = new System.Drawing.Size(93, 17);
+            this.chkPreventStanby.TabIndex = 10;
+            this.chkPreventStanby.Text = "Prevent Sleep";
+            this.chkPreventStanby.UseVisualStyleBackColor = true;
             // 
             // txt7zDllPath
             // 
@@ -572,15 +827,6 @@
             this.txt7zDllPath.Size = new System.Drawing.Size(245, 20);
             this.txt7zDllPath.TabIndex = 9;
             this.txt7zDllPath.Text = global::ArchiveComparer2.Properties.Settings.Default.SevenZipPath;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 45);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(55, 13);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "7z.dll path";
             // 
             // chkLogAll
             // 
@@ -605,28 +851,6 @@
             this.chkLog.TabIndex = 6;
             this.chkLog.Text = "Enable Textbox Logging";
             this.chkLog.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.chkOnlyPerfectMatch);
-            this.groupBox1.Controls.Add(this.chkBlacklistCI);
-            this.groupBox1.Controls.Add(this.chkFileCI);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtIgnoreLimit);
-            this.groupBox1.Controls.Add(this.txtBlackList);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtFilePattern);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtLimitPercentage);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(459, 108);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Matching Setting";
             // 
             // chkOnlyPerfectMatch
             // 
@@ -664,33 +888,6 @@
             this.chkFileCI.Text = "Case Insensitive";
             this.chkFileCI.UseVisualStyleBackColor = true;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(130, 48);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(15, 13);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "%";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(292, 48);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(25, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "files";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(151, 48);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Ignore If Less Than";
-            // 
             // txtIgnoreLimit
             // 
             this.txtIgnoreLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "IgnoreLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -709,15 +906,6 @@
             this.txtBlackList.TabIndex = 5;
             this.txtBlackList.Text = global::ArchiveComparer2.Properties.Settings.Default.BlackListPattern;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Blacklist Pattern";
-            // 
             // txtFilePattern
             // 
             this.txtFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -727,24 +915,6 @@
             this.txtFilePattern.TabIndex = 1;
             this.txtFilePattern.Text = global::ArchiveComparer2.Properties.Settings.Default.FilePattern;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "File Pattern";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Limit Percentage";
-            // 
             // txtLimitPercentage
             // 
             this.txtLimitPercentage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "LimitPercentage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -753,53 +923,6 @@
             this.txtLimitPercentage.Size = new System.Drawing.Size(26, 20);
             this.txtLimitPercentage.TabIndex = 3;
             this.txtLimitPercentage.Text = global::ArchiveComparer2.Properties.Settings.Default.LimitPercentage;
-            // 
-            // btnReset
-            // 
-            this.btnReset.Location = new System.Drawing.Point(302, 299);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(75, 23);
-            this.btnReset.TabIndex = 5;
-            this.btnReset.Text = "Reset";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(390, 299);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatus,
-            this.pgCount});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 440);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(824, 22);
-            this.statusStrip1.TabIndex = 8;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(809, 17);
-            this.lblStatus.Spring = true;
-            this.lblStatus.Text = "Status: Ready";
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pgCount
-            // 
-            this.pgCount.AutoToolTip = true;
-            this.pgCount.Name = "pgCount";
-            this.pgCount.Size = new System.Drawing.Size(100, 16);
-            this.pgCount.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.pgCount.Visible = false;
             // 
             // ArchiveComparer2Form
             // 
@@ -898,6 +1021,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCrc;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.ComboBox cbxPriority;
+        private System.Windows.Forms.CheckBox chkPreventStanby;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
     }
 }
 

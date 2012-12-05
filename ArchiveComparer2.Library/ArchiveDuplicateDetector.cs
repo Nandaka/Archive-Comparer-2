@@ -336,10 +336,19 @@ namespace ArchiveComparer2.Library
         {
             NotifyCaller("Target Count: " + option.Paths.Count, OperationStatus.READY);
 
+            if (option.PreventStanby)
+            {
+                NotifyCaller("Disabling Sleep", OperationStatus.READY);
+                Util.PreventSleep();
+            }
+
             List<FileInfo> fileList =  BuildFileList(option);
             List<DuplicateArchiveInfo> list = CalculateCRC(fileList, option);
             List<DuplicateArchiveInfoList> dupList = BuildDuplicateList(list, option);
             dupList = CleanUpDuplicate(dupList);
+
+            Util.AllowStanby();
+
             return dupList;
         }
 

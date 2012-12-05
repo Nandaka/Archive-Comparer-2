@@ -5,6 +5,7 @@ using System.Text;
 using SevenZip;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 
 namespace ArchiveComparer2.Library
@@ -26,7 +27,17 @@ namespace ArchiveComparer2.Library
         public ulong Size;
     }
 
-
+    [FlagsAttribute]
+    public enum EXECUTION_STATE : uint
+    {
+        ES_AWAYMODE_REQUIRED = 0x00000040,
+        ES_CONTINUOUS = 0x80000000,
+        ES_DISPLAY_REQUIRED = 0x00000002,
+        ES_SYSTEM_REQUIRED = 0x00000001
+        // Legacy flag, should not be used.
+        // ES_USER_PRESENT = 0x00000004
+    }
+    
     public class DuplicateArchiveInfo
     {
         public List<ArchiveFileInfoSmall> Items;
@@ -111,6 +122,8 @@ namespace ArchiveComparer2.Library
         public bool OnlyPerfectMatch = false;
 
         public ThreadPriority Priority = ThreadPriority.Lowest;
+
+        public bool PreventStanby = false;
     }
 
 
@@ -181,6 +194,29 @@ namespace ArchiveComparer2.Library
     
     public class Util
     {
+        /// <summary>
+        /// http://pinvoke.net/default.aspx/kernel32/SetThreadExecutionState.html
+        /// </summary>
+        /// <param name="esFlags"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
+
+        public static void AllowStanby()
+        {
+            SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
+        }
+
+        public static void PreventSleep()
+        {
+            // Vista and up
+            if (SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED | EXECUTION_STATE.ES_AWAYMODE_REQUIRED) == null)
+            {
+                // XP
+                SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
+            }
+        }
+
         /// <summary>
         /// Build DuplicateArchiveInfo containing the files' crc, sorted.
         /// </summary>

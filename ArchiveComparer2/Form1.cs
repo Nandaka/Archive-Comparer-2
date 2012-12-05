@@ -169,6 +169,11 @@ namespace ArchiveComparer2
                 pCell.Value = filenameOnly;
             }
             row.Cells["colMatchType"].Value = "SEPARATOR";
+            
+            // Fill numeric data for sorting            
+            row.Cells["colItemsCount"].Value = -1;
+            row.Cells["colFileSize"].Value = -1L;
+            row.Cells["colCreationTime"].Value = DateTime.MinValue;
             return row;
         }
 

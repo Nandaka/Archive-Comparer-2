@@ -14,8 +14,10 @@ Requirement
 Configuration
 ===========
 - Matching Setting
-  - File Pattern      : Whitelist pattern for archive file (using regex)
+  - File Pattern      : Whitelist pattern for archive file (using regex), 
+                        e.g.: zip$|rar$|cbz$|cbr$|7z$
   - Blacklist Pattern : Blacklist pattern for file inside the archive (using regex)
+                        e.g.: humbs.db$|pdf$|nfo$|txt$|zip$|rar$|^__MACOSX|license|DS_Store|^\.
 - Application
   - Enable Textbox Logging: Log to Log Tab, slow! Use only for checking if the 7z.dll is loaded.
   - 7z.dll Path       : The 7z.dll location, try to use the 32-bit first.
@@ -32,6 +34,9 @@ Build Notes
 
 Changelog
 ===========
+- 20130201
+  - Add auto select button for Original, Equal Count, or Subset match.
+
 - 20120922
   - Add separator for each duplicated group.
   - Add confirmation when closing the form if there still any entry.

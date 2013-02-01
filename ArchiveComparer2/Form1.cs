@@ -564,6 +564,36 @@ namespace ArchiveComparer2
         {
             if(detector != null) detector.ChangeThreadPriority((ThreadPriority)cbxPriority.SelectedIndex);
         }
+
+        private void SelectDuplicates(MatchType mode)
+        {
+            foreach (DataGridViewRow row in dgvResult.Rows)
+            {
+                var matchType = row.Cells["colMatchType"].Value.ToString();
+                if ( matchType == "SEPARATOR") continue;
+                
+                if (matchType == mode.ToString())
+                {
+                    row.Cells["colCheck"].Value = true;
+                }
+            }
+        }
+
+        private void btnSelectEqual_Click(object sender, EventArgs e)
+        {
+            SelectDuplicates(MatchType.EQUALCOUNT);
+        }
+
+        private void btnSelectSubset_Click(object sender, EventArgs e)
+        {
+            SelectDuplicates(MatchType.SUBSET);
+        }
+
+        private void btnSelectOriginal_Click(object sender, EventArgs e)
+        {
+            SelectDuplicates(MatchType.ORIGINAL);
+        }
+
     }
 
     public enum DeleteMode

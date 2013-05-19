@@ -467,7 +467,7 @@ namespace ArchiveComparer2
         private void ClearDeleted()
         {
             int i = 0;
-            while (i < dgvResult.Rows.Count)
+            while (i < dgvResult.Rows.Count && dgvResult.Rows.Count > 0)
             {
                 DataGridViewRow row = dgvResult.Rows[i];
                 if (row.Cells["colStatus"].Value.ToString() == DeleteMode.PERMANENT.ToString() ||
@@ -481,6 +481,7 @@ namespace ArchiveComparer2
 
         private void btnClearResolved_Click(object sender, EventArgs e)
         {
+            
             // clear deleted rows
             ClearDeleted();
 
@@ -490,7 +491,7 @@ namespace ArchiveComparer2
             int groupCount = 0;
             string prevGroup = "";
 
-            while (i < dgvResult.Rows.Count)
+            while (i < dgvResult.Rows.Count && dgvResult.Rows.Count > 0 )
             {
                 DataGridViewRow row = dgvResult.Rows[i];
 

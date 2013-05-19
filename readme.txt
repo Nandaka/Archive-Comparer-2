@@ -34,6 +34,9 @@ Build Notes
 
 Changelog
 ===========
+- 20130519
+  - Fix bug for clear resolved button. 
+
 - 20130201
   - Add auto select button for Original, Equal Count, or Subset match.
 

@@ -34,6 +34,10 @@ Build Notes
 
 Changelog
 ===========
+- 20130630
+  - Add icon.
+  - Add configuration update handler.
+
 - 20130519
   - Fix bug for clear resolved button. 
 

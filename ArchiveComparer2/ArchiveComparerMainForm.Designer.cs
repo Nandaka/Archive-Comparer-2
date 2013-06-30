@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchiveComparer2Form));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnSelectSubset = new System.Windows.Forms.Button();
@@ -43,19 +44,7 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.dgvResult = new System.Windows.Forms.DataGridView();
             this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFilename = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -108,6 +97,18 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -325,17 +326,6 @@
             this.colCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colCheck.Width = 20;
             // 
-            // colDupGroup
-            // 
-            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.colDupGroup.FillWeight = 40F;
-            this.colDupGroup.Frozen = true;
-            this.colDupGroup.HeaderText = "Dup. Group";
-            this.colDupGroup.MinimumWidth = 40;
-            this.colDupGroup.Name = "colDupGroup";
-            this.colDupGroup.ReadOnly = true;
-            this.colDupGroup.Width = 40;
-            // 
             // colFilename
             // 
             this.colFilename.FillWeight = 300F;
@@ -348,92 +338,6 @@
             this.colFilename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colFilename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.colFilename.Width = 300;
-            // 
-            // colPercentage
-            // 
-            this.colPercentage.FillWeight = 55F;
-            this.colPercentage.Frozen = true;
-            this.colPercentage.HeaderText = "Match %";
-            this.colPercentage.Name = "colPercentage";
-            this.colPercentage.ReadOnly = true;
-            this.colPercentage.Width = 55;
-            // 
-            // colMatchType
-            // 
-            this.colMatchType.Frozen = true;
-            this.colMatchType.HeaderText = "Match Type";
-            this.colMatchType.Name = "colMatchType";
-            this.colMatchType.ReadOnly = true;
-            // 
-            // colItemsCount
-            // 
-            this.colItemsCount.FillWeight = 50F;
-            this.colItemsCount.HeaderText = "Items Count";
-            this.colItemsCount.Name = "colItemsCount";
-            this.colItemsCount.ReadOnly = true;
-            this.colItemsCount.Width = 50;
-            // 
-            // colNoMatchesCount
-            // 
-            this.colNoMatchesCount.FillWeight = 50F;
-            this.colNoMatchesCount.HeaderText = "No Match";
-            this.colNoMatchesCount.Name = "colNoMatchesCount";
-            this.colNoMatchesCount.ReadOnly = true;
-            this.colNoMatchesCount.Width = 50;
-            // 
-            // colSkipped
-            // 
-            this.colSkipped.FillWeight = 50F;
-            this.colSkipped.HeaderText = "Skipped";
-            this.colSkipped.Name = "colSkipped";
-            this.colSkipped.ReadOnly = true;
-            this.colSkipped.Width = 50;
-            // 
-            // colSize
-            // 
-            this.colSize.FillWeight = 75F;
-            this.colSize.HeaderText = "Real Size";
-            this.colSize.Name = "colSize";
-            this.colSize.ReadOnly = true;
-            this.colSize.Width = 75;
-            // 
-            // colArchivedSize
-            // 
-            this.colArchivedSize.FillWeight = 75F;
-            this.colArchivedSize.HeaderText = "Archived Size";
-            this.colArchivedSize.Name = "colArchivedSize";
-            this.colArchivedSize.ReadOnly = true;
-            this.colArchivedSize.Width = 75;
-            // 
-            // colFileSize
-            // 
-            this.colFileSize.FillWeight = 75F;
-            this.colFileSize.HeaderText = "File Size";
-            this.colFileSize.Name = "colFileSize";
-            this.colFileSize.ReadOnly = true;
-            this.colFileSize.Width = 75;
-            // 
-            // colCreationTime
-            // 
-            this.colCreationTime.FillWeight = 130F;
-            this.colCreationTime.HeaderText = "Creation Time";
-            this.colCreationTime.Name = "colCreationTime";
-            this.colCreationTime.ReadOnly = true;
-            this.colCreationTime.Width = 130;
-            // 
-            // colCrc
-            // 
-            this.colCrc.FillWeight = 150F;
-            this.colCrc.HeaderText = "CRC";
-            this.colCrc.Name = "colCrc";
-            this.colCrc.ReadOnly = true;
-            this.colCrc.Width = 150;
-            // 
-            // colStatus
-            // 
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
             // 
             // btnSearch
             // 
@@ -459,7 +363,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Path";
             // 
@@ -482,7 +386,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(786, 393);
+            this.txtLog.Size = new System.Drawing.Size(872, 393);
             this.txtLog.TabIndex = 10;
             this.txtLog.WordWrap = false;
             this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
@@ -524,7 +428,7 @@
             this.chkCCRC.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCCRC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkCCRC.Location = new System.Drawing.Point(9, 42);
             this.chkCCRC.Name = "chkCCRC";
-            this.chkCCRC.Size = new System.Drawing.Size(122, 17);
+            this.chkCCRC.Size = new System.Drawing.Size(128, 17);
             this.chkCCRC.TabIndex = 14;
             this.chkCCRC.Text = "CALCULATING_CRC";
             this.chkCCRC.UseVisualStyleBackColor = true;
@@ -536,7 +440,7 @@
             this.chkFIL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logFIL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkFIL.Location = new System.Drawing.Point(149, 65);
             this.chkFIL.Name = "chkFIL";
-            this.chkFIL.Size = new System.Drawing.Size(77, 17);
+            this.chkFIL.Size = new System.Drawing.Size(82, 17);
             this.chkFIL.TabIndex = 12;
             this.chkFIL.Text = "FILTERING";
             this.chkFIL.UseVisualStyleBackColor = true;
@@ -548,7 +452,7 @@
             this.chkBDL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBDL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkBDL.Location = new System.Drawing.Point(149, 19);
             this.chkBDL.Name = "chkBDL";
-            this.chkBDL.Size = new System.Drawing.Size(160, 17);
+            this.chkBDL.Size = new System.Drawing.Size(172, 17);
             this.chkBDL.TabIndex = 11;
             this.chkBDL.Text = "BUILDING_DUPLICATE_LIST";
             this.chkBDL.UseVisualStyleBackColor = true;
@@ -572,7 +476,7 @@
             this.chkBFL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBFL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkBFL.Location = new System.Drawing.Point(9, 19);
             this.chkBFL.Name = "chkBFL";
-            this.chkBFL.Size = new System.Drawing.Size(125, 17);
+            this.chkBFL.Size = new System.Drawing.Size(134, 17);
             this.chkBFL.TabIndex = 10;
             this.chkBFL.Text = "BUILDING_FILE_LIST";
             this.chkBFL.UseVisualStyleBackColor = true;
@@ -600,7 +504,7 @@
             this.chkPreventStanby.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "PreventStanby", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkPreventStanby.Location = new System.Drawing.Point(220, 19);
             this.chkPreventStanby.Name = "chkPreventStanby";
-            this.chkPreventStanby.Size = new System.Drawing.Size(95, 17);
+            this.chkPreventStanby.Size = new System.Drawing.Size(93, 17);
             this.chkPreventStanby.TabIndex = 10;
             this.chkPreventStanby.Text = "Prevent Sleep";
             this.chkPreventStanby.UseVisualStyleBackColor = true;
@@ -635,7 +539,7 @@
             this.txt7zDllPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SevenZipPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txt7zDllPath.Location = new System.Drawing.Point(72, 42);
             this.txt7zDllPath.Name = "txt7zDllPath";
-            this.txt7zDllPath.Size = new System.Drawing.Size(245, 22);
+            this.txt7zDllPath.Size = new System.Drawing.Size(245, 20);
             this.txt7zDllPath.TabIndex = 9;
             this.txt7zDllPath.Text = global::ArchiveComparer2.Properties.Settings.Default.SevenZipPath;
             // 
@@ -644,7 +548,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(11, 45);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(61, 13);
+            this.label8.Size = new System.Drawing.Size(55, 13);
             this.label8.TabIndex = 8;
             this.label8.Text = "7z.dll path";
             // 
@@ -655,7 +559,7 @@
             this.chkLogAll.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "LogAll", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLogAll.Location = new System.Drawing.Point(156, 19);
             this.chkLogAll.Name = "chkLogAll";
-            this.chkLogAll.Size = new System.Drawing.Size(61, 17);
+            this.chkLogAll.Size = new System.Drawing.Size(58, 17);
             this.chkLogAll.TabIndex = 7;
             this.chkLogAll.Text = "Log All";
             this.chkLogAll.UseVisualStyleBackColor = true;
@@ -667,7 +571,7 @@
             this.chkLog.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "EnableTextBoxLogging", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLog.Location = new System.Drawing.Point(9, 19);
             this.chkLog.Name = "chkLog";
-            this.chkLog.Size = new System.Drawing.Size(149, 17);
+            this.chkLog.Size = new System.Drawing.Size(141, 17);
             this.chkLog.TabIndex = 6;
             this.chkLog.Text = "Enable Textbox Logging";
             this.chkLog.UseVisualStyleBackColor = true;
@@ -701,7 +605,7 @@
             this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(336, 47);
             this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
-            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(123, 17);
+            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(117, 17);
             this.chkOnlyPerfectMatch.TabIndex = 10;
             this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
             this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
@@ -713,7 +617,7 @@
             this.chkBlacklistCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "BlacklistCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkBlacklistCI.Location = new System.Drawing.Point(350, 73);
             this.chkBlacklistCI.Name = "chkBlacklistCI";
-            this.chkBlacklistCI.Size = new System.Drawing.Size(107, 17);
+            this.chkBlacklistCI.Size = new System.Drawing.Size(103, 17);
             this.chkBlacklistCI.TabIndex = 10;
             this.chkBlacklistCI.Text = "Case Insensitive";
             this.chkBlacklistCI.UseVisualStyleBackColor = true;
@@ -725,7 +629,7 @@
             this.chkFileCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkFileCI.Location = new System.Drawing.Point(352, 21);
             this.chkFileCI.Name = "chkFileCI";
-            this.chkFileCI.Size = new System.Drawing.Size(107, 17);
+            this.chkFileCI.Size = new System.Drawing.Size(103, 17);
             this.chkFileCI.TabIndex = 9;
             this.chkFileCI.Text = "Case Insensitive";
             this.chkFileCI.UseVisualStyleBackColor = true;
@@ -735,7 +639,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(130, 48);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(16, 13);
+            this.label7.Size = new System.Drawing.Size(15, 13);
             this.label7.TabIndex = 9;
             this.label7.Text = "%";
             // 
@@ -744,7 +648,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(292, 48);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(28, 13);
+            this.label6.Size = new System.Drawing.Size(25, 13);
             this.label6.TabIndex = 8;
             this.label6.Text = "files";
             // 
@@ -753,7 +657,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(151, 48);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 13);
+            this.label5.Size = new System.Drawing.Size(99, 13);
             this.label5.TabIndex = 6;
             this.label5.Text = "Ignore If Less Than";
             // 
@@ -762,7 +666,7 @@
             this.txtIgnoreLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "IgnoreLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtIgnoreLimit.Location = new System.Drawing.Point(256, 45);
             this.txtIgnoreLimit.Name = "txtIgnoreLimit";
-            this.txtIgnoreLimit.Size = new System.Drawing.Size(30, 22);
+            this.txtIgnoreLimit.Size = new System.Drawing.Size(30, 20);
             this.txtIgnoreLimit.TabIndex = 7;
             this.txtIgnoreLimit.Text = global::ArchiveComparer2.Properties.Settings.Default.IgnoreLimit;
             // 
@@ -771,7 +675,7 @@
             this.txtBlackList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "BlackListPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtBlackList.Location = new System.Drawing.Point(98, 71);
             this.txtBlackList.Name = "txtBlackList";
-            this.txtBlackList.Size = new System.Drawing.Size(248, 22);
+            this.txtBlackList.Size = new System.Drawing.Size(248, 20);
             this.txtBlackList.TabIndex = 5;
             this.txtBlackList.Text = global::ArchiveComparer2.Properties.Settings.Default.BlackListPattern;
             // 
@@ -780,7 +684,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 74);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 13);
+            this.label4.Size = new System.Drawing.Size(83, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Blacklist Pattern";
             // 
@@ -789,7 +693,7 @@
             this.txtFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtFilePattern.Location = new System.Drawing.Point(72, 19);
             this.txtFilePattern.Name = "txtFilePattern";
-            this.txtFilePattern.Size = new System.Drawing.Size(274, 22);
+            this.txtFilePattern.Size = new System.Drawing.Size(274, 20);
             this.txtFilePattern.TabIndex = 1;
             this.txtFilePattern.Text = global::ArchiveComparer2.Properties.Settings.Default.FilePattern;
             // 
@@ -798,7 +702,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "File Pattern";
             // 
@@ -807,7 +711,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 48);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Limit Percentage";
             // 
@@ -816,7 +720,7 @@
             this.txtLimitPercentage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "LimitPercentage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtLimitPercentage.Location = new System.Drawing.Point(98, 45);
             this.txtLimitPercentage.Name = "txtLimitPercentage";
-            this.txtLimitPercentage.Size = new System.Drawing.Size(26, 22);
+            this.txtLimitPercentage.Size = new System.Drawing.Size(26, 20);
             this.txtLimitPercentage.TabIndex = 3;
             this.txtLimitPercentage.Text = global::ArchiveComparer2.Properties.Settings.Default.LimitPercentage;
             // 
@@ -876,6 +780,7 @@
             this.dataGridViewTextBoxColumn1.MinimumWidth = 40;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 40;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -963,6 +868,103 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             // 
+            // colDupGroup
+            // 
+            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.colDupGroup.FillWeight = 40F;
+            this.colDupGroup.Frozen = true;
+            this.colDupGroup.HeaderText = "Dup. Group";
+            this.colDupGroup.MinimumWidth = 40;
+            this.colDupGroup.Name = "colDupGroup";
+            this.colDupGroup.ReadOnly = true;
+            this.colDupGroup.Width = 40;
+            // 
+            // colPercentage
+            // 
+            this.colPercentage.FillWeight = 55F;
+            this.colPercentage.Frozen = true;
+            this.colPercentage.HeaderText = "Match %";
+            this.colPercentage.Name = "colPercentage";
+            this.colPercentage.ReadOnly = true;
+            this.colPercentage.Width = 55;
+            // 
+            // colMatchType
+            // 
+            this.colMatchType.Frozen = true;
+            this.colMatchType.HeaderText = "Match Type";
+            this.colMatchType.Name = "colMatchType";
+            this.colMatchType.ReadOnly = true;
+            // 
+            // colItemsCount
+            // 
+            this.colItemsCount.FillWeight = 50F;
+            this.colItemsCount.HeaderText = "Items Count";
+            this.colItemsCount.Name = "colItemsCount";
+            this.colItemsCount.ReadOnly = true;
+            this.colItemsCount.Width = 50;
+            // 
+            // colNoMatchesCount
+            // 
+            this.colNoMatchesCount.FillWeight = 50F;
+            this.colNoMatchesCount.HeaderText = "No Match";
+            this.colNoMatchesCount.Name = "colNoMatchesCount";
+            this.colNoMatchesCount.ReadOnly = true;
+            this.colNoMatchesCount.Width = 50;
+            // 
+            // colSkipped
+            // 
+            this.colSkipped.FillWeight = 50F;
+            this.colSkipped.HeaderText = "Skipped";
+            this.colSkipped.Name = "colSkipped";
+            this.colSkipped.ReadOnly = true;
+            this.colSkipped.Width = 50;
+            // 
+            // colSize
+            // 
+            this.colSize.FillWeight = 75F;
+            this.colSize.HeaderText = "Real Size";
+            this.colSize.Name = "colSize";
+            this.colSize.ReadOnly = true;
+            this.colSize.Width = 75;
+            // 
+            // colArchivedSize
+            // 
+            this.colArchivedSize.FillWeight = 75F;
+            this.colArchivedSize.HeaderText = "Archived Size";
+            this.colArchivedSize.Name = "colArchivedSize";
+            this.colArchivedSize.ReadOnly = true;
+            this.colArchivedSize.Width = 75;
+            // 
+            // colFileSize
+            // 
+            this.colFileSize.FillWeight = 75F;
+            this.colFileSize.HeaderText = "File Size";
+            this.colFileSize.Name = "colFileSize";
+            this.colFileSize.ReadOnly = true;
+            this.colFileSize.Width = 75;
+            // 
+            // colCreationTime
+            // 
+            this.colCreationTime.FillWeight = 130F;
+            this.colCreationTime.HeaderText = "Creation Time";
+            this.colCreationTime.Name = "colCreationTime";
+            this.colCreationTime.ReadOnly = true;
+            this.colCreationTime.Width = 130;
+            // 
+            // colCrc
+            // 
+            this.colCrc.FillWeight = 150F;
+            this.colCrc.HeaderText = "CRC";
+            this.colCrc.Name = "colCrc";
+            this.colCrc.ReadOnly = true;
+            this.colCrc.Width = 150;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            // 
             // ArchiveComparer2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -970,9 +972,10 @@
             this.ClientSize = new System.Drawing.Size(910, 462);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "ArchiveComparer2Form";
-            this.Text = "Archive Comparer 2";
+            this.Text = "Archive Comparer ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ArchiveComparer2Form_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

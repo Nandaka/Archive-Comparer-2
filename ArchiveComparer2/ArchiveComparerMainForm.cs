@@ -12,6 +12,7 @@ using ArchiveComparer2.Library;
 using log4net;
 using ArchiveComparer2.Properties;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace ArchiveComparer2
 {
@@ -24,16 +25,28 @@ namespace ArchiveComparer2
         {
             InitializeComponent();
 
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            this.Text += fvi.ProductVersion;
+
             log4net.GlobalContext.Properties["Date"] = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss");
             log4net.Config.XmlConfigurator.Configure();
             if (Logger == null)
             {
                 Logger = LogManager.GetLogger(typeof(ArchiveComparer2Form));
             }
-            Logger.Info("Starting Up Archive Comparer 2");
+            Logger.Info("Starting Up Archive Comparer " + fvi.ProductVersion);
             
             detector = new ArchiveDuplicateDetector();
             detector.Notify += new ArchiveDuplicateDetector.NotifyEventHandler(detector_Notify);
+
+            if (Properties.Settings.Default.UpdateRequired)
+            {
+                Logger.Info("Upgrading application settings");
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpdateRequired = false;
+                Properties.Settings.Default.Save();                
+            }
 
             cbxPriority.SelectedIndex = Properties.Settings.Default.threadPriority;
         }

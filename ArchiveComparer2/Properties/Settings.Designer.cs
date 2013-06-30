@@ -226,5 +226,17 @@ namespace ArchiveComparer2.Properties {
                 this["PreventStanby"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UpdateRequired {
+            get {
+                return ((bool)(this["UpdateRequired"]));
+            }
+            set {
+                this["UpdateRequired"] = value;
+            }
+        }
     }
 }

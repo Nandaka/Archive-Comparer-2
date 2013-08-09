@@ -93,6 +93,8 @@ namespace ArchiveComparer2.Library
             }
             return _crcString;
         }
+
+        public int DirectoryCount = 0;
     }
 
     public class DuplicateArchiveInfoList
@@ -239,7 +241,11 @@ namespace ArchiveComparer2.Library
 
                 foreach (ArchiveFileInfo af in extractor.ArchiveFileData)
                 {
-                    if (af.IsDirectory) continue;
+                    if (af.IsDirectory)
+                    {
+                        info.DirectoryCount++;
+                        continue;
+                    }
 
                     ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
                         {

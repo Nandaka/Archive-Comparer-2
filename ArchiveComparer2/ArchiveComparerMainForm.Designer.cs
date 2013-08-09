@@ -44,7 +44,19 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.dgvResult = new System.Windows.Forms.DataGridView();
             this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFilename = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -97,18 +109,6 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -326,6 +326,17 @@
             this.colCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colCheck.Width = 20;
             // 
+            // colDupGroup
+            // 
+            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.colDupGroup.FillWeight = 40F;
+            this.colDupGroup.Frozen = true;
+            this.colDupGroup.HeaderText = "Dup. Group";
+            this.colDupGroup.MinimumWidth = 40;
+            this.colDupGroup.Name = "colDupGroup";
+            this.colDupGroup.ReadOnly = true;
+            this.colDupGroup.Width = 40;
+            // 
             // colFilename
             // 
             this.colFilename.FillWeight = 300F;
@@ -338,6 +349,92 @@
             this.colFilename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colFilename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.colFilename.Width = 300;
+            // 
+            // colPercentage
+            // 
+            this.colPercentage.FillWeight = 55F;
+            this.colPercentage.Frozen = true;
+            this.colPercentage.HeaderText = "Match %";
+            this.colPercentage.Name = "colPercentage";
+            this.colPercentage.ReadOnly = true;
+            this.colPercentage.Width = 55;
+            // 
+            // colMatchType
+            // 
+            this.colMatchType.Frozen = true;
+            this.colMatchType.HeaderText = "Match Type";
+            this.colMatchType.Name = "colMatchType";
+            this.colMatchType.ReadOnly = true;
+            // 
+            // colItemsCount
+            // 
+            this.colItemsCount.FillWeight = 50F;
+            this.colItemsCount.HeaderText = "Items Count";
+            this.colItemsCount.Name = "colItemsCount";
+            this.colItemsCount.ReadOnly = true;
+            this.colItemsCount.Width = 50;
+            // 
+            // colNoMatchesCount
+            // 
+            this.colNoMatchesCount.FillWeight = 50F;
+            this.colNoMatchesCount.HeaderText = "No Match";
+            this.colNoMatchesCount.Name = "colNoMatchesCount";
+            this.colNoMatchesCount.ReadOnly = true;
+            this.colNoMatchesCount.Width = 50;
+            // 
+            // colSkipped
+            // 
+            this.colSkipped.FillWeight = 50F;
+            this.colSkipped.HeaderText = "Skipped";
+            this.colSkipped.Name = "colSkipped";
+            this.colSkipped.ReadOnly = true;
+            this.colSkipped.Width = 50;
+            // 
+            // colSize
+            // 
+            this.colSize.FillWeight = 75F;
+            this.colSize.HeaderText = "Real Size";
+            this.colSize.Name = "colSize";
+            this.colSize.ReadOnly = true;
+            this.colSize.Width = 75;
+            // 
+            // colArchivedSize
+            // 
+            this.colArchivedSize.FillWeight = 75F;
+            this.colArchivedSize.HeaderText = "Archived Size";
+            this.colArchivedSize.Name = "colArchivedSize";
+            this.colArchivedSize.ReadOnly = true;
+            this.colArchivedSize.Width = 75;
+            // 
+            // colFileSize
+            // 
+            this.colFileSize.FillWeight = 75F;
+            this.colFileSize.HeaderText = "File Size";
+            this.colFileSize.Name = "colFileSize";
+            this.colFileSize.ReadOnly = true;
+            this.colFileSize.Width = 75;
+            // 
+            // colCreationTime
+            // 
+            this.colCreationTime.FillWeight = 130F;
+            this.colCreationTime.HeaderText = "Creation Time";
+            this.colCreationTime.Name = "colCreationTime";
+            this.colCreationTime.ReadOnly = true;
+            this.colCreationTime.Width = 130;
+            // 
+            // colCrc
+            // 
+            this.colCrc.FillWeight = 150F;
+            this.colCrc.HeaderText = "CRC";
+            this.colCrc.Name = "colCrc";
+            this.colCrc.ReadOnly = true;
+            this.colCrc.Width = 150;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
             // 
             // btnSearch
             // 
@@ -780,7 +877,6 @@
             this.dataGridViewTextBoxColumn1.MinimumWidth = 40;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 40;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -867,103 +963,6 @@
             this.dataGridViewTextBoxColumn12.HeaderText = "Status";
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            // 
-            // colDupGroup
-            // 
-            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.colDupGroup.FillWeight = 40F;
-            this.colDupGroup.Frozen = true;
-            this.colDupGroup.HeaderText = "Dup. Group";
-            this.colDupGroup.MinimumWidth = 40;
-            this.colDupGroup.Name = "colDupGroup";
-            this.colDupGroup.ReadOnly = true;
-            this.colDupGroup.Width = 40;
-            // 
-            // colPercentage
-            // 
-            this.colPercentage.FillWeight = 55F;
-            this.colPercentage.Frozen = true;
-            this.colPercentage.HeaderText = "Match %";
-            this.colPercentage.Name = "colPercentage";
-            this.colPercentage.ReadOnly = true;
-            this.colPercentage.Width = 55;
-            // 
-            // colMatchType
-            // 
-            this.colMatchType.Frozen = true;
-            this.colMatchType.HeaderText = "Match Type";
-            this.colMatchType.Name = "colMatchType";
-            this.colMatchType.ReadOnly = true;
-            // 
-            // colItemsCount
-            // 
-            this.colItemsCount.FillWeight = 50F;
-            this.colItemsCount.HeaderText = "Items Count";
-            this.colItemsCount.Name = "colItemsCount";
-            this.colItemsCount.ReadOnly = true;
-            this.colItemsCount.Width = 50;
-            // 
-            // colNoMatchesCount
-            // 
-            this.colNoMatchesCount.FillWeight = 50F;
-            this.colNoMatchesCount.HeaderText = "No Match";
-            this.colNoMatchesCount.Name = "colNoMatchesCount";
-            this.colNoMatchesCount.ReadOnly = true;
-            this.colNoMatchesCount.Width = 50;
-            // 
-            // colSkipped
-            // 
-            this.colSkipped.FillWeight = 50F;
-            this.colSkipped.HeaderText = "Skipped";
-            this.colSkipped.Name = "colSkipped";
-            this.colSkipped.ReadOnly = true;
-            this.colSkipped.Width = 50;
-            // 
-            // colSize
-            // 
-            this.colSize.FillWeight = 75F;
-            this.colSize.HeaderText = "Real Size";
-            this.colSize.Name = "colSize";
-            this.colSize.ReadOnly = true;
-            this.colSize.Width = 75;
-            // 
-            // colArchivedSize
-            // 
-            this.colArchivedSize.FillWeight = 75F;
-            this.colArchivedSize.HeaderText = "Archived Size";
-            this.colArchivedSize.Name = "colArchivedSize";
-            this.colArchivedSize.ReadOnly = true;
-            this.colArchivedSize.Width = 75;
-            // 
-            // colFileSize
-            // 
-            this.colFileSize.FillWeight = 75F;
-            this.colFileSize.HeaderText = "File Size";
-            this.colFileSize.Name = "colFileSize";
-            this.colFileSize.ReadOnly = true;
-            this.colFileSize.Width = 75;
-            // 
-            // colCreationTime
-            // 
-            this.colCreationTime.FillWeight = 130F;
-            this.colCreationTime.HeaderText = "Creation Time";
-            this.colCreationTime.Name = "colCreationTime";
-            this.colCreationTime.ReadOnly = true;
-            this.colCreationTime.Width = 130;
-            // 
-            // colCrc
-            // 
-            this.colCrc.FillWeight = 150F;
-            this.colCrc.HeaderText = "CRC";
-            this.colCrc.Name = "colCrc";
-            this.colCrc.ReadOnly = true;
-            this.colCrc.Width = 150;
-            // 
-            // colStatus
-            // 
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
             // 
             // ArchiveComparer2Form
             // 

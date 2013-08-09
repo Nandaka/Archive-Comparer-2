@@ -208,6 +208,7 @@ namespace ArchiveComparer2
             row.Cells["colPercentage"].Value = data.MatchType == MatchType.ORIGINAL ? "" : data.Percentage.ToString();
             row.Cells["colMatchType"].Value = data.MatchType.ToString();
             row.Cells["colItemsCount"].Value = data.Items.Count;
+            row.Cells["colItemsCount"].ToolTipText = String.Format("File Count: {0}\r\nDir Count: {1}", data.Items.Count, data.DirectoryCount);
 
             if (data.NoMatches != null)
             {

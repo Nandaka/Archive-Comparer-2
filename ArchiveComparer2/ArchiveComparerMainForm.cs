@@ -249,7 +249,7 @@ namespace ArchiveComparer2
             string result = "";
             foreach (var info in list)
             {
-                result += info.Crc + " " + info.Filename + Environment.NewLine;
+                result += info.Crc.ToUpper() + " " + Util.ConvertBytesToCompactString(info.Size).PadLeft(10, ' ') + " " + info.Filename + Environment.NewLine;
             }
             return result;
         }
@@ -376,7 +376,9 @@ namespace ArchiveComparer2
                 SevenZipPath = txt7zDllPath.Text,
                 OnlyPerfectMatch = chkOnlyPerfectMatch.Checked,
                 Priority = (ThreadPriority ) cbxPriority.SelectedIndex, 
-                PreventStanby = chkPreventStanby.Checked
+                PreventStanby = chkPreventStanby.Checked, 
+                IgnoreSmallFile = chkIgnoreSmallFileSize.Checked,
+                SmallFileSizeLimit = ulong.Parse(txtSmallFileSizeLimit.Text)
             };
             detector.SearchThreading(option);
             btnPause.Enabled = true;
@@ -607,6 +609,17 @@ namespace ArchiveComparer2
         private void btnSelectOriginal_Click(object sender, EventArgs e)
         {
             SelectDuplicates(MatchType.ORIGINAL);
+        }
+
+        private void txtSmallFileSizeLimit_TextChanged(object sender, EventArgs e)
+        {
+            ulong parsed;
+            bool result = ulong.TryParse(txtSmallFileSizeLimit.Text, out parsed);
+            if (!result)
+            {
+                MessageBox.Show(String.Format("Invalid value for Small File Size Limit: {0}", txtSmallFileSizeLimit.Text, "Invalid Value"));
+                txtSmallFileSizeLimit.Text = "0";
+            }
         }
 
     }

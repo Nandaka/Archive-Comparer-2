@@ -126,7 +126,7 @@ namespace ArchiveComparer2.Library
                 NotifyCaller(f.FullName, OperationStatus.CALCULATING_CRC, curr:i, total:fileList.Count);
                 try
                 {
-                    DuplicateArchiveInfo item = Util.GetArchiveInfo(f.FullName, option.BlacklistPattern, option.BlacklistCaseInsensitive, option.SevenZipPath);
+                    DuplicateArchiveInfo item = Util.GetArchiveInfo(f.FullName, option);
                     item.FileSize = f.Length;
                     item.CreationTime = f.CreationTime;
 

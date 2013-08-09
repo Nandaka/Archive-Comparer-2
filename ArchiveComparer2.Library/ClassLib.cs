@@ -25,6 +25,8 @@ namespace ArchiveComparer2.Library
         public string Crc;
         public string Filename;
         public ulong Size;
+
+        public string Remark;
     }
 
     [FlagsAttribute]
@@ -126,6 +128,10 @@ namespace ArchiveComparer2.Library
         public ThreadPriority Priority = ThreadPriority.Lowest;
 
         public bool PreventStanby = false;
+
+        public bool IgnoreSmallFile = false;
+
+        public ulong SmallFileSizeLimit = 0;
     }
 
 
@@ -225,11 +231,11 @@ namespace ArchiveComparer2.Library
         /// <param name="filename"></param>
         /// <param name="blackListPattern"></param>
         /// <returns></returns>
-        public static DuplicateArchiveInfo GetArchiveInfo(string filename, string blackListPattern, bool caseInsensitive, string sevenZipPath)
+        public static DuplicateArchiveInfo GetArchiveInfo(string filename, DuplicateSearchOption option)
         {
-            Regex re = new Regex(blackListPattern, caseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
+            Regex re = new Regex(option.BlacklistPattern, option.BlacklistCaseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
             DuplicateArchiveInfo info = new DuplicateArchiveInfo();
-            SevenZipExtractor.SetLibraryPath(sevenZipPath);
+            SevenZipExtractor.SetLibraryPath(option.SevenZipPath);
             using (SevenZipExtractor extractor = new SevenZipExtractor(filename))
             {
                 info.Filename = filename;
@@ -253,13 +259,21 @@ namespace ArchiveComparer2.Library
                             Filename = af.FileName,
                             Size = af.Size
                         };
-                    if (!String.IsNullOrWhiteSpace(blackListPattern) && re.IsMatch(af.FileName))
+                    if (!String.IsNullOrWhiteSpace(option.BlacklistPattern) && re.IsMatch(af.FileName))
                     {
                         if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
+                        item.Remark = "Blacklisted";
+                        info.Skipped.Add(item);
+                    }
+                    else if (option.IgnoreSmallFile && item.Size < option.SmallFileSizeLimit)
+                    {
+                        if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
+                        item.Remark = "SmallFileSizeLimit";
                         info.Skipped.Add(item);
                     }
                     else
                     {
+                        item.Remark = "";
                         info.Items.Add(item);
                     }
                     countedSize += af.Size;
@@ -280,6 +294,15 @@ namespace ArchiveComparer2.Library
             StringBuilder builder = new StringBuilder("");
             builder.Append(Convert.ToString(value, 16).PadLeft(8, '0'));
             return builder.ToString();
+        }
+
+        public static string ConvertBytesToCompactString(ulong size)
+        {
+            float sizeF = size;
+            if (size < 1024) return size.ToString() + " B";
+            else if (size / 1024 > 1) return String.Format("{0:F2} KB", sizeF / 1024);
+            else if (size / (1024 * 1024) > 1) return String.Format("{0:F2} MB", sizeF / (1024 * 1024));
+            else return String.Format("{0:F2} GB", sizeF / (1024 * 1024 * 1024));
         }
     }
 

@@ -1,25 +1,24 @@
-﻿using System;
+﻿using ArchiveComparer2.Library;
+using ArchiveComparer2.Properties;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-using System.Threading;
-using ArchiveComparer2.Library;
-using log4net;
-using ArchiveComparer2.Properties;
-using System.Diagnostics;
 using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace ArchiveComparer2
 {
     public partial class ArchiveComparer2Form : Form
     {
-        ArchiveDuplicateDetector detector;
-        static ILog Logger;
+        private ArchiveDuplicateDetector detector;
+        private static ILog Logger;
 
         public ArchiveComparer2Form()
         {
@@ -36,7 +35,7 @@ namespace ArchiveComparer2
                 Logger = LogManager.GetLogger(typeof(ArchiveComparer2Form));
             }
             Logger.Info("Starting Up Archive Comparer " + fvi.ProductVersion);
-            
+
             detector = new ArchiveDuplicateDetector();
             detector.Notify += new ArchiveDuplicateDetector.NotifyEventHandler(detector_Notify);
 
@@ -45,17 +44,35 @@ namespace ArchiveComparer2
                 Logger.Info("Upgrading application settings");
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpdateRequired = false;
-                Properties.Settings.Default.Save();                
+                Properties.Settings.Default.Save();
             }
 
             cbxPriority.SelectedIndex = Properties.Settings.Default.threadPriority;
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
-        
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (Logger != null)
+            {
+                var ex = e.ExceptionObject as Exception;
+                if (ex != null)
+                {
+                    Logger.Error("Unhandled Exception: " + ex.Message + " at " + sender.ToString(), ex);
+                }
+                else
+                {
+                    Logger.Error("Unhandled Exception at " + sender.ToString());
+                }
+            }
+        }
+
         private delegate void NotifyCallback(NotifyEventArgs e);
 
         private void Notify(NotifyEventArgs e)
         {
-            if (this.InvokeRequired || txtLog.InvokeRequired || dgvResult.InvokeRequired || statusStrip1.InvokeRequired )
+            if (this.InvokeRequired || txtLog.InvokeRequired || dgvResult.InvokeRequired || statusStrip1.InvokeRequired)
             {
                 NotifyCallback d = new NotifyCallback(Notify);
                 this.Invoke(d, e);
@@ -63,7 +80,7 @@ namespace ArchiveComparer2
             else
             {
                 string text = e.Status.ToString() + ": " + e.Message;
-                
+
                 if (e.Status == OperationStatus.PAUSED ||
                     e.Status == OperationStatus.RESUMED ||
                     e.Status == OperationStatus.STOPPED)
@@ -103,8 +120,8 @@ namespace ArchiveComparer2
 
                 if (chkLog.Checked)
                 {
-                    if (e.Status == OperationStatus.CALCULATING_CRC || 
-                        e.Status == OperationStatus.ERROR || 
+                    if (e.Status == OperationStatus.CALCULATING_CRC ||
+                        e.Status == OperationStatus.ERROR ||
                         e.Status == OperationStatus.BUILDING_DUPLICATE_LIST)
                     {
                         txtLog.Text += text + Environment.NewLine;
@@ -127,7 +144,7 @@ namespace ArchiveComparer2
                         e.Status != OperationStatus.FILTERING) Logger.Debug(text);
             }
         }
-        
+
         private void Fill(List<DuplicateArchiveInfoList> list)
         {
             dgvResult.SuspendLayout();
@@ -138,12 +155,11 @@ namespace ArchiveComparer2
 
                 for (int j = 0; j < list[i].Duplicates.Count; ++j)
                 {
-                    DataGridViewRow rowDup = AddRow(list[i].Duplicates[j]);                    
-                }                
+                    DataGridViewRow rowDup = AddRow(list[i].Duplicates[j]);
+                }
             }
 
             dgvResult.ResumeLayout();
-
         }
 
         private DataGridViewRow AddRowSep(DuplicateArchiveInfo data)
@@ -167,11 +183,11 @@ namespace ArchiveComparer2
 
             string filenameOnly = data.Filename.Substring(data.Filename.LastIndexOf("\\") + 1);
             row.Cells["colFilename"] = new HMergedCell();
-            var mergedCells = (HMergedCell) row.Cells["colFilename"];
+            var mergedCells = (HMergedCell)row.Cells["colFilename"];
             mergedCells.LeftColumn = 2;
             mergedCells.RightColumn = 13;
             mergedCells.Value = filenameOnly;
-            
+
             int nOffset = 2;
             for (int j = nOffset; j < 14; j++)
             {
@@ -182,8 +198,8 @@ namespace ArchiveComparer2
                 pCell.Value = filenameOnly;
             }
             row.Cells["colMatchType"].Value = "SEPARATOR";
-            
-            // Fill numeric data for sorting            
+
+            // Fill numeric data for sorting
             row.Cells["colItemsCount"].Value = -1;
             row.Cells["colFileSize"].Value = -1L;
             row.Cells["colCreationTime"].Value = DateTime.MinValue;
@@ -215,7 +231,7 @@ namespace ArchiveComparer2
                 row.Cells["colNoMatchesCount"].Value = data.NoMatches.Count > 0 ? data.NoMatches.Count.ToString() : "";
                 row.Cells["colNoMatchesCount"].ToolTipText = ConcatItem(data.NoMatches);
             }
-            
+
             row.Cells["colSize"].Value = data.RealSize.ToString();
             row.Cells["colArchivedSize"].Value = data.ArchivedSize.ToString();
             row.Cells["colDupGroup"].Value = data.MatchType == MatchType.ORIGINAL ? data.DupGroup.ToString("D4") : data.DupGroup.ToString("D4") + " ";
@@ -283,7 +299,7 @@ namespace ArchiveComparer2
                         if (result == DialogResult.Cancel) return false;
                     }
                 }
-                if (false == Convert.ToBoolean(row.Cells["colCheck"].Value) && 
+                if (false == Convert.ToBoolean(row.Cells["colCheck"].Value) &&
                     String.IsNullOrWhiteSpace(row.Cells["colStatus"].Value.ToString()))
                 {
                     allSelected = false;
@@ -345,7 +361,7 @@ namespace ArchiveComparer2
             }
             while (paths.Count > i)
             {
-                string temp = paths[i - 1];                
+                string temp = paths[i - 1];
 
                 if (paths[i].StartsWith(temp))
                 {
@@ -357,7 +373,8 @@ namespace ArchiveComparer2
         }
 
         #region event handler
-        void detector_Notify(object sender, NotifyEventArgs e)
+
+        private void detector_Notify(object sender, NotifyEventArgs e)
         {
             Notify(e);
         }
@@ -375,8 +392,8 @@ namespace ArchiveComparer2
                 BlacklistCaseInsensitive = chkBlacklistCI.Checked,
                 SevenZipPath = txt7zDllPath.Text,
                 OnlyPerfectMatch = chkOnlyPerfectMatch.Checked,
-                Priority = (ThreadPriority ) cbxPriority.SelectedIndex, 
-                PreventStanby = chkPreventStanby.Checked, 
+                Priority = (ThreadPriority)cbxPriority.SelectedIndex,
+                PreventStanby = chkPreventStanby.Checked,
                 IgnoreSmallFile = chkIgnoreSmallFileSize.Checked,
                 SmallFileSizeLimit = ulong.Parse(txtSmallFileSizeLimit.Text)
             };
@@ -406,7 +423,7 @@ namespace ArchiveComparer2
         {
             Delete(DeleteMode.RECYCLED);
         }
-                
+
         private void btnDelPermanent_Click(object sender, EventArgs e)
         {
             Delete(DeleteMode.PERMANENT);
@@ -436,7 +453,7 @@ namespace ArchiveComparer2
                 if (btnPause.Text == "Pause")
                 {
                     lblStatus.Text = "Pausing...";
-                    detector.Pause();                    
+                    detector.Pause();
                     btnPause.Text = "Resume";
                 }
                 else
@@ -474,7 +491,7 @@ namespace ArchiveComparer2
                 }
             }
         }
-        
+
         private void btnClearDeleted_Click(object sender, EventArgs e)
         {
             ClearDeleted();
@@ -497,7 +514,6 @@ namespace ArchiveComparer2
 
         private void btnClearResolved_Click(object sender, EventArgs e)
         {
-            
             // clear deleted rows
             ClearDeleted();
 
@@ -507,7 +523,7 @@ namespace ArchiveComparer2
             int groupCount = 0;
             string prevGroup = "";
 
-            while (i < dgvResult.Rows.Count && dgvResult.Rows.Count > 0 )
+            while (i < dgvResult.Rows.Count && dgvResult.Rows.Count > 0)
             {
                 DataGridViewRow row = dgvResult.Rows[i];
 
@@ -534,7 +550,7 @@ namespace ArchiveComparer2
             }
 
             //// clean up last entry
-            if (prevGroup == dgvResult.Rows[i-1].Cells["colDupGroup"].Value.ToString().Trim()) ++groupCount;
+            if (prevGroup == dgvResult.Rows[i - 1].Cells["colDupGroup"].Value.ToString().Trim()) ++groupCount;
             if (groupCount == 2)
             {
                 --i;
@@ -563,7 +579,8 @@ namespace ArchiveComparer2
         {
             dgvResult.Columns["colFilename"].Width = dgvResult.Columns["colFilename"].MinimumWidth;
         }
-        #endregion
+
+        #endregion event handler
 
         private void ArchiveComparer2Form_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -579,7 +596,7 @@ namespace ArchiveComparer2
 
         private void cbxPriority_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(detector != null) detector.ChangeThreadPriority((ThreadPriority)cbxPriority.SelectedIndex);
+            if (detector != null) detector.ChangeThreadPriority((ThreadPriority)cbxPriority.SelectedIndex);
         }
 
         private void SelectDuplicates(MatchType mode)
@@ -587,8 +604,8 @@ namespace ArchiveComparer2
             foreach (DataGridViewRow row in dgvResult.Rows)
             {
                 var matchType = row.Cells["colMatchType"].Value.ToString();
-                if ( matchType == "SEPARATOR") continue;
-                
+                if (matchType == "SEPARATOR") continue;
+
                 if (matchType == mode.ToString())
                 {
                     row.Cells["colCheck"].Value = true;
@@ -621,7 +638,6 @@ namespace ArchiveComparer2
                 txtSmallFileSizeLimit.Text = "0";
             }
         }
-
     }
 
     public enum DeleteMode

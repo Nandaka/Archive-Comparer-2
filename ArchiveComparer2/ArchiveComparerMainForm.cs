@@ -279,9 +279,18 @@ namespace ArchiveComparer2
             {
                 if (row.Cells["colMatchType"].Value.ToString() == "SEPARATOR") continue;
                 currGroup = row.Cells["colDupGroup"].Value.ToString().Trim();
+                bool isLastRow = row.Index == row.DataGridView.Rows.GetLastRow(DataGridViewElementStates.None);
 
-                if (currGroup != prevGroup && prevGroup != null)
+                if (false == Convert.ToBoolean(row.Cells["colCheck"].Value) &&
+                    String.IsNullOrWhiteSpace(row.Cells["colStatus"].Value.ToString()))
                 {
+                    allSelected = false;
+                }
+
+                // next group
+                if (currGroup != prevGroup && prevGroup != null && !isLastRow)
+                {
+                    // prev group is all selected
                     if (allSelected)
                     {
                         DialogResult result = MessageBox.Show("Delete all for group: " + prevGroup, "Delete All Confirmation", MessageBoxButtons.OKCancel);
@@ -291,18 +300,13 @@ namespace ArchiveComparer2
                     prevGroup = null;
                 }
                 // last row
-                if (row.Index == row.DataGridView.Rows.GetLastRow(DataGridViewElementStates.None))
+                if (isLastRow)
                 {
                     if (allSelected)
                     {
                         DialogResult result = MessageBox.Show("Delete all for group: " + currGroup, "Delete All Confirmation", MessageBoxButtons.OKCancel);
                         if (result == DialogResult.Cancel) return false;
                     }
-                }
-                if (false == Convert.ToBoolean(row.Cells["colCheck"].Value) &&
-                    String.IsNullOrWhiteSpace(row.Cells["colStatus"].Value.ToString()))
-                {
-                    allSelected = false;
                 }
                 prevGroup = currGroup;
             }

@@ -278,16 +278,12 @@ namespace ArchiveComparer2
             foreach (DataGridViewRow row in dgvResult.Rows)
             {
                 if (row.Cells["colMatchType"].Value.ToString() == "SEPARATOR") continue;
+
                 currGroup = row.Cells["colDupGroup"].Value.ToString().Trim();
+
                 bool isLastRow = row.Index == row.DataGridView.Rows.GetLastRow(DataGridViewElementStates.None);
 
-                if (false == Convert.ToBoolean(row.Cells["colCheck"].Value) &&
-                    String.IsNullOrWhiteSpace(row.Cells["colStatus"].Value.ToString()))
-                {
-                    allSelected = false;
-                }
-
-                // next group
+                // check first on next group
                 if (currGroup != prevGroup && prevGroup != null && !isLastRow)
                 {
                     // prev group is all selected
@@ -296,9 +292,18 @@ namespace ArchiveComparer2
                         DialogResult result = MessageBox.Show("Delete all for group: " + prevGroup, "Delete All Confirmation", MessageBoxButtons.OKCancel);
                         if (result == DialogResult.Cancel) return false;
                     }
+
                     allSelected = true;
                     prevGroup = null;
                 }
+
+                // then mark it as not selected
+                if (false == Convert.ToBoolean(row.Cells["colCheck"].Value) &&
+                    String.IsNullOrWhiteSpace(row.Cells["colStatus"].Value.ToString()))
+                {
+                    allSelected = false;
+                }
+
                 // last row
                 if (isLastRow)
                 {
@@ -385,6 +390,7 @@ namespace ArchiveComparer2
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            dgvResult.Rows.Clear();
             DuplicateSearchOption option = new DuplicateSearchOption()
             {
                 Paths = GetPathList(),

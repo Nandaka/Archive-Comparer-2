@@ -199,13 +199,10 @@ namespace ArchiveComparer2.Library
                       {
                           if (dup.Duplicates == null) dup.Duplicates = new List<DuplicateArchiveInfo>();
                           // remove from the source list.
-                          //lock (list)
-                          //{
-                          //list.Remove(curr);
-                          curr.IsRemoved = true;
-                          //--totalCount;
-                          //--innerIdx;
-                          //}
+                          lock (list)
+                          {
+                              curr.IsRemoved = true;
+                          }
                           dup.Duplicates.Add(curr);
                       }
                   });

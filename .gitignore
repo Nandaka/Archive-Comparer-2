@@ -3,4 +3,4 @@
 TestResults/*
 *.suo
 ArchiveComparer2.Library/lib/*
-
+.vs

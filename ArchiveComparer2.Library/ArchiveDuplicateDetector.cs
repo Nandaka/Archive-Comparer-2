@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using System.IO;
-using System.Threading;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ArchiveComparer2.Library
 {
-
-    public class ArchiveDuplicateDetector:IDisposable
+    public class ArchiveDuplicateDetector : IDisposable
     {
         public delegate void NotifyEventHandler(object sender, NotifyEventArgs e);
+
         public event NotifyEventHandler Notify;
 
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
@@ -19,6 +20,7 @@ namespace ArchiveComparer2.Library
         private Thread _thread;
 
         #region ThreadHelper
+
         public void Pause()
         {
             _pauseEvent.Reset();
@@ -47,24 +49,21 @@ namespace ArchiveComparer2.Library
                 _thread.Join();
             }
         }
-        
+
         private void NotifyCaller(string message, OperationStatus status, List<DuplicateArchiveInfoList> dupList = null, int curr = 0, int total = 0)
         {
-            if (Notify != null )
-            {
-                Notify(this, new NotifyEventArgs() { Message = message, Status = status, DupList = dupList, TotalCount = total, CurrentCount = curr });
-            }
+            Notify?.Invoke(this, new NotifyEventArgs() { Message = message, Status = status, DupList = dupList, TotalCount = total, CurrentCount = curr });
         }
 
         private void SearchThreadingImpl(object option)
         {
-
             Search((DuplicateSearchOption)option);
         }
 
-        #endregion
+        #endregion ThreadHelper
 
         #region Main Logic
+
         /// <summary>
         /// Step 1 - build file list from given paths
         /// </summary>
@@ -123,7 +122,9 @@ namespace ArchiveComparer2.Library
                 if (_shutdownEvent.WaitOne(0))
                     break;
 
-                NotifyCaller(f.FullName, OperationStatus.CALCULATING_CRC, curr:i, total:fileList.Count);
+                //NotifyCaller(f.FullName, OperationStatus.CALCULATING_CRC, curr: i, total: fileList.Count);
+                string msg = String.Format("File {0} of {1}", i, fileList.Count);
+                NotifyCaller(msg, OperationStatus.CALCULATING_CRC, curr: i, total: fileList.Count);
                 try
                 {
                     DuplicateArchiveInfo item = Util.GetArchiveInfo(f.FullName, option);
@@ -140,7 +141,7 @@ namespace ArchiveComparer2.Library
                 ++i;
             }
 
-            NotifyCaller("Complete calculating CRC, total: " + list.Count, OperationStatus.CALCULATING_CRC, total:list.Count);
+            NotifyCaller("Complete calculating CRC, total: " + list.Count, OperationStatus.CALCULATING_CRC, total: list.Count);
 
             return list;
         }
@@ -176,26 +177,57 @@ namespace ArchiveComparer2.Library
                 list.RemoveAt(0);
                 dup.Original = temp;
 
-                string message = "Checking: " + temp.Filename + " ( Duplicate group found: " + i + " File to check left: " + list.Count + ")";
-                NotifyCaller(message, OperationStatus.BUILDING_DUPLICATE_LIST, curr:i, total:totalCount);
+                string message = "Checking: " + temp.Filename + " ( Duplicate group found: " + i + " Remaining: " + list.Count + ")";
+                NotifyCaller(message, OperationStatus.BUILDING_DUPLICATE_LIST, curr: i, total: totalCount);
 
-                // check for other possible dups.
-                int index = 0;
-                while (list.Count > index)
+                // parallel method
+                if (option.TaskLimit > 1)
                 {
-                    DuplicateArchiveInfo curr = list[index];
+                    var taskScheduler = new Nandaka.Common.LimitedConcurrencyLevelTaskScheduler(option.TaskLimit, 16);
+                    var pOption = new ParallelOptions()
+                    {
+                        TaskScheduler = taskScheduler
+                    };
 
-                    if (Compare(ref temp, ref curr, option))
+                    Parallel.For(0, list.Count, pOption, (innerIdx) =>
+                  {
+                      DuplicateArchiveInfo curr = list[innerIdx];
+                      if (curr.IsRemoved) return;
+
+                      if (Compare(ref temp, ref curr, option))
+                      {
+                          if (dup.Duplicates == null) dup.Duplicates = new List<DuplicateArchiveInfo>();
+                          dup.Duplicates.Add(curr);
+                          // remove from the source list.
+                          lock (curr)
+                          {
+                              //list.Remove(curr);
+                              curr.IsRemoved = true;
+                              //--totalCount;
+                              //--innerIdx;
+                          }
+                      }
+                  });
+                }
+                else
+                {
+                    // check for other possible dups.
+                    int index = 0;
+                    while (list.Count > index)
                     {
-                        if (dup.Duplicates == null) dup.Duplicates = new List<DuplicateArchiveInfo>();
-                        dup.Duplicates.Add(curr);
-                        // remove from the source list.
-                        list.Remove(curr);
-                        --totalCount;
-                    }
-                    else
-                    {
-                        ++index;
+                        DuplicateArchiveInfo curr = list[index];
+                        if (Compare(ref temp, ref curr, option))
+                        {
+                            if (dup.Duplicates == null) dup.Duplicates = new List<DuplicateArchiveInfo>();
+                            dup.Duplicates.Add(curr);
+                            // remove from the source list.
+                            list.Remove(curr);
+                            --totalCount;
+                        }
+                        else
+                        {
+                            ++index;
+                        }
                     }
                 }
 
@@ -223,8 +255,8 @@ namespace ArchiveComparer2.Library
         /// <returns></returns>
         private bool Compare(ref DuplicateArchiveInfo Origin, ref DuplicateArchiveInfo Duplicate, DuplicateSearchOption option)
         {
-            NotifyCaller("Comparing: " + Origin.Filename + " to " + Duplicate.Filename, OperationStatus.COMPARING);
-            
+            //NotifyCaller("Comparing: " + Origin.Filename + " to " + Duplicate.Filename, OperationStatus.COMPARING);
+
             // if item count is equal, try to check from crc strings.
             Origin.MatchType = MatchType.ORIGINAL;
             Origin.Percentage = 0.0;
@@ -236,7 +268,7 @@ namespace ArchiveComparer2.Library
 
                 if (Origin.ToCRCString() == Duplicate.ToCRCString())
                 {
-                    NotifyCaller("CRC Strings are equal.", OperationStatus.COMPARING);
+                    //NotifyCaller("CRC Strings are equal.", OperationStatus.COMPARING);
                     Duplicate.Percentage = 100.0;
                     return true;
                 }
@@ -291,12 +323,12 @@ namespace ArchiveComparer2.Library
             double percent = (double)(Duplicate.Items.Count - skippedCount) / Duplicate.Items.Count * 100;
             if (percent >= option.Limit && skippedCount < limitCount)
             {
-                NotifyCaller("Match: " + percent + "%", OperationStatus.COMPARING);
+                //NotifyCaller("Match: " + percent + "%", OperationStatus.COMPARING);
                 Duplicate.Percentage = percent;
                 return true;
             }
 
-            NotifyCaller("Not Match", OperationStatus.COMPARING);
+            //NotifyCaller("Not Match", OperationStatus.COMPARING);
             if (Duplicate.NoMatches != null) Duplicate.NoMatches.Clear();
             return false;
         }
@@ -327,14 +359,16 @@ namespace ArchiveComparer2.Library
                     ++index;
                 }
             }
-            NotifyCaller("Total: " + dupList.Count + " duplicate groups", OperationStatus.COMPLETE, dupList, total: dupList.Count);
             return dupList;
         }
-        #endregion
+
+        #endregion Main Logic
 
         public List<DuplicateArchiveInfoList> Search(DuplicateSearchOption option)
         {
+            var start = DateTime.Now.Ticks;
             NotifyCaller("Target Count: " + option.Paths.Count, OperationStatus.READY);
+            NotifyCaller("Thread Limit: " + option.TaskLimit, OperationStatus.READY);
 
             if (option.PreventStanby)
             {
@@ -342,11 +376,13 @@ namespace ArchiveComparer2.Library
                 Util.PreventSleep();
             }
 
-            List<FileInfo> fileList =  BuildFileList(option);
+            List<FileInfo> fileList = BuildFileList(option);
             List<DuplicateArchiveInfo> list = CalculateCRC(fileList, option);
             List<DuplicateArchiveInfoList> dupList = BuildDuplicateList(list, option);
             dupList = CleanUpDuplicate(dupList);
 
+            NotifyCaller("Completed in: " + new TimeSpan(DateTime.Now.Ticks - start), OperationStatus.COMPLETE);
+            NotifyCaller("Total: " + dupList.Count + " duplicate groups", OperationStatus.COMPLETE, dupList, total: dupList.Count);
             Util.AllowStanby();
 
             return dupList;
@@ -387,5 +423,4 @@ namespace ArchiveComparer2.Library
             GC.SuppressFinalize(this);
         }
     }
-
 }

@@ -64,37 +64,19 @@
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.chkCCRC = new System.Windows.Forms.CheckBox();
-            this.chkFIL = new System.Windows.Forms.CheckBox();
-            this.chkBDL = new System.Windows.Forms.CheckBox();
-            this.chkCOMP = new System.Windows.Forms.CheckBox();
-            this.chkBFL = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chkPreventStanby = new System.Windows.Forms.CheckBox();
             this.cbxPriority = new System.Windows.Forms.ComboBox();
             this.btnResetColWidth = new System.Windows.Forms.Button();
-            this.txt7zDllPath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.chkLogAll = new System.Windows.Forms.CheckBox();
-            this.chkLog = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.chkIgnoreSmallFileSize = new System.Windows.Forms.CheckBox();
-            this.txtSmallFileSizeLimit = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
-            this.chkBlacklistCI = new System.Windows.Forms.CheckBox();
-            this.chkFileCI = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtIgnoreLimit = new System.Windows.Forms.TextBox();
-            this.txtBlackList = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtFilePattern = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtLimitPercentage = new System.Windows.Forms.TextBox();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -113,6 +95,26 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chkCCRC = new System.Windows.Forms.CheckBox();
+            this.chkFIL = new System.Windows.Forms.CheckBox();
+            this.chkBDL = new System.Windows.Forms.CheckBox();
+            this.chkCOMP = new System.Windows.Forms.CheckBox();
+            this.chkBFL = new System.Windows.Forms.CheckBox();
+            this.txtThreadCount = new System.Windows.Forms.TextBox();
+            this.chkPreventStanby = new System.Windows.Forms.CheckBox();
+            this.txt7zDllPath = new System.Windows.Forms.TextBox();
+            this.chkLogAll = new System.Windows.Forms.CheckBox();
+            this.chkLog = new System.Windows.Forms.CheckBox();
+            this.chkIgnoreSmallFileSize = new System.Windows.Forms.CheckBox();
+            this.txtSmallFileSizeLimit = new System.Windows.Forms.TextBox();
+            this.chkOnlyPerfectMatch = new System.Windows.Forms.CheckBox();
+            this.chkBlacklistCI = new System.Windows.Forms.CheckBox();
+            this.chkFileCI = new System.Windows.Forms.CheckBox();
+            this.txtIgnoreLimit = new System.Windows.Forms.TextBox();
+            this.txtBlackList = new System.Windows.Forms.TextBox();
+            this.txtFilePattern = new System.Windows.Forms.TextBox();
+            this.txtLimitPercentage = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -133,7 +135,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(16, 15);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1181, 523);
@@ -157,9 +159,9 @@
             this.tabPage1.Controls.Add(this.txtPath);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(1173, 494);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
@@ -169,7 +171,7 @@
             // 
             this.btnSelectSubset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSelectSubset.Location = new System.Drawing.Point(691, 459);
-            this.btnSelectSubset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectSubset.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectSubset.Name = "btnSelectSubset";
             this.btnSelectSubset.Size = new System.Drawing.Size(125, 28);
             this.btnSelectSubset.TabIndex = 21;
@@ -181,7 +183,7 @@
             // 
             this.btnSelectEqual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSelectEqual.Location = new System.Drawing.Point(557, 459);
-            this.btnSelectEqual.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectEqual.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectEqual.Name = "btnSelectEqual";
             this.btnSelectEqual.Size = new System.Drawing.Size(125, 28);
             this.btnSelectEqual.TabIndex = 20;
@@ -193,7 +195,7 @@
             // 
             this.btnSelectOriginal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSelectOriginal.Location = new System.Drawing.Point(424, 459);
-            this.btnSelectOriginal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectOriginal.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectOriginal.Name = "btnSelectOriginal";
             this.btnSelectOriginal.Size = new System.Drawing.Size(125, 28);
             this.btnSelectOriginal.TabIndex = 19;
@@ -204,7 +206,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Location = new System.Drawing.Point(495, 4);
-            this.btnBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(100, 28);
             this.btnBrowse.TabIndex = 18;
@@ -216,7 +218,7 @@
             // 
             this.btnClearResolved.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnClearResolved.Location = new System.Drawing.Point(276, 459);
-            this.btnClearResolved.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClearResolved.Margin = new System.Windows.Forms.Padding(4);
             this.btnClearResolved.Name = "btnClearResolved";
             this.btnClearResolved.Size = new System.Drawing.Size(128, 28);
             this.btnClearResolved.TabIndex = 17;
@@ -228,7 +230,7 @@
             // 
             this.btnClearDeleted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnClearDeleted.Location = new System.Drawing.Point(140, 459);
-            this.btnClearDeleted.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClearDeleted.Margin = new System.Windows.Forms.Padding(4);
             this.btnClearDeleted.Name = "btnClearDeleted";
             this.btnClearDeleted.Size = new System.Drawing.Size(128, 28);
             this.btnClearDeleted.TabIndex = 16;
@@ -241,7 +243,7 @@
             this.btnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPause.Enabled = false;
             this.btnPause.Location = new System.Drawing.Point(955, 5);
-            this.btnPause.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPause.Margin = new System.Windows.Forms.Padding(4);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(100, 28);
             this.btnPause.TabIndex = 15;
@@ -254,7 +256,7 @@
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStop.Enabled = false;
             this.btnStop.Location = new System.Drawing.Point(1063, 5);
-            this.btnStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(100, 28);
             this.btnStop.TabIndex = 14;
@@ -266,7 +268,7 @@
             // 
             this.btnDelPermanent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDelPermanent.Location = new System.Drawing.Point(1001, 459);
-            this.btnDelPermanent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDelPermanent.Margin = new System.Windows.Forms.Padding(4);
             this.btnDelPermanent.Name = "btnDelPermanent";
             this.btnDelPermanent.Size = new System.Drawing.Size(161, 28);
             this.btnDelPermanent.TabIndex = 13;
@@ -278,7 +280,7 @@
             // 
             this.btnDelRecycled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDelRecycled.Location = new System.Drawing.Point(832, 459);
-            this.btnDelRecycled.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDelRecycled.Margin = new System.Windows.Forms.Padding(4);
             this.btnDelRecycled.Name = "btnDelRecycled";
             this.btnDelRecycled.Size = new System.Drawing.Size(161, 28);
             this.btnDelRecycled.TabIndex = 12;
@@ -290,7 +292,7 @@
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnClear.Location = new System.Drawing.Point(4, 459);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(4);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(128, 28);
             this.btnClear.TabIndex = 11;
@@ -326,7 +328,7 @@
             this.colCrc,
             this.colStatus});
             this.dgvResult.Location = new System.Drawing.Point(8, 85);
-            this.dgvResult.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvResult.Margin = new System.Windows.Forms.Padding(4);
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvResult.RowHeadersVisible = false;
@@ -457,7 +459,7 @@
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(495, 39);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 28);
             this.btnSearch.TabIndex = 8;
@@ -468,7 +470,7 @@
             // txtPath
             // 
             this.txtPath.Location = new System.Drawing.Point(55, 7);
-            this.txtPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtPath.Multiline = true;
             this.txtPath.Name = "txtPath";
             this.txtPath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -489,9 +491,9 @@
             // 
             this.tabPage2.Controls.Add(this.txtLog);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(1173, 494);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Log";
@@ -501,7 +503,7 @@
             // 
             this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLog.Location = new System.Drawing.Point(4, 4);
-            this.txtLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLog.Margin = new System.Windows.Forms.Padding(4);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
@@ -520,9 +522,9 @@
             this.tabPage3.Controls.Add(this.btnReset);
             this.tabPage3.Controls.Add(this.btnSave);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage3.Size = new System.Drawing.Size(1173, 494);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Config";
@@ -535,82 +537,19 @@
             this.groupBox3.Controls.Add(this.chkBDL);
             this.groupBox3.Controls.Add(this.chkCOMP);
             this.groupBox3.Controls.Add(this.chkBFL);
-            this.groupBox3.Location = new System.Drawing.Point(8, 273);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Location = new System.Drawing.Point(8, 301);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(612, 116);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Logging";
             // 
-            // chkCCRC
-            // 
-            this.chkCCRC.AutoSize = true;
-            this.chkCCRC.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCCRC;
-            this.chkCCRC.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCCRC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkCCRC.Location = new System.Drawing.Point(12, 52);
-            this.chkCCRC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkCCRC.Name = "chkCCRC";
-            this.chkCCRC.Size = new System.Drawing.Size(161, 21);
-            this.chkCCRC.TabIndex = 14;
-            this.chkCCRC.Text = "CALCULATING_CRC";
-            this.chkCCRC.UseVisualStyleBackColor = true;
-            // 
-            // chkFIL
-            // 
-            this.chkFIL.AutoSize = true;
-            this.chkFIL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logFIL;
-            this.chkFIL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logFIL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkFIL.Location = new System.Drawing.Point(199, 80);
-            this.chkFIL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkFIL.Name = "chkFIL";
-            this.chkFIL.Size = new System.Drawing.Size(101, 21);
-            this.chkFIL.TabIndex = 12;
-            this.chkFIL.Text = "FILTERING";
-            this.chkFIL.UseVisualStyleBackColor = true;
-            // 
-            // chkBDL
-            // 
-            this.chkBDL.AutoSize = true;
-            this.chkBDL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBDL;
-            this.chkBDL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBDL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkBDL.Location = new System.Drawing.Point(199, 23);
-            this.chkBDL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkBDL.Name = "chkBDL";
-            this.chkBDL.Size = new System.Drawing.Size(215, 21);
-            this.chkBDL.TabIndex = 11;
-            this.chkBDL.Text = "BUILDING_DUPLICATE_LIST";
-            this.chkBDL.UseVisualStyleBackColor = true;
-            // 
-            // chkCOMP
-            // 
-            this.chkCOMP.AutoSize = true;
-            this.chkCOMP.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCOMP;
-            this.chkCOMP.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCOMP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkCOMP.Location = new System.Drawing.Point(199, 52);
-            this.chkCOMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkCOMP.Name = "chkCOMP";
-            this.chkCOMP.Size = new System.Drawing.Size(113, 21);
-            this.chkCOMP.TabIndex = 13;
-            this.chkCOMP.Text = "COMPARING";
-            this.chkCOMP.UseVisualStyleBackColor = true;
-            // 
-            // chkBFL
-            // 
-            this.chkBFL.AutoSize = true;
-            this.chkBFL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBFL;
-            this.chkBFL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBFL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkBFL.Location = new System.Drawing.Point(12, 23);
-            this.chkBFL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkBFL.Name = "chkBFL";
-            this.chkBFL.Size = new System.Drawing.Size(167, 21);
-            this.chkBFL.TabIndex = 10;
-            this.chkBFL.Text = "BUILDING_FILE_LIST";
-            this.chkBFL.UseVisualStyleBackColor = true;
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtThreadCount);
+            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.chkPreventStanby);
             this.groupBox2.Controls.Add(this.cbxPriority);
             this.groupBox2.Controls.Add(this.btnResetColWidth);
@@ -619,26 +558,13 @@
             this.groupBox2.Controls.Add(this.chkLogAll);
             this.groupBox2.Controls.Add(this.chkLog);
             this.groupBox2.Location = new System.Drawing.Point(8, 176);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox2.Size = new System.Drawing.Size(612, 90);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(612, 117);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Application";
-            // 
-            // chkPreventStanby
-            // 
-            this.chkPreventStanby.AutoSize = true;
-            this.chkPreventStanby.Checked = global::ArchiveComparer2.Properties.Settings.Default.PreventStanby;
-            this.chkPreventStanby.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "PreventStanby", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkPreventStanby.Location = new System.Drawing.Point(293, 23);
-            this.chkPreventStanby.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkPreventStanby.Name = "chkPreventStanby";
-            this.chkPreventStanby.Size = new System.Drawing.Size(119, 21);
-            this.chkPreventStanby.TabIndex = 10;
-            this.chkPreventStanby.Text = "Prevent Sleep";
-            this.chkPreventStanby.UseVisualStyleBackColor = true;
             // 
             // cbxPriority
             // 
@@ -650,7 +576,7 @@
             "BelowNormal",
             "Lowest"});
             this.cbxPriority.Location = new System.Drawing.Point(443, 52);
-            this.cbxPriority.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxPriority.Margin = new System.Windows.Forms.Padding(4);
             this.cbxPriority.Name = "cbxPriority";
             this.cbxPriority.Size = new System.Drawing.Size(160, 24);
             this.cbxPriority.TabIndex = 11;
@@ -659,23 +585,13 @@
             // btnResetColWidth
             // 
             this.btnResetColWidth.Location = new System.Drawing.Point(424, 18);
-            this.btnResetColWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnResetColWidth.Margin = new System.Windows.Forms.Padding(4);
             this.btnResetColWidth.Name = "btnResetColWidth";
             this.btnResetColWidth.Size = new System.Drawing.Size(180, 28);
             this.btnResetColWidth.TabIndex = 10;
             this.btnResetColWidth.Text = "Reset Column Width";
             this.btnResetColWidth.UseVisualStyleBackColor = true;
             this.btnResetColWidth.Click += new System.EventHandler(this.btnResetColWidth_Click);
-            // 
-            // txt7zDllPath
-            // 
-            this.txt7zDllPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SevenZipPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txt7zDllPath.Location = new System.Drawing.Point(96, 52);
-            this.txt7zDllPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txt7zDllPath.Name = "txt7zDllPath";
-            this.txt7zDllPath.Size = new System.Drawing.Size(325, 22);
-            this.txt7zDllPath.TabIndex = 9;
-            this.txt7zDllPath.Text = global::ArchiveComparer2.Properties.Settings.Default.SevenZipPath;
             // 
             // label8
             // 
@@ -686,32 +602,6 @@
             this.label8.Size = new System.Drawing.Size(73, 17);
             this.label8.TabIndex = 8;
             this.label8.Text = "7z.dll path";
-            // 
-            // chkLogAll
-            // 
-            this.chkLogAll.AutoSize = true;
-            this.chkLogAll.Checked = global::ArchiveComparer2.Properties.Settings.Default.LogAll;
-            this.chkLogAll.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "LogAll", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLogAll.Location = new System.Drawing.Point(208, 23);
-            this.chkLogAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkLogAll.Name = "chkLogAll";
-            this.chkLogAll.Size = new System.Drawing.Size(73, 21);
-            this.chkLogAll.TabIndex = 7;
-            this.chkLogAll.Text = "Log All";
-            this.chkLogAll.UseVisualStyleBackColor = true;
-            // 
-            // chkLog
-            // 
-            this.chkLog.AutoSize = true;
-            this.chkLog.Checked = global::ArchiveComparer2.Properties.Settings.Default.EnableTextBoxLogging;
-            this.chkLog.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "EnableTextBoxLogging", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLog.Location = new System.Drawing.Point(12, 23);
-            this.chkLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkLog.Name = "chkLog";
-            this.chkLog.Size = new System.Drawing.Size(182, 21);
-            this.chkLog.TabIndex = 6;
-            this.chkLog.Text = "Enable Textbox Logging";
-            this.chkLog.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -733,9 +623,9 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtLimitPercentage);
             this.groupBox1.Location = new System.Drawing.Point(8, 7);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(612, 161);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
@@ -751,30 +641,6 @@
             this.label10.TabIndex = 14;
             this.label10.Text = "bytes";
             // 
-            // chkIgnoreSmallFileSize
-            // 
-            this.chkIgnoreSmallFileSize.AutoSize = true;
-            this.chkIgnoreSmallFileSize.Checked = global::ArchiveComparer2.Properties.Settings.Default.SmallFilesCI;
-            this.chkIgnoreSmallFileSize.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "SmallFilesCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkIgnoreSmallFileSize.Location = new System.Drawing.Point(12, 122);
-            this.chkIgnoreSmallFileSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkIgnoreSmallFileSize.Name = "chkIgnoreSmallFileSize";
-            this.chkIgnoreSmallFileSize.Size = new System.Drawing.Size(141, 21);
-            this.chkIgnoreSmallFileSize.TabIndex = 13;
-            this.chkIgnoreSmallFileSize.Text = "Ignore Small Files";
-            this.chkIgnoreSmallFileSize.UseVisualStyleBackColor = true;
-            // 
-            // txtSmallFileSizeLimit
-            // 
-            this.txtSmallFileSizeLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SmallFileSizeLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtSmallFileSizeLimit.Location = new System.Drawing.Point(303, 119);
-            this.txtSmallFileSizeLimit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtSmallFileSizeLimit.Name = "txtSmallFileSizeLimit";
-            this.txtSmallFileSizeLimit.Size = new System.Drawing.Size(107, 22);
-            this.txtSmallFileSizeLimit.TabIndex = 12;
-            this.txtSmallFileSizeLimit.Text = global::ArchiveComparer2.Properties.Settings.Default.SmallFileSizeLimit;
-            this.txtSmallFileSizeLimit.TextChanged += new System.EventHandler(this.txtSmallFileSizeLimit_TextChanged);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -784,45 +650,6 @@
             this.label9.Size = new System.Drawing.Size(132, 17);
             this.label9.TabIndex = 11;
             this.label9.Text = "Small File Size Limit";
-            // 
-            // chkOnlyPerfectMatch
-            // 
-            this.chkOnlyPerfectMatch.AutoSize = true;
-            this.chkOnlyPerfectMatch.Checked = global::ArchiveComparer2.Properties.Settings.Default.OnlyPerfectMatch;
-            this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(448, 58);
-            this.chkOnlyPerfectMatch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
-            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(150, 21);
-            this.chkOnlyPerfectMatch.TabIndex = 10;
-            this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
-            this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
-            // 
-            // chkBlacklistCI
-            // 
-            this.chkBlacklistCI.AutoSize = true;
-            this.chkBlacklistCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.BlacklistCI;
-            this.chkBlacklistCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "BlacklistCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkBlacklistCI.Location = new System.Drawing.Point(467, 90);
-            this.chkBlacklistCI.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkBlacklistCI.Name = "chkBlacklistCI";
-            this.chkBlacklistCI.Size = new System.Drawing.Size(132, 21);
-            this.chkBlacklistCI.TabIndex = 10;
-            this.chkBlacklistCI.Text = "Case Insensitive";
-            this.chkBlacklistCI.UseVisualStyleBackColor = true;
-            // 
-            // chkFileCI
-            // 
-            this.chkFileCI.AutoSize = true;
-            this.chkFileCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileCI;
-            this.chkFileCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkFileCI.Location = new System.Drawing.Point(469, 26);
-            this.chkFileCI.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkFileCI.Name = "chkFileCI";
-            this.chkFileCI.Size = new System.Drawing.Size(132, 21);
-            this.chkFileCI.TabIndex = 9;
-            this.chkFileCI.Text = "Case Insensitive";
-            this.chkFileCI.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -854,26 +681,6 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Ignore If Less Than";
             // 
-            // txtIgnoreLimit
-            // 
-            this.txtIgnoreLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "IgnoreLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtIgnoreLimit.Location = new System.Drawing.Point(341, 55);
-            this.txtIgnoreLimit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtIgnoreLimit.Name = "txtIgnoreLimit";
-            this.txtIgnoreLimit.Size = new System.Drawing.Size(39, 22);
-            this.txtIgnoreLimit.TabIndex = 7;
-            this.txtIgnoreLimit.Text = global::ArchiveComparer2.Properties.Settings.Default.IgnoreLimit;
-            // 
-            // txtBlackList
-            // 
-            this.txtBlackList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "BlackListPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtBlackList.Location = new System.Drawing.Point(131, 87);
-            this.txtBlackList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtBlackList.Name = "txtBlackList";
-            this.txtBlackList.Size = new System.Drawing.Size(329, 22);
-            this.txtBlackList.TabIndex = 5;
-            this.txtBlackList.Text = global::ArchiveComparer2.Properties.Settings.Default.BlackListPattern;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -883,16 +690,6 @@
             this.label4.Size = new System.Drawing.Size(109, 17);
             this.label4.TabIndex = 4;
             this.label4.Text = "Blacklist Pattern";
-            // 
-            // txtFilePattern
-            // 
-            this.txtFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtFilePattern.Location = new System.Drawing.Point(96, 23);
-            this.txtFilePattern.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtFilePattern.Name = "txtFilePattern";
-            this.txtFilePattern.Size = new System.Drawing.Size(364, 22);
-            this.txtFilePattern.TabIndex = 1;
-            this.txtFilePattern.Text = global::ArchiveComparer2.Properties.Settings.Default.FilePattern;
             // 
             // label2
             // 
@@ -914,20 +711,10 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Limit Percentage";
             // 
-            // txtLimitPercentage
-            // 
-            this.txtLimitPercentage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "LimitPercentage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtLimitPercentage.Location = new System.Drawing.Point(131, 55);
-            this.txtLimitPercentage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtLimitPercentage.Name = "txtLimitPercentage";
-            this.txtLimitPercentage.Size = new System.Drawing.Size(33, 22);
-            this.txtLimitPercentage.TabIndex = 3;
-            this.txtLimitPercentage.Text = global::ArchiveComparer2.Properties.Settings.Default.LimitPercentage;
-            // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(403, 396);
-            this.btnReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnReset.Location = new System.Drawing.Point(403, 424);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(4);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(100, 28);
             this.btnReset.TabIndex = 5;
@@ -937,8 +724,8 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(520, 396);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Location = new System.Drawing.Point(520, 424);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 28);
             this.btnSave.TabIndex = 4;
@@ -1071,6 +858,243 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(15, 85);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(95, 17);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Thread Count";
+            // 
+            // chkCCRC
+            // 
+            this.chkCCRC.AutoSize = true;
+            this.chkCCRC.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCCRC;
+            this.chkCCRC.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCCRC", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkCCRC.Location = new System.Drawing.Point(12, 52);
+            this.chkCCRC.Margin = new System.Windows.Forms.Padding(4);
+            this.chkCCRC.Name = "chkCCRC";
+            this.chkCCRC.Size = new System.Drawing.Size(161, 21);
+            this.chkCCRC.TabIndex = 14;
+            this.chkCCRC.Text = "CALCULATING_CRC";
+            this.chkCCRC.UseVisualStyleBackColor = true;
+            // 
+            // chkFIL
+            // 
+            this.chkFIL.AutoSize = true;
+            this.chkFIL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logFIL;
+            this.chkFIL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logFIL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkFIL.Location = new System.Drawing.Point(199, 80);
+            this.chkFIL.Margin = new System.Windows.Forms.Padding(4);
+            this.chkFIL.Name = "chkFIL";
+            this.chkFIL.Size = new System.Drawing.Size(101, 21);
+            this.chkFIL.TabIndex = 12;
+            this.chkFIL.Text = "FILTERING";
+            this.chkFIL.UseVisualStyleBackColor = true;
+            // 
+            // chkBDL
+            // 
+            this.chkBDL.AutoSize = true;
+            this.chkBDL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBDL;
+            this.chkBDL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBDL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBDL.Location = new System.Drawing.Point(199, 23);
+            this.chkBDL.Margin = new System.Windows.Forms.Padding(4);
+            this.chkBDL.Name = "chkBDL";
+            this.chkBDL.Size = new System.Drawing.Size(215, 21);
+            this.chkBDL.TabIndex = 11;
+            this.chkBDL.Text = "BUILDING_DUPLICATE_LIST";
+            this.chkBDL.UseVisualStyleBackColor = true;
+            // 
+            // chkCOMP
+            // 
+            this.chkCOMP.AutoSize = true;
+            this.chkCOMP.Checked = global::ArchiveComparer2.Properties.Settings.Default.logCOMP;
+            this.chkCOMP.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logCOMP", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkCOMP.Location = new System.Drawing.Point(199, 52);
+            this.chkCOMP.Margin = new System.Windows.Forms.Padding(4);
+            this.chkCOMP.Name = "chkCOMP";
+            this.chkCOMP.Size = new System.Drawing.Size(113, 21);
+            this.chkCOMP.TabIndex = 13;
+            this.chkCOMP.Text = "COMPARING";
+            this.chkCOMP.UseVisualStyleBackColor = true;
+            // 
+            // chkBFL
+            // 
+            this.chkBFL.AutoSize = true;
+            this.chkBFL.Checked = global::ArchiveComparer2.Properties.Settings.Default.logBFL;
+            this.chkBFL.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "logBFL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBFL.Location = new System.Drawing.Point(12, 23);
+            this.chkBFL.Margin = new System.Windows.Forms.Padding(4);
+            this.chkBFL.Name = "chkBFL";
+            this.chkBFL.Size = new System.Drawing.Size(167, 21);
+            this.chkBFL.TabIndex = 10;
+            this.chkBFL.Text = "BUILDING_FILE_LIST";
+            this.chkBFL.UseVisualStyleBackColor = true;
+            // 
+            // txtThreadCount
+            // 
+            this.txtThreadCount.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "ThreadCount", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtThreadCount.Location = new System.Drawing.Point(118, 82);
+            this.txtThreadCount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtThreadCount.Name = "txtThreadCount";
+            this.txtThreadCount.Size = new System.Drawing.Size(75, 22);
+            this.txtThreadCount.TabIndex = 13;
+            this.txtThreadCount.Text = global::ArchiveComparer2.Properties.Settings.Default.ThreadCount;
+            // 
+            // chkPreventStanby
+            // 
+            this.chkPreventStanby.AutoSize = true;
+            this.chkPreventStanby.Checked = global::ArchiveComparer2.Properties.Settings.Default.PreventStanby;
+            this.chkPreventStanby.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "PreventStanby", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkPreventStanby.Location = new System.Drawing.Point(293, 23);
+            this.chkPreventStanby.Margin = new System.Windows.Forms.Padding(4);
+            this.chkPreventStanby.Name = "chkPreventStanby";
+            this.chkPreventStanby.Size = new System.Drawing.Size(119, 21);
+            this.chkPreventStanby.TabIndex = 10;
+            this.chkPreventStanby.Text = "Prevent Sleep";
+            this.chkPreventStanby.UseVisualStyleBackColor = true;
+            // 
+            // txt7zDllPath
+            // 
+            this.txt7zDllPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SevenZipPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txt7zDllPath.Location = new System.Drawing.Point(96, 52);
+            this.txt7zDllPath.Margin = new System.Windows.Forms.Padding(4);
+            this.txt7zDllPath.Name = "txt7zDllPath";
+            this.txt7zDllPath.Size = new System.Drawing.Size(325, 22);
+            this.txt7zDllPath.TabIndex = 9;
+            this.txt7zDllPath.Text = global::ArchiveComparer2.Properties.Settings.Default.SevenZipPath;
+            // 
+            // chkLogAll
+            // 
+            this.chkLogAll.AutoSize = true;
+            this.chkLogAll.Checked = global::ArchiveComparer2.Properties.Settings.Default.LogAll;
+            this.chkLogAll.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "LogAll", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLogAll.Location = new System.Drawing.Point(208, 23);
+            this.chkLogAll.Margin = new System.Windows.Forms.Padding(4);
+            this.chkLogAll.Name = "chkLogAll";
+            this.chkLogAll.Size = new System.Drawing.Size(73, 21);
+            this.chkLogAll.TabIndex = 7;
+            this.chkLogAll.Text = "Log All";
+            this.chkLogAll.UseVisualStyleBackColor = true;
+            // 
+            // chkLog
+            // 
+            this.chkLog.AutoSize = true;
+            this.chkLog.Checked = global::ArchiveComparer2.Properties.Settings.Default.EnableTextBoxLogging;
+            this.chkLog.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "EnableTextBoxLogging", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLog.Location = new System.Drawing.Point(12, 23);
+            this.chkLog.Margin = new System.Windows.Forms.Padding(4);
+            this.chkLog.Name = "chkLog";
+            this.chkLog.Size = new System.Drawing.Size(182, 21);
+            this.chkLog.TabIndex = 6;
+            this.chkLog.Text = "Enable Textbox Logging";
+            this.chkLog.UseVisualStyleBackColor = true;
+            // 
+            // chkIgnoreSmallFileSize
+            // 
+            this.chkIgnoreSmallFileSize.AutoSize = true;
+            this.chkIgnoreSmallFileSize.Checked = global::ArchiveComparer2.Properties.Settings.Default.SmallFilesCI;
+            this.chkIgnoreSmallFileSize.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "SmallFilesCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkIgnoreSmallFileSize.Location = new System.Drawing.Point(12, 122);
+            this.chkIgnoreSmallFileSize.Margin = new System.Windows.Forms.Padding(4);
+            this.chkIgnoreSmallFileSize.Name = "chkIgnoreSmallFileSize";
+            this.chkIgnoreSmallFileSize.Size = new System.Drawing.Size(141, 21);
+            this.chkIgnoreSmallFileSize.TabIndex = 13;
+            this.chkIgnoreSmallFileSize.Text = "Ignore Small Files";
+            this.chkIgnoreSmallFileSize.UseVisualStyleBackColor = true;
+            // 
+            // txtSmallFileSizeLimit
+            // 
+            this.txtSmallFileSizeLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "SmallFileSizeLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtSmallFileSizeLimit.Location = new System.Drawing.Point(303, 119);
+            this.txtSmallFileSizeLimit.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSmallFileSizeLimit.Name = "txtSmallFileSizeLimit";
+            this.txtSmallFileSizeLimit.Size = new System.Drawing.Size(107, 22);
+            this.txtSmallFileSizeLimit.TabIndex = 12;
+            this.txtSmallFileSizeLimit.Text = global::ArchiveComparer2.Properties.Settings.Default.SmallFileSizeLimit;
+            this.txtSmallFileSizeLimit.TextChanged += new System.EventHandler(this.txtSmallFileSizeLimit_TextChanged);
+            // 
+            // chkOnlyPerfectMatch
+            // 
+            this.chkOnlyPerfectMatch.AutoSize = true;
+            this.chkOnlyPerfectMatch.Checked = global::ArchiveComparer2.Properties.Settings.Default.OnlyPerfectMatch;
+            this.chkOnlyPerfectMatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "OnlyPerfectMatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkOnlyPerfectMatch.Location = new System.Drawing.Point(448, 58);
+            this.chkOnlyPerfectMatch.Margin = new System.Windows.Forms.Padding(4);
+            this.chkOnlyPerfectMatch.Name = "chkOnlyPerfectMatch";
+            this.chkOnlyPerfectMatch.Size = new System.Drawing.Size(150, 21);
+            this.chkOnlyPerfectMatch.TabIndex = 10;
+            this.chkOnlyPerfectMatch.Text = "Only Perfect Match";
+            this.chkOnlyPerfectMatch.UseVisualStyleBackColor = true;
+            // 
+            // chkBlacklistCI
+            // 
+            this.chkBlacklistCI.AutoSize = true;
+            this.chkBlacklistCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.BlacklistCI;
+            this.chkBlacklistCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "BlacklistCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBlacklistCI.Location = new System.Drawing.Point(467, 90);
+            this.chkBlacklistCI.Margin = new System.Windows.Forms.Padding(4);
+            this.chkBlacklistCI.Name = "chkBlacklistCI";
+            this.chkBlacklistCI.Size = new System.Drawing.Size(132, 21);
+            this.chkBlacklistCI.TabIndex = 10;
+            this.chkBlacklistCI.Text = "Case Insensitive";
+            this.chkBlacklistCI.UseVisualStyleBackColor = true;
+            // 
+            // chkFileCI
+            // 
+            this.chkFileCI.AutoSize = true;
+            this.chkFileCI.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileCI;
+            this.chkFileCI.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileCI", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkFileCI.Location = new System.Drawing.Point(469, 26);
+            this.chkFileCI.Margin = new System.Windows.Forms.Padding(4);
+            this.chkFileCI.Name = "chkFileCI";
+            this.chkFileCI.Size = new System.Drawing.Size(132, 21);
+            this.chkFileCI.TabIndex = 9;
+            this.chkFileCI.Text = "Case Insensitive";
+            this.chkFileCI.UseVisualStyleBackColor = true;
+            // 
+            // txtIgnoreLimit
+            // 
+            this.txtIgnoreLimit.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "IgnoreLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtIgnoreLimit.Location = new System.Drawing.Point(341, 55);
+            this.txtIgnoreLimit.Margin = new System.Windows.Forms.Padding(4);
+            this.txtIgnoreLimit.Name = "txtIgnoreLimit";
+            this.txtIgnoreLimit.Size = new System.Drawing.Size(39, 22);
+            this.txtIgnoreLimit.TabIndex = 7;
+            this.txtIgnoreLimit.Text = global::ArchiveComparer2.Properties.Settings.Default.IgnoreLimit;
+            // 
+            // txtBlackList
+            // 
+            this.txtBlackList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "BlackListPattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtBlackList.Location = new System.Drawing.Point(131, 87);
+            this.txtBlackList.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBlackList.Name = "txtBlackList";
+            this.txtBlackList.Size = new System.Drawing.Size(329, 22);
+            this.txtBlackList.TabIndex = 5;
+            this.txtBlackList.Text = global::ArchiveComparer2.Properties.Settings.Default.BlackListPattern;
+            // 
+            // txtFilePattern
+            // 
+            this.txtFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtFilePattern.Location = new System.Drawing.Point(96, 23);
+            this.txtFilePattern.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFilePattern.Name = "txtFilePattern";
+            this.txtFilePattern.Size = new System.Drawing.Size(364, 22);
+            this.txtFilePattern.TabIndex = 1;
+            this.txtFilePattern.Text = global::ArchiveComparer2.Properties.Settings.Default.FilePattern;
+            // 
+            // txtLimitPercentage
+            // 
+            this.txtLimitPercentage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ArchiveComparer2.Properties.Settings.Default, "LimitPercentage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtLimitPercentage.Location = new System.Drawing.Point(131, 55);
+            this.txtLimitPercentage.Margin = new System.Windows.Forms.Padding(4);
+            this.txtLimitPercentage.Name = "txtLimitPercentage";
+            this.txtLimitPercentage.Size = new System.Drawing.Size(33, 22);
+            this.txtLimitPercentage.TabIndex = 3;
+            this.txtLimitPercentage.Text = global::ArchiveComparer2.Properties.Settings.Default.LimitPercentage;
+            // 
             // ArchiveComparer2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1079,7 +1103,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1061, 605);
             this.Name = "ArchiveComparer2Form";
             this.Text = "Archive Comparer ";
@@ -1190,6 +1214,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox chkIgnoreSmallFileSize;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtThreadCount;
+        private System.Windows.Forms.Label label11;
     }
 }
 

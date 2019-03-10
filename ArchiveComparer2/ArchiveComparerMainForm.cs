@@ -72,10 +72,13 @@ namespace ArchiveComparer2
 
         private void Notify(NotifyEventArgs e)
         {
-            if (this.InvokeRequired || txtLog.InvokeRequired || dgvResult.InvokeRequired || statusStrip1.InvokeRequired)
+            if ((this != null && InvokeRequired) ||
+                (txtLog != null && txtLog.InvokeRequired) ||
+                (dgvResult != null && dgvResult.InvokeRequired) ||
+                (statusStrip1 != null && statusStrip1.InvokeRequired))
             {
                 NotifyCallback d = new NotifyCallback(Notify);
-                this.Invoke(d, e);
+                this.BeginInvoke(d, e);
             }
             else
             {
@@ -115,7 +118,8 @@ namespace ArchiveComparer2
                     btnSearch.Enabled = true;
                     btnStop.Enabled = false;
                     btnPause.Enabled = false;
-                    Fill(e.DupList);
+                    if (e.DupList != null)
+                        Fill(e.DupList);
                 }
 
                 if (chkLog.Checked)
@@ -405,7 +409,8 @@ namespace ArchiveComparer2
                 Priority = (ThreadPriority)cbxPriority.SelectedIndex,
                 PreventStanby = chkPreventStanby.Checked,
                 IgnoreSmallFile = chkIgnoreSmallFileSize.Checked,
-                SmallFileSizeLimit = ulong.Parse(txtSmallFileSizeLimit.Text)
+                SmallFileSizeLimit = ulong.Parse(txtSmallFileSizeLimit.Text),
+                TaskLimit = int.Parse(txtThreadCount.Text)
             };
             detector.SearchThreading(option);
             btnPause.Enabled = true;
@@ -442,6 +447,13 @@ namespace ArchiveComparer2
         private void btnSave_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.threadPriority = cbxPriority.SelectedIndex;
+
+            Int32.TryParse(txtThreadCount.Text, out int count);
+            if (count <= 0)
+            {
+                txtThreadCount.Text = "4";
+            }
+
             Settings.Default.Save();
         }
 
@@ -640,8 +652,7 @@ namespace ArchiveComparer2
 
         private void txtSmallFileSizeLimit_TextChanged(object sender, EventArgs e)
         {
-            ulong parsed;
-            bool result = ulong.TryParse(txtSmallFileSizeLimit.Text, out parsed);
+            bool result = ulong.TryParse(txtSmallFileSizeLimit.Text, out ulong parsed);
             if (!result)
             {
                 MessageBox.Show(String.Format("Invalid value for Small File Size Limit: {0}", txtSmallFileSizeLimit.Text, "Invalid Value"));

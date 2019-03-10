@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Runtime.InteropServices;
 
-
 namespace ArchiveComparer2.Library
 {
     public enum MatchType
@@ -39,7 +38,7 @@ namespace ArchiveComparer2.Library
         // Legacy flag, should not be used.
         // ES_USER_PRESENT = 0x00000004
     }
-    
+
     public class DuplicateArchiveInfo
     {
         public List<ArchiveFileInfoSmall> Items;
@@ -57,7 +56,9 @@ namespace ArchiveComparer2.Library
         public List<ArchiveFileInfoSmall> NoMatches;
         public List<ArchiveFileInfoSmall> Skipped;
 
-        public void SortItems(bool desc=true)
+        public bool IsRemoved = false;
+
+        public void SortItems(bool desc = true)
         {
             Items.Sort(new ArchiveFileInfoSmallCRCComparer());
             if (desc) Items.Reverse();
@@ -82,6 +83,7 @@ namespace ArchiveComparer2.Library
         }
 
         private string _crcString;
+
         public string ToCRCString()
         {
             if (String.IsNullOrEmpty(_crcString))
@@ -132,8 +134,9 @@ namespace ArchiveComparer2.Library
         public bool IgnoreSmallFile = false;
 
         public ulong SmallFileSizeLimit = 0;
-    }
 
+        public int TaskLimit = 4;
+    }
 
     public class ArchiveFileInfoSmallCRCComparer : IComparer<ArchiveFileInfoSmall>
     {
@@ -183,7 +186,7 @@ namespace ArchiveComparer2.Library
             if (result == 0) result = CompareFileSize(x, y);
             return result;
         }
-        
+
         private int CompareItemCount(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
         {
             if (x.Items.Count == y.Items.Count) return 0;
@@ -199,7 +202,6 @@ namespace ArchiveComparer2.Library
         }
     }
 
-    
     public class Util
     {
         /// <summary>
@@ -208,7 +210,7 @@ namespace ArchiveComparer2.Library
         /// <param name="esFlags"></param>
         /// <returns></returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
+        private static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
 
         public static void AllowStanby()
         {
@@ -254,11 +256,11 @@ namespace ArchiveComparer2.Library
                     }
 
                     ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
-                        {
-                            Crc = ConvertToHexString(af.Crc),
-                            Filename = af.FileName,
-                            Size = af.Size
-                        };
+                    {
+                        Crc = ConvertToHexString(af.Crc),
+                        Filename = af.FileName,
+                        Size = af.Size
+                    };
                     if (!String.IsNullOrWhiteSpace(option.BlacklistPattern) && re.IsMatch(af.FileName))
                     {
                         if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();

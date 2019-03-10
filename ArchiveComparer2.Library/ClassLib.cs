@@ -44,7 +44,7 @@ namespace ArchiveComparer2.Library
         public List<ArchiveFileInfoSmall> Items;
         public string Filename;
         public double Percentage;
-        public MatchType MatchType;
+        public MatchType MatchType = MatchType.ORIGINAL;
 
         public long ArchivedSize;
         public long RealSize;

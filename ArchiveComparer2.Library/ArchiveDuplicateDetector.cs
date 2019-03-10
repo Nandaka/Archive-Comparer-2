@@ -123,8 +123,8 @@ namespace ArchiveComparer2.Library
                     break;
 
                 //NotifyCaller(f.FullName, OperationStatus.CALCULATING_CRC, curr: i, total: fileList.Count);
-                string msg = String.Format("File {0} of {1}", i, fileList.Count);
-                NotifyCaller(msg, OperationStatus.CALCULATING_CRC, curr: i, total: fileList.Count);
+                //string msg = String.Format("File {0} of {1}", i, fileList.Count);
+                NotifyCaller("", OperationStatus.CALCULATING_CRC, curr: i, total: fileList.Count);
                 try
                 {
                     DuplicateArchiveInfo item = Util.GetArchiveInfo(f.FullName, option);
@@ -173,12 +173,13 @@ namespace ArchiveComparer2.Library
 
                 ++i;
                 DuplicateArchiveInfoList dup = new DuplicateArchiveInfoList();
-                DuplicateArchiveInfo temp = list[0];
+                DuplicateArchiveInfo original = list[0];
                 list.RemoveAt(0);
-                dup.Original = temp;
+                dup.Original = original;
 
-                string message = "Checking: " + temp.Filename + " ( Duplicate group found: " + i + " Remaining: " + list.Count + ")";
-                NotifyCaller(message, OperationStatus.BUILDING_DUPLICATE_LIST, curr: i, total: totalCount);
+                string message = "Checking: " + original.Filename + " ( Duplicate group found: " + i + " Remaining: " + list.Count + ")";
+                //NotifyCaller(message, OperationStatus.BUILDING_DUPLICATE_LIST, curr: i, total: totalCount);
+                NotifyCaller("", OperationStatus.BUILDING_DUPLICATE_LIST, curr: i, total: totalCount);
 
                 // parallel method
                 if (option.TaskLimit > 1)
@@ -194,18 +195,18 @@ namespace ArchiveComparer2.Library
                       DuplicateArchiveInfo curr = list[innerIdx];
                       if (curr.IsRemoved) return;
 
-                      if (Compare(ref temp, ref curr, option))
+                      if (Compare(ref original, ref curr, option))
                       {
                           if (dup.Duplicates == null) dup.Duplicates = new List<DuplicateArchiveInfo>();
-                          dup.Duplicates.Add(curr);
                           // remove from the source list.
-                          lock (curr)
-                          {
-                              //list.Remove(curr);
-                              curr.IsRemoved = true;
-                              //--totalCount;
-                              //--innerIdx;
-                          }
+                          //lock (list)
+                          //{
+                          //list.Remove(curr);
+                          curr.IsRemoved = true;
+                          //--totalCount;
+                          //--innerIdx;
+                          //}
+                          dup.Duplicates.Add(curr);
                       }
                   });
                 }
@@ -216,7 +217,7 @@ namespace ArchiveComparer2.Library
                     while (list.Count > index)
                     {
                         DuplicateArchiveInfo curr = list[index];
-                        if (Compare(ref temp, ref curr, option))
+                        if (Compare(ref original, ref curr, option))
                         {
                             if (dup.Duplicates == null) dup.Duplicates = new List<DuplicateArchiveInfo>();
                             dup.Duplicates.Add(curr);
@@ -230,8 +231,8 @@ namespace ArchiveComparer2.Library
                         }
                     }
                 }
-
-                dupList.Add(dup);
+                if (dup.Duplicates != null && dup.Duplicates.Count > 0)
+                    dupList.Add(dup);
             }
 
             foreach (DuplicateArchiveInfoList dup in dupList)
@@ -249,88 +250,95 @@ namespace ArchiveComparer2.Library
         /// <summary>
         /// Check if file is duplicated
         /// </summary>
-        /// <param name="Origin"></param>
-        /// <param name="Duplicate"></param>
+        /// <param name="original"></param>
+        /// <param name="duplicate"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        private bool Compare(ref DuplicateArchiveInfo Origin, ref DuplicateArchiveInfo Duplicate, DuplicateSearchOption option)
+        private bool Compare(ref DuplicateArchiveInfo original, ref DuplicateArchiveInfo duplicate, DuplicateSearchOption option)
         {
-            //NotifyCaller("Comparing: " + Origin.Filename + " to " + Duplicate.Filename, OperationStatus.COMPARING);
-
-            // if item count is equal, try to check from crc strings.
-            Origin.MatchType = MatchType.ORIGINAL;
-            Origin.Percentage = 0.0;
-            if (Origin.NoMatches != null) Origin.NoMatches.Clear();
-
-            if (Origin.Items.Count == Duplicate.Items.Count)
+            lock (original)
             {
-                Duplicate.MatchType = MatchType.EQUALCOUNT;
+                //NotifyCaller("Comparing: " + Origin.Filename + " to " + Duplicate.Filename, OperationStatus.COMPARING);
 
-                if (Origin.ToCRCString() == Duplicate.ToCRCString())
+                // if the match type already changed from original, skip it
+                // most likely already validated by other task
+                if (original.MatchType != MatchType.ORIGINAL)
+                    return false;
+
+                // if item count is equal, try to check from crc strings.
+
+                original.MatchType = MatchType.ORIGINAL;
+                original.Percentage = 0.0;
+                if (original.NoMatches != null) original.NoMatches.Clear();
+
+                if (original.Items.Count == duplicate.Items.Count)
                 {
-                    //NotifyCaller("CRC Strings are equal.", OperationStatus.COMPARING);
-                    Duplicate.Percentage = 100.0;
+                    if (original.ToCRCString() == duplicate.ToCRCString())
+                    {
+                        //NotifyCaller("CRC Strings are equal.", OperationStatus.COMPARING);
+                        duplicate.Percentage = 100.0;
+                        duplicate.MatchType = MatchType.EQUALCOUNT;
+                        return true;
+                    }
+                    else if (option.OnlyPerfectMatch)
+                    {
+                        return false;
+                    }
+                }
+
+                // Check each files in duplicate
+                int limitCount;
+
+                // if only have 'IgnoreLimit' files, then all must match
+                if (option.IgnoreLimit > duplicate.Items.Count) limitCount = 0;
+                else limitCount = duplicate.Items.Count - (duplicate.Items.Count * option.Limit / 100);
+
+                int skippedCount = 0;
+                int i = 0;
+                int j = 0;
+                while (i < original.Items.Count && j < duplicate.Items.Count && skippedCount <= limitCount)
+                {
+                    // compare the from the biggest crc.
+                    int result = string.Compare(original.Items[i].Crc, duplicate.Items[j].Crc, true, System.Globalization.CultureInfo.InvariantCulture);
+                    if (result == 0)
+                    {
+                        ++i; ++j;
+                    }
+                    else if (result > 0)
+                    {
+                        // Origin file skipped
+                        ++i;
+                    }
+                    else
+                    {
+                        // Duplicate file skipped, no match in Origin
+                        ++skippedCount;
+                        if (duplicate.NoMatches == null) duplicate.NoMatches = new List<ArchiveFileInfoSmall>();
+                        duplicate.NoMatches.Add(duplicate.Items[j]);
+                        ++j;
+                    }
+                }
+
+                if (j < duplicate.Items.Count)
+                {
+                    if (duplicate.NoMatches == null) duplicate.NoMatches = new List<ArchiveFileInfoSmall>();
+                    duplicate.NoMatches.AddRange(duplicate.Items.GetRange(j, duplicate.Items.Count - j));
+                    skippedCount = duplicate.NoMatches.Count;
+                }
+
+                double percent = (double)(duplicate.Items.Count - skippedCount) / duplicate.Items.Count * 100;
+                if (percent >= option.Limit && skippedCount < limitCount)
+                {
+                    //NotifyCaller("Match: " + percent + "%", OperationStatus.COMPARING);
+                    duplicate.Percentage = percent;
+                    duplicate.MatchType = MatchType.SUBSET;
                     return true;
                 }
-                else if (option.OnlyPerfectMatch)
-                {
-                    return false;
-                }
+
+                //NotifyCaller("Not Match", OperationStatus.COMPARING);
+                if (duplicate.NoMatches != null) duplicate.NoMatches.Clear();
+                return false;
             }
-
-            Duplicate.MatchType = MatchType.SUBSET;
-
-            // Check each files in duplicate
-            int limitCount;
-
-            // if only have 'IgnoreLimit' files, then all must match
-            if (option.IgnoreLimit > Duplicate.Items.Count) limitCount = 0;
-            else limitCount = Duplicate.Items.Count - (Duplicate.Items.Count * option.Limit / 100);
-
-            int skippedCount = 0;
-            int i = 0;
-            int j = 0;
-            while (i < Origin.Items.Count && j < Duplicate.Items.Count && skippedCount <= limitCount)
-            {
-                // compare the from the biggest crc.
-                int result = string.Compare(Origin.Items[i].Crc, Duplicate.Items[j].Crc, true, System.Globalization.CultureInfo.InvariantCulture);
-                if (result == 0)
-                {
-                    ++i; ++j;
-                }
-                else if (result > 0)
-                {
-                    // Origin file skipped
-                    ++i;
-                }
-                else
-                {
-                    // Duplicate file skipped, no match in Origin
-                    ++skippedCount;
-                    if (Duplicate.NoMatches == null) Duplicate.NoMatches = new List<ArchiveFileInfoSmall>();
-                    Duplicate.NoMatches.Add(Duplicate.Items[j]);
-                    ++j;
-                }
-            }
-
-            if (j < Duplicate.Items.Count)
-            {
-                if (Duplicate.NoMatches == null) Duplicate.NoMatches = new List<ArchiveFileInfoSmall>();
-                Duplicate.NoMatches.AddRange(Duplicate.Items.GetRange(j, Duplicate.Items.Count - j));
-                skippedCount = Duplicate.NoMatches.Count;
-            }
-
-            double percent = (double)(Duplicate.Items.Count - skippedCount) / Duplicate.Items.Count * 100;
-            if (percent >= option.Limit && skippedCount < limitCount)
-            {
-                //NotifyCaller("Match: " + percent + "%", OperationStatus.COMPARING);
-                Duplicate.Percentage = percent;
-                return true;
-            }
-
-            //NotifyCaller("Not Match", OperationStatus.COMPARING);
-            if (Duplicate.NoMatches != null) Duplicate.NoMatches.Clear();
-            return false;
         }
 
         /// <summary>

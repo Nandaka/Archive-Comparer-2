@@ -6,7 +6,7 @@ Features
 
 Requirement
 ===========
-- Microsoft .Net Framework 4
+- Microsoft .Net Framework 4.6.1
 - 7zip dll (7z.dll) v9.10 or newer (http://www.7-zip.org/, check your OS-bitness)
 - SevenZipSharp v0.63.3849.28440 or newer (http://sevenzipsharp.codeplex.com/)
 - log4net 1.2.11.0 or newer (http://logging.apache.org/log4net/)
@@ -34,6 +34,14 @@ Build Notes
 
 Changelog
 ===========
+- 20190310
+  - Update to .Net4.6.1
+  - Change build target to AnyCPU
+  - Update 7z.dll to 64bit
+  - Use Parallel.For when building duplicate list.
+  - Reduce some notification to ui due to Parallel.For
+  - Update logger config to use utf-8
+
 - 20130630
   - Add icon.
   - Add configuration update handler.

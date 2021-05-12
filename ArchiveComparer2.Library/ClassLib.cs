@@ -1,11 +1,10 @@
-﻿using System;
+﻿using SevenZip;
+using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
-
-using SevenZip;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Runtime.InteropServices;
 
 namespace ArchiveComparer2.Library
 {
@@ -150,6 +149,11 @@ namespace ArchiveComparer2.Library
     {
         public int Compare(DuplicateArchiveInfo x, DuplicateArchiveInfo y)
         {
+            // handle null object
+            if (x == null && y == null) return 0;
+            if (x == null) return 1;
+            if (y == null) return -1;
+
             int result = ComparePercentage(x, y);
             if (result == 0) result = CompareItemCount(x, y);
             if (result == 0) result = CompareFileSize(x, y);

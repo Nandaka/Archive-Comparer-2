@@ -357,11 +357,19 @@ namespace ArchiveComparer2.Library
                 else
                 {
                     dupList[index].Original.DupGroup = index;
-                    foreach (var dup in dupList[index].Duplicates)
+                    if (dupList[index] != null)
                     {
-                        dup.DupGroup = index;
+                        foreach (var dup in dupList[index].Duplicates)
+                        {
+                            dup.DupGroup = index;
+                        }
+                        ++index;
                     }
-                    ++index;
+                    else
+                    {
+                        NotifyCaller("Removing: " + dupList[index].Original.Filename, OperationStatus.FILTERING);
+                        dupList.RemoveAt(index);
+                    }
                 }
             }
             return dupList;

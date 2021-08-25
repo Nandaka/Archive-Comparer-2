@@ -82,7 +82,7 @@ namespace ArchiveComparer2.Library
             {
                 try
                 {
-                    NotifyCaller("Building file list: " + path, OperationStatus.BUILDING_FILE_LIST, curr: i, total: t);
+                    NotifyCaller($"Building file list: {path}", OperationStatus.BUILDING_FILE_LIST, curr: i, total: t);
                     DirectoryInfo dirList = new DirectoryInfo(path);
                     FileInfo[] tempList = dirList.GetFiles("*", SearchOption.AllDirectories);
 
@@ -96,11 +96,11 @@ namespace ArchiveComparer2.Library
                 }
                 catch (Exception ex)
                 {
-                    NotifyCaller(ex.Message + " (" + path + ")", OperationStatus.ERROR);
+                    NotifyCaller($"{ex.Message} for path: ({path})", OperationStatus.ERROR);
                 }
             }
 
-            NotifyCaller("Total File: " + fileList.Count, OperationStatus.BUILDING_FILE_LIST, total: fileList.Count);
+            NotifyCaller($"Total File: {fileList.Count}", OperationStatus.BUILDING_FILE_LIST, total: fileList.Count);
 
             return fileList;
         }
@@ -135,13 +135,13 @@ namespace ArchiveComparer2.Library
                 }
                 catch (Exception ex)
                 {
-                    string message = ex.Message + " (" + f.FullName + ")";
+                    string message = $"{ex.Message} for file: ({f.FullName})";
                     NotifyCaller(message, OperationStatus.ERROR);
                 }
                 ++i;
             }
 
-            NotifyCaller("Complete calculating CRC, total: " + list.Count, OperationStatus.CALCULATING_CRC, total: list.Count);
+            NotifyCaller($"Complete calculating CRC, total: {list.Count}", OperationStatus.CALCULATING_CRC, total: list.Count);
 
             return list;
         }
@@ -177,7 +177,7 @@ namespace ArchiveComparer2.Library
                 list.RemoveAt(0);
                 dup.Original = original;
 
-                string message = "Checking: " + original.Filename + " ( Duplicate group found: " + i + " Remaining: " + list.Count + ")";
+                string message = $"Checking: {original.Filename} (Duplicate group found: {i} Remaining: {list.Count})";
                 //NotifyCaller(message, OperationStatus.BUILDING_DUPLICATE_LIST, curr: i, total: totalCount);
                 NotifyCaller("", OperationStatus.BUILDING_DUPLICATE_LIST, curr: i, total: totalCount);
 
@@ -346,18 +346,18 @@ namespace ArchiveComparer2.Library
         private List<DuplicateArchiveInfoList> CleanUpDuplicate(List<DuplicateArchiveInfoList> dupList)
         {
             int index = 0;
-            while (index < dupList.Count)
+            while (dupList != null && index < dupList.Count)
             {
-                NotifyCaller(" Cleaning " + (index + 1) + " of " + dupList.Count, OperationStatus.FILTERING);
+                NotifyCaller($" Cleaning {(index + 1)} of {dupList.Count}", OperationStatus.FILTERING);
                 if (dupList[index].Duplicates == null)
                 {
-                    NotifyCaller("Removing: " + dupList[index].Original.Filename, OperationStatus.FILTERING);
+                    NotifyCaller($"Removing: {dupList[index].Original.Filename}", OperationStatus.FILTERING);
                     dupList.RemoveAt(index);
                 }
                 else
                 {
                     dupList[index].Original.DupGroup = index;
-                    if (dupList[index] != null)
+                    if (dupList[index] != null && dupList[index].Duplicates != null)
                     {
                         foreach (var dup in dupList[index].Duplicates)
                         {
@@ -367,7 +367,7 @@ namespace ArchiveComparer2.Library
                     }
                     else
                     {
-                        NotifyCaller("Removing: " + dupList[index].Original.Filename, OperationStatus.FILTERING);
+                        NotifyCaller($"Removing: {dupList[index].Original.Filename}", OperationStatus.FILTERING);
                         dupList.RemoveAt(index);
                     }
                 }
@@ -380,8 +380,8 @@ namespace ArchiveComparer2.Library
         public List<DuplicateArchiveInfoList> Search(DuplicateSearchOption option)
         {
             var start = DateTime.Now.Ticks;
-            NotifyCaller("Target Count: " + option.Paths.Count, OperationStatus.READY);
-            NotifyCaller("Thread Limit: " + option.TaskLimit, OperationStatus.READY);
+            NotifyCaller($"Target Count: {option.Paths.Count}", OperationStatus.READY);
+            NotifyCaller($"Thread Limit: {option.TaskLimit}", OperationStatus.READY);
 
             if (option.PreventStanby)
             {
@@ -394,8 +394,8 @@ namespace ArchiveComparer2.Library
             List<DuplicateArchiveInfoList> dupList = BuildDuplicateList(list, option);
             dupList = CleanUpDuplicate(dupList);
 
-            NotifyCaller("Completed in: " + new TimeSpan(DateTime.Now.Ticks - start), OperationStatus.COMPLETE);
-            NotifyCaller("Total: " + dupList.Count + " duplicate groups", OperationStatus.COMPLETE, dupList, total: dupList.Count);
+            NotifyCaller($"Completed in: {new TimeSpan(DateTime.Now.Ticks - start)}", OperationStatus.COMPLETE);
+            NotifyCaller($"Total: {dupList.Count} duplicate groups", OperationStatus.COMPLETE, dupList, total: dupList.Count);
             Util.AllowStanby();
 
             return dupList;

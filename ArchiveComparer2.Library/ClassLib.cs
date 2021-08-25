@@ -65,20 +65,14 @@ namespace ArchiveComparer2.Library
 
         public override string ToString()
         {
-            string str = Filename;
             if (MatchType != MatchType.ORIGINAL)
             {
-                str += ", " + MatchType.ToString() + ", FilesCount: " + Items.Count + ", Match: " + Percentage.ToString("0.00") + "%";
+                return $"{Filename}, { MatchType.ToString()}, FilesCount: {Items.Count}, Match: {Percentage.ToString("0.00")}%";
             }
             else
             {
-                str += ", Original";
+                return $"{Filename}, Original{(NoMatches != null ? ", NoMatchCount: " + NoMatches.Count : "")}";
             }
-            if (NoMatches != null)
-            {
-                str += ", NoMatchCount: " + NoMatches.Count;
-            }
-            return str;
         }
 
         private string _crcString;

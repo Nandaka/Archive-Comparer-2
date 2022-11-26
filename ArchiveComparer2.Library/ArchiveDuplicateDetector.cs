@@ -346,31 +346,40 @@ namespace ArchiveComparer2.Library
         private List<DuplicateArchiveInfoList> CleanUpDuplicate(List<DuplicateArchiveInfoList> dupList)
         {
             int index = 0;
-            while (dupList != null && index < dupList.Count)
+            try
             {
-                NotifyCaller($" Cleaning {(index + 1)} of {dupList.Count}", OperationStatus.FILTERING);
-                if (dupList[index].Duplicates == null)
+                while (dupList != null && index < dupList.Count)
                 {
-                    NotifyCaller($"Removing: {dupList[index].Original.Filename}", OperationStatus.FILTERING);
-                    dupList.RemoveAt(index);
-                }
-                else
-                {
-                    dupList[index].Original.DupGroup = index;
-                    if (dupList[index] != null && dupList[index].Duplicates != null)
-                    {
-                        foreach (var dup in dupList[index].Duplicates)
-                        {
-                            dup.DupGroup = index;
-                        }
-                        ++index;
-                    }
-                    else
+                    NotifyCaller($" Cleaning {(index + 1)} of {dupList.Count}", OperationStatus.FILTERING);
+                    if (dupList[index].Duplicates == null)
                     {
                         NotifyCaller($"Removing: {dupList[index].Original.Filename}", OperationStatus.FILTERING);
                         dupList.RemoveAt(index);
                     }
+                    else
+                    {
+                        dupList[index].Original.DupGroup = index;
+                        if (dupList[index] != null && dupList[index].Duplicates != null)
+                        {
+                            foreach (var dup in dupList[index].Duplicates)
+                            {
+                                dup.DupGroup = index;
+                            }
+                            ++index;
+                        }
+                        else
+                        {
+                            NotifyCaller($"Removing: {dupList[index].Original.Filename}", OperationStatus.FILTERING);
+                            dupList.RemoveAt(index);
+                        }
+                    }
                 }
+            }
+            catch (NullReferenceException ex)
+            {
+                NotifyCaller(ex.Message, OperationStatus.ERROR);
+                NotifyCaller(ex.StackTrace, OperationStatus.ERROR);
+                dupList = new List<DuplicateArchiveInfoList>();
             }
             return dupList;
         }

@@ -413,7 +413,8 @@ namespace ArchiveComparer2
                 IgnoreSmallFile = chkIgnoreSmallFileSize.Checked,
                 SmallFileSizeLimit = ulong.Parse(txtSmallFileSizeLimit.Text),
                 TaskLimit = int.Parse(txtThreadCount.Text),
-                FileMode = chkFileMode.Checked
+                FileMode = chkFileMode.Checked,
+                FileModeMd5 = chkFileModeMd5.Checked
             };
             detector.SearchThreading(option);
             btnPause.Enabled = true;

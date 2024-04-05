@@ -286,5 +286,17 @@ namespace ArchiveComparer2.Properties {
                 this["FileMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FileModeMd5 {
+            get {
+                return ((bool)(this["FileModeMd5"]));
+            }
+            set {
+                this["FileModeMd5"] = value;
+            }
+        }
     }
 }

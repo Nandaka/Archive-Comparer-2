@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -133,6 +134,7 @@ namespace ArchiveComparer2.Library
         public int TaskLimit = 4;
 
         public bool FileMode = false;
+        public bool FileModeMd5 = true;
     }
 
     public class ArchiveFileInfoSmallCRCComparer : IComparer<ArchiveFileInfoSmall>
@@ -309,24 +311,48 @@ namespace ArchiveComparer2.Library
             info.RealSize = f.Length;
             info.ArchivedSize = f.Length;
 
-            // calculate crc
-            using (FileStream file = new FileStream(filename, FileMode.Open)) {
-                using (CrcStream stream = new CrcStream(file))
+            if (option.FileModeMd5)
+            {
+                using (var md5 = MD5.Create())
                 {
-                    StreamReader reader = new StreamReader(stream);
-                    string text = reader.ReadToEnd();
-                    var crc = stream.ReadCrc.ToString("X8");
-
-
-                    ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                    using (var stream = File.OpenRead(filename))
                     {
-                        Crc = crc,
-                        Filename = filename,
-                        Size = (ulong)f.Length,
-                        Remark = "FileMode"
-                    };
+                        var hash = md5.ComputeHash(stream);
+                        var crc = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
 
-                    info.Items.Add(item);
+                        ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                        {
+                            Crc = crc,
+                            Filename = filename,
+                            Size = (ulong)f.Length,
+                            Remark = "FileModeMD5"
+                        };
+
+                        info.Items.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                // calculate crc32
+                using (FileStream file = new FileStream(filename, FileMode.Open))
+                {
+                    using (CrcStream stream = new CrcStream(file))
+                    {
+                        StreamReader reader = new StreamReader(stream);
+                        string text = reader.ReadToEnd();
+                        var crc = stream.ReadCrc.ToString("X8");
+
+                        ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                        {
+                            Crc = crc,
+                            Filename = filename,
+                            Size = (ulong)f.Length,
+                            Remark = "FileModeCRC32"
+                        };
+
+                        info.Items.Add(item);
+                    }
                 }
             }
         }

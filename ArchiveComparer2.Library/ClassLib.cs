@@ -1,6 +1,8 @@
-﻿using SevenZip;
+﻿using CodeProject.ReiMiyasaka;
+using SevenZip;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -129,6 +131,8 @@ namespace ArchiveComparer2.Library
         public ulong SmallFileSizeLimit = 0;
 
         public int TaskLimit = 4;
+
+        public bool FileMode = false;
     }
 
     public class ArchiveFileInfoSmallCRCComparer : IComparer<ArchiveFileInfoSmall>
@@ -235,58 +239,96 @@ namespace ArchiveComparer2.Library
         {
             Regex re = new Regex(option.BlacklistPattern, option.BlacklistCaseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None);
             DuplicateArchiveInfo info = new DuplicateArchiveInfo();
-            SevenZipExtractor.SetLibraryPath(option.SevenZipPath);
-            using (SevenZipExtractor extractor = new SevenZipExtractor(filename))
+
+            if (option.FileMode) {
+                GetFileInfo(filename, option, info);
+            }
+            else
             {
-                info.Filename = filename;
-                info.Items = new List<ArchiveFileInfoSmall>();
-                info.RealSize = extractor.UnpackedSize;
-                info.ArchivedSize = extractor.PackedSize;
-
-                ulong countedSize = 0;
-
-                foreach (ArchiveFileInfo af in extractor.ArchiveFileData)
+                SevenZipExtractor.SetLibraryPath(option.SevenZipPath);
+                using (SevenZipExtractor extractor = new SevenZipExtractor(filename))
                 {
-                    if (af.IsDirectory)
+                    info.Filename = filename;
+                    info.Items = new List<ArchiveFileInfoSmall>();
+                    info.RealSize = extractor.UnpackedSize;
+                    info.ArchivedSize = extractor.PackedSize;
+
+                    ulong countedSize = 0;
+
+                    foreach (ArchiveFileInfo af in extractor.ArchiveFileData)
                     {
-                        info.DirectoryCount++;
-                        continue;
+                        if (af.IsDirectory)
+                        {
+                            info.DirectoryCount++;
+                            continue;
+                        }
+
+                        ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                        {
+                            Crc = ConvertToHexString(af.Crc),
+                            Filename = af.FileName,
+                            Size = af.Size
+                        };
+                        if (!String.IsNullOrWhiteSpace(option.BlacklistPattern) && re.IsMatch(af.FileName))
+                        {
+                            if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
+                            item.Remark = "Blacklisted";
+                            info.Skipped.Add(item);
+                        }
+                        else if (option.IgnoreSmallFile && item.Size < option.SmallFileSizeLimit)
+                        {
+                            if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
+                            item.Remark = "SmallFileSizeLimit";
+                            info.Skipped.Add(item);
+                        }
+                        else
+                        {
+                            item.Remark = "";
+                            info.Items.Add(item);
+                        }
+                        countedSize += af.Size;
                     }
+
+                    if (info.RealSize == -1)
+                    {
+                        info.RealSize = Convert.ToInt64(countedSize);
+                    }
+
+                    info.SortItems();
+                }
+            }
+            return info;
+        }
+
+        private static void GetFileInfo(string filename, DuplicateSearchOption option, DuplicateArchiveInfo info)
+        {
+            info.Filename = filename;
+            info.Items = new List<ArchiveFileInfoSmall>();
+
+            FileInfo f = new FileInfo(filename);
+            info.RealSize = f.Length;
+            info.ArchivedSize = f.Length;
+
+            // calculate crc
+            using (FileStream file = new FileStream(filename, FileMode.Open)) {
+                using (CrcStream stream = new CrcStream(file))
+                {
+                    StreamReader reader = new StreamReader(stream);
+                    string text = reader.ReadToEnd();
+                    var crc = stream.ReadCrc.ToString("X8");
+
 
                     ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
                     {
-                        Crc = ConvertToHexString(af.Crc),
-                        Filename = af.FileName,
-                        Size = af.Size
+                        Crc = crc,
+                        Filename = filename,
+                        Size = (ulong)f.Length,
+                        Remark = "FileMode"
                     };
-                    if (!String.IsNullOrWhiteSpace(option.BlacklistPattern) && re.IsMatch(af.FileName))
-                    {
-                        if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
-                        item.Remark = "Blacklisted";
-                        info.Skipped.Add(item);
-                    }
-                    else if (option.IgnoreSmallFile && item.Size < option.SmallFileSizeLimit)
-                    {
-                        if (info.Skipped == null) info.Skipped = new List<ArchiveFileInfoSmall>();
-                        item.Remark = "SmallFileSizeLimit";
-                        info.Skipped.Add(item);
-                    }
-                    else
-                    {
-                        item.Remark = "";
-                        info.Items.Add(item);
-                    }
-                    countedSize += af.Size;
-                }
 
-                if (info.RealSize == -1)
-                {
-                    info.RealSize = Convert.ToInt64(countedSize);
+                    info.Items.Add(item);
                 }
-
-                info.SortItems();
             }
-            return info;
         }
 
         public static string ConvertToHexString(uint value)

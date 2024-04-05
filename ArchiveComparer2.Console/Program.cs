@@ -22,7 +22,7 @@ namespace ArchiveComparer2.Console
 
             List<string> paths = new List<string>();
             paths.Add(@"D:\New Folder");
-            DuplicateSearchOption option = new DuplicateSearchOption() { Paths = paths };
+            var option = new DuplicateSearchOption() { Paths = paths };
             List<DuplicateArchiveInfoList> list = worker.Search(option);
             
             foreach (var item in list)

@@ -86,12 +86,19 @@ namespace ArchiveComparer2.Library
                     DirectoryInfo dirList = new DirectoryInfo(path);
                     FileInfo[] tempList = dirList.GetFiles("*", SearchOption.AllDirectories);
 
-                    // filter based on filepattern
-                    var filteredList = from f in tempList
-                                       where re.IsMatch(f.Name)
-                                       select f;
+                    if (option.FileMode)
+                    {
+                        fileList.AddRange(tempList);
+                    }
+                    else
+                    {
+                        // filter based on filepattern
+                        var filteredList = from f in tempList
+                                           where re.IsMatch(f.Name)
+                                           select f;
 
-                    fileList.AddRange(filteredList);
+                        fileList.AddRange(filteredList);
+                    }
                     ++i;
                 }
                 catch (Exception ex)

@@ -24,6 +24,8 @@ namespace ArchiveComparer2
         {
             InitializeComponent();
 
+            txtBlackList.WordWrap = true;
+
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             this.Text += fvi.ProductVersion;
@@ -395,7 +397,7 @@ namespace ArchiveComparer2
         private void btnSearch_Click(object sender, EventArgs e)
         {
             dgvResult.Rows.Clear();
-            DuplicateSearchOption option = new DuplicateSearchOption()
+            var option = new DuplicateSearchOption()
             {
                 Paths = GetPathList(),
                 Limit = Convert.ToInt32(txtLimitPercentage.Text),
@@ -410,7 +412,8 @@ namespace ArchiveComparer2
                 PreventStanby = chkPreventStanby.Checked,
                 IgnoreSmallFile = chkIgnoreSmallFileSize.Checked,
                 SmallFileSizeLimit = ulong.Parse(txtSmallFileSizeLimit.Text),
-                TaskLimit = int.Parse(txtThreadCount.Text)
+                TaskLimit = int.Parse(txtThreadCount.Text),
+                FileMode = chkFileMode.Checked
             };
             detector.SearchThreading(option);
             btnPause.Enabled = true;

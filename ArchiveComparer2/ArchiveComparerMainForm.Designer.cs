@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchiveComparer2Form));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -44,19 +45,7 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.dgvResult = new System.Windows.Forms.DataGridView();
             this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFilename = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -84,18 +73,6 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pgCount = new System.Windows.Forms.ToolStripProgressBar();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkCCRC = new System.Windows.Forms.CheckBox();
             this.chkFIL = new System.Windows.Forms.CheckBox();
             this.chkBDL = new System.Windows.Forms.CheckBox();
@@ -117,6 +94,32 @@
             this.txtBlackList = new System.Windows.Forms.TextBox();
             this.txtFilePattern = new System.Windows.Forms.TextBox();
             this.txtLimitPercentage = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsSelectDupInDir = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDupGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPercentage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMatchType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colItemsCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNoMatchesCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSkipped = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colArchivedSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFileSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCrc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -126,6 +129,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -339,6 +343,7 @@
             this.dgvResult.Size = new System.Drawing.Size(1299, 459);
             this.dgvResult.TabIndex = 10;
             this.dgvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellContentClick);
+            this.dgvResult.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvResult_MouseClick);
             // 
             // colCheck
             // 
@@ -349,17 +354,6 @@
             this.colCheck.Name = "colCheck";
             this.colCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colCheck.Width = 20;
-            // 
-            // colDupGroup
-            // 
-            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.colDupGroup.FillWeight = 40F;
-            this.colDupGroup.Frozen = true;
-            this.colDupGroup.HeaderText = "Dup. Group";
-            this.colDupGroup.MinimumWidth = 40;
-            this.colDupGroup.Name = "colDupGroup";
-            this.colDupGroup.ReadOnly = true;
-            this.colDupGroup.Width = 40;
             // 
             // colFilename
             // 
@@ -373,105 +367,6 @@
             this.colFilename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colFilename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.colFilename.Width = 300;
-            // 
-            // colPercentage
-            // 
-            this.colPercentage.FillWeight = 55F;
-            this.colPercentage.Frozen = true;
-            this.colPercentage.HeaderText = "Match %";
-            this.colPercentage.MinimumWidth = 8;
-            this.colPercentage.Name = "colPercentage";
-            this.colPercentage.ReadOnly = true;
-            this.colPercentage.Width = 55;
-            // 
-            // colMatchType
-            // 
-            this.colMatchType.Frozen = true;
-            this.colMatchType.HeaderText = "Match Type";
-            this.colMatchType.MinimumWidth = 8;
-            this.colMatchType.Name = "colMatchType";
-            this.colMatchType.ReadOnly = true;
-            this.colMatchType.Width = 150;
-            // 
-            // colItemsCount
-            // 
-            this.colItemsCount.FillWeight = 50F;
-            this.colItemsCount.HeaderText = "Items Count";
-            this.colItemsCount.MinimumWidth = 8;
-            this.colItemsCount.Name = "colItemsCount";
-            this.colItemsCount.ReadOnly = true;
-            this.colItemsCount.Width = 50;
-            // 
-            // colNoMatchesCount
-            // 
-            this.colNoMatchesCount.FillWeight = 50F;
-            this.colNoMatchesCount.HeaderText = "No Match";
-            this.colNoMatchesCount.MinimumWidth = 8;
-            this.colNoMatchesCount.Name = "colNoMatchesCount";
-            this.colNoMatchesCount.ReadOnly = true;
-            this.colNoMatchesCount.Width = 50;
-            // 
-            // colSkipped
-            // 
-            this.colSkipped.FillWeight = 50F;
-            this.colSkipped.HeaderText = "Skipped";
-            this.colSkipped.MinimumWidth = 8;
-            this.colSkipped.Name = "colSkipped";
-            this.colSkipped.ReadOnly = true;
-            this.colSkipped.Width = 50;
-            // 
-            // colSize
-            // 
-            this.colSize.FillWeight = 75F;
-            this.colSize.HeaderText = "Real Size";
-            this.colSize.MinimumWidth = 8;
-            this.colSize.Name = "colSize";
-            this.colSize.ReadOnly = true;
-            this.colSize.Width = 75;
-            // 
-            // colArchivedSize
-            // 
-            this.colArchivedSize.FillWeight = 75F;
-            this.colArchivedSize.HeaderText = "Archived Size";
-            this.colArchivedSize.MinimumWidth = 8;
-            this.colArchivedSize.Name = "colArchivedSize";
-            this.colArchivedSize.ReadOnly = true;
-            this.colArchivedSize.Width = 75;
-            // 
-            // colFileSize
-            // 
-            this.colFileSize.FillWeight = 75F;
-            this.colFileSize.HeaderText = "File Size";
-            this.colFileSize.MinimumWidth = 8;
-            this.colFileSize.Name = "colFileSize";
-            this.colFileSize.ReadOnly = true;
-            this.colFileSize.Width = 75;
-            // 
-            // colCreationTime
-            // 
-            this.colCreationTime.FillWeight = 130F;
-            this.colCreationTime.HeaderText = "Creation Time";
-            this.colCreationTime.MinimumWidth = 8;
-            this.colCreationTime.Name = "colCreationTime";
-            this.colCreationTime.ReadOnly = true;
-            this.colCreationTime.Width = 130;
-            // 
-            // colCrc
-            // 
-            this.colCrc.FillWeight = 150F;
-            this.colCrc.HeaderText = "CRC";
-            this.colCrc.MinimumWidth = 8;
-            this.colCrc.Name = "colCrc";
-            this.colCrc.ReadOnly = true;
-            this.colCrc.Width = 150;
-            // 
-            // colStatus
-            // 
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.MinimumWidth = 8;
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.Width = 150;
             // 
             // btnSearch
             // 
@@ -791,116 +686,6 @@
             this.pgCount.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pgCount.Visible = false;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.dataGridViewTextBoxColumn1.FillWeight = 40F;
-            this.dataGridViewTextBoxColumn1.Frozen = true;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Dup. Group";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 40;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 55F;
-            this.dataGridViewTextBoxColumn2.Frozen = true;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Match %";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 55;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.Frozen = true;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Match Type";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Items Count";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "No Match";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Skipped";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.FillWeight = 75F;
-            this.dataGridViewTextBoxColumn7.HeaderText = "Real Size";
-            this.dataGridViewTextBoxColumn7.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.FillWeight = 75F;
-            this.dataGridViewTextBoxColumn8.HeaderText = "Archived Size";
-            this.dataGridViewTextBoxColumn8.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.FillWeight = 75F;
-            this.dataGridViewTextBoxColumn9.HeaderText = "File Size";
-            this.dataGridViewTextBoxColumn9.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.FillWeight = 130F;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Creation Time";
-            this.dataGridViewTextBoxColumn10.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 130;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.FillWeight = 150F;
-            this.dataGridViewTextBoxColumn11.HeaderText = "CRC";
-            this.dataGridViewTextBoxColumn11.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Status";
-            this.dataGridViewTextBoxColumn12.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Width = 150;
-            // 
             // chkCCRC
             // 
             this.chkCCRC.AutoSize = true;
@@ -1156,6 +941,241 @@
             this.txtLimitPercentage.TabIndex = 3;
             this.txtLimitPercentage.Text = global::ArchiveComparer2.Properties.Settings.Default.LimitPercentage;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsSelectDupInDir});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(408, 69);
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
+            // 
+            // tsSelectDupInDir
+            // 
+            this.tsSelectDupInDir.Name = "tsSelectDupInDir";
+            this.tsSelectDupInDir.Size = new System.Drawing.Size(407, 32);
+            this.tsSelectDupInDir.Text = "Select duplicates in directory and subdirs";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn1.FillWeight = 40F;
+            this.dataGridViewTextBoxColumn1.Frozen = true;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Dup. Group";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 40;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 55F;
+            this.dataGridViewTextBoxColumn2.Frozen = true;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Match %";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 55;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.Frozen = true;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Match Type";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Items Count";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "No Match";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.FillWeight = 50F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Skipped";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.FillWeight = 75F;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Real Size";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.FillWeight = 75F;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Archived Size";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.FillWeight = 75F;
+            this.dataGridViewTextBoxColumn9.HeaderText = "File Size";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.FillWeight = 130F;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Creation Time";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 130;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.FillWeight = 150F;
+            this.dataGridViewTextBoxColumn11.HeaderText = "CRC";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Status";
+            this.dataGridViewTextBoxColumn12.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.Width = 150;
+            // 
+            // colDupGroup
+            // 
+            this.colDupGroup.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.colDupGroup.FillWeight = 40F;
+            this.colDupGroup.Frozen = true;
+            this.colDupGroup.HeaderText = "Dup. Group";
+            this.colDupGroup.MinimumWidth = 40;
+            this.colDupGroup.Name = "colDupGroup";
+            this.colDupGroup.ReadOnly = true;
+            this.colDupGroup.Width = 40;
+            // 
+            // colPercentage
+            // 
+            this.colPercentage.FillWeight = 55F;
+            this.colPercentage.Frozen = true;
+            this.colPercentage.HeaderText = "Match %";
+            this.colPercentage.MinimumWidth = 8;
+            this.colPercentage.Name = "colPercentage";
+            this.colPercentage.ReadOnly = true;
+            this.colPercentage.Width = 55;
+            // 
+            // colMatchType
+            // 
+            this.colMatchType.Frozen = true;
+            this.colMatchType.HeaderText = "Match Type";
+            this.colMatchType.MinimumWidth = 8;
+            this.colMatchType.Name = "colMatchType";
+            this.colMatchType.ReadOnly = true;
+            this.colMatchType.Width = 150;
+            // 
+            // colItemsCount
+            // 
+            this.colItemsCount.FillWeight = 50F;
+            this.colItemsCount.HeaderText = "Items Count";
+            this.colItemsCount.MinimumWidth = 8;
+            this.colItemsCount.Name = "colItemsCount";
+            this.colItemsCount.ReadOnly = true;
+            this.colItemsCount.Width = 50;
+            // 
+            // colNoMatchesCount
+            // 
+            this.colNoMatchesCount.FillWeight = 50F;
+            this.colNoMatchesCount.HeaderText = "No Match";
+            this.colNoMatchesCount.MinimumWidth = 8;
+            this.colNoMatchesCount.Name = "colNoMatchesCount";
+            this.colNoMatchesCount.ReadOnly = true;
+            this.colNoMatchesCount.Width = 50;
+            // 
+            // colSkipped
+            // 
+            this.colSkipped.FillWeight = 50F;
+            this.colSkipped.HeaderText = "Skipped";
+            this.colSkipped.MinimumWidth = 8;
+            this.colSkipped.Name = "colSkipped";
+            this.colSkipped.ReadOnly = true;
+            this.colSkipped.Width = 50;
+            // 
+            // colSize
+            // 
+            this.colSize.FillWeight = 75F;
+            this.colSize.HeaderText = "Real Size";
+            this.colSize.MinimumWidth = 8;
+            this.colSize.Name = "colSize";
+            this.colSize.ReadOnly = true;
+            this.colSize.Width = 75;
+            // 
+            // colArchivedSize
+            // 
+            this.colArchivedSize.FillWeight = 75F;
+            this.colArchivedSize.HeaderText = "Archived Size";
+            this.colArchivedSize.MinimumWidth = 8;
+            this.colArchivedSize.Name = "colArchivedSize";
+            this.colArchivedSize.ReadOnly = true;
+            this.colArchivedSize.Width = 75;
+            // 
+            // colFileSize
+            // 
+            this.colFileSize.FillWeight = 75F;
+            this.colFileSize.HeaderText = "File Size";
+            this.colFileSize.MinimumWidth = 8;
+            this.colFileSize.Name = "colFileSize";
+            this.colFileSize.ReadOnly = true;
+            this.colFileSize.Width = 75;
+            // 
+            // colCreationTime
+            // 
+            this.colCreationTime.FillWeight = 130F;
+            this.colCreationTime.HeaderText = "Creation Time";
+            this.colCreationTime.MinimumWidth = 8;
+            this.colCreationTime.Name = "colCreationTime";
+            this.colCreationTime.ReadOnly = true;
+            this.colCreationTime.Width = 130;
+            // 
+            // colCrc
+            // 
+            this.colCrc.FillWeight = 150F;
+            this.colCrc.HeaderText = "CRC";
+            this.colCrc.MinimumWidth = 8;
+            this.colCrc.Name = "colCrc";
+            this.colCrc.ReadOnly = true;
+            this.colCrc.Width = 150;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.MinimumWidth = 8;
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.Width = 150;
+            // 
             // ArchiveComparer2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1184,6 +1204,7 @@
             this.groupBox1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1279,6 +1300,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox chkFileMode;
         private System.Windows.Forms.CheckBox chkFileModeMd5;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsSelectDupInDir;
     }
 }
 

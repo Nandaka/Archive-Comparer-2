@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -661,6 +662,74 @@ namespace ArchiveComparer2
             {
                 MessageBox.Show(String.Format("Invalid value for Small File Size Limit: {0}", txtSmallFileSizeLimit.Text, "Invalid Value"));
                 txtSmallFileSizeLimit.Text = "0";
+            }
+        }
+
+        private void dgvResult_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && dgvResult.SelectedRows.Count > 0 )
+            {
+                if (dgvResult.SelectedRows[0].DefaultCellStyle.BackColor == Color.Black) return;
+                contextMenuStrip1.Show(dgvResult, new Point(e.X, e.Y));
+                
+            }
+        }
+
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            contextMenuStrip1.Close();
+            if (e.ClickedItem == tsSelectDupInDir)
+            {
+                var filename = dgvResult.SelectedRows[0].Cells["colFilename"].Value.ToString();
+                var dir = new FileInfo(filename).DirectoryName;
+                //MessageBox.Show($"Row = {dgvResult.SelectedRows[0].ToString()} ==> {dir}");
+                var dupeGroup = new List<DataGridViewRow>();
+
+                for (int i =0; i < dgvResult.Rows.Count; i++ )
+                {
+                    DataGridViewRow row = dgvResult.Rows[i];
+                    var matchType = row.Cells["colMatchType"].Value.ToString();
+
+                    if (matchType == "SEPARATOR")
+                    {
+                        var count = 0;
+                        foreach (DataGridViewRow dupeRow in dupeGroup)
+                        {
+                            if (dupeRow.Cells["colFilename"].Value.ToString().StartsWith(dir))
+                            {
+                                DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)dupeRow.Cells["colCheck"];
+                                cell.Value = true;
+                                count++;
+                            }
+                        }
+                        if (count > 0 && count == dupeGroup.Count)
+                        {
+                            dupeGroup[0].Cells["colCheck"].Value = false;
+                        }
+
+                        dupeGroup = new List<DataGridViewRow>();
+                        continue;
+                    }
+                    dupeGroup.Add(row);
+                }
+
+                {
+                    var count = 0;
+                    foreach (DataGridViewRow dupeRow in dupeGroup)
+                    {
+                        if (dupeRow.Cells["colFilename"].Value.ToString().StartsWith(dir))
+                        {
+                            DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)dupeRow.Cells["colCheck"];
+                            cell.Value = true;
+                            count++;
+                        }
+                    }
+                    if (count == dupeGroup.Count)
+                    {
+                        dupeGroup[0].Cells["colCheck"].Value = false;
+                    }
+                }
+
             }
         }
     }

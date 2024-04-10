@@ -682,7 +682,6 @@ namespace ArchiveComparer2
             {
                 var filename = dgvResult.SelectedRows[0].Cells["colFilename"].Value.ToString();
                 var dir = new FileInfo(filename).DirectoryName;
-                //MessageBox.Show($"Row = {dgvResult.SelectedRows[0].ToString()} ==> {dir}");
                 var dupeGroup = new List<DataGridViewRow>();
 
                 for (int i =0; i < dgvResult.Rows.Count; i++ )
@@ -692,47 +691,135 @@ namespace ArchiveComparer2
 
                     if (matchType == "SEPARATOR")
                     {
-                        var count = 0;
-                        foreach (DataGridViewRow dupeRow in dupeGroup)
-                        {
-                            if (dupeRow.Cells["colFilename"].Value.ToString().StartsWith(dir))
-                            {
-                                DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)dupeRow.Cells["colCheck"];
-                                cell.Value = true;
-                                count++;
-                            }
-                        }
-                        if (count > 0 && count == dupeGroup.Count)
-                        {
-                            dupeGroup[0].Cells["colCheck"].Value = false;
-                        }
+                        // check prev group
+                        GetSubDirs(dupeGroup, dir);
 
                         dupeGroup = new List<DataGridViewRow>();
                         continue;
                     }
-                    dupeGroup.Add(row);
+                    if (matchType == "ORIGINAL" || matchType == "EQUALCOUNT")
+                    {
+                        dupeGroup.Add(row);
+                    }
                 }
 
+                // check the last group
+                GetSubDirs(dupeGroup, dir);
+            }
+            else if (e.ClickedItem == tsKeepOldest)
+            {
+                var dupeGroup = new List<DataGridViewRow>();
+                for (int i = 0; i < dgvResult.Rows.Count; i++)
                 {
-                    var count = 0;
-                    foreach (DataGridViewRow dupeRow in dupeGroup)
+                    DataGridViewRow row = dgvResult.Rows[i];
+                    var matchType = row.Cells["colMatchType"].Value.ToString();
+
+                    if (matchType == "SEPARATOR")
                     {
-                        if (dupeRow.Cells["colFilename"].Value.ToString().StartsWith(dir))
-                        {
-                            DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)dupeRow.Cells["colCheck"];
-                            cell.Value = true;
-                            count++;
-                        }
+                        // process previous dupe groups
+                        KeepOldest(dupeGroup);
+                        // reset for new group
+                        dupeGroup = new List<DataGridViewRow>();
+                        continue;
                     }
-                    if (count == dupeGroup.Count)
+                    if (matchType == "ORIGINAL" || matchType == "EQUALCOUNT")
                     {
-                        dupeGroup[0].Cells["colCheck"].Value = false;
+                        dupeGroup.Add(row);
                     }
                 }
+                // check the last group
+                KeepOldest(dupeGroup);
+            }
+            else if (e.ClickedItem == tsKeepNewest)
+            {
+                var dupeGroup = new List<DataGridViewRow>();
+                for (int i = 0; i < dgvResult.Rows.Count; i++)
+                {
+                    DataGridViewRow row = dgvResult.Rows[i];
+                    var matchType = row.Cells["colMatchType"].Value.ToString();
 
+                    if (matchType == "SEPARATOR")
+                    {
+                        // process previous dupe groups
+                        KeepNewest(dupeGroup);
+
+                        // reset for new group
+                        dupeGroup = new List<DataGridViewRow>();
+                        continue;
+                    }
+                    if (matchType == "ORIGINAL" || matchType == "EQUALCOUNT")
+                    {
+                        dupeGroup.Add(row);
+                    }
+                }
+                // check the last group
+                KeepNewest(dupeGroup);
+            }
+        }
+
+        private void GetSubDirs(List<DataGridViewRow> dupeGroup, string dir)
+        {
+            var count = 0;
+            foreach (DataGridViewRow dupeRow in dupeGroup)
+            {
+                if (dupeRow.Cells["colFilename"].Value.ToString().StartsWith(dir))
+                {
+                    DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)dupeRow.Cells["colCheck"];
+                    cell.Value = true;
+                    count++;
+                }
+            }
+            if (count > 0 && count == dupeGroup.Count)
+            {
+                dupeGroup[0].Cells["colCheck"].Value = false;
+            }
+        }
+
+        private void KeepOldest(List<DataGridViewRow> dupeGroup)
+        {
+            var oldest = DateTime.MaxValue;
+            var oldestIdx = -1;
+            foreach (DataGridViewRow dupeRow in dupeGroup)
+            {
+                dupeRow.Cells["colCheck"].Value = true;
+                var creationDate = DateTime.Parse(dupeRow.Cells["colCreationTime"].Value.ToString());
+                if (creationDate < oldest)
+                {
+                    oldest = creationDate;
+                    oldestIdx = dupeGroup.IndexOf(dupeRow);
+                }
+            }
+            if (oldestIdx > -1) dupeGroup[oldestIdx].Cells["colCheck"].Value = false;
+        }
+
+        private void KeepNewest(List<DataGridViewRow> dupeGroup)
+        {
+            var newest = DateTime.MinValue;
+            var newestIdx = -1;
+            foreach (DataGridViewRow dupeRow in dupeGroup)
+            {
+                dupeRow.Cells["colCheck"].Value = true;
+                var creationDate = DateTime.Parse(dupeRow.Cells["colCreationTime"].Value.ToString());
+                if (creationDate > newest)
+                {
+                    newest = creationDate;
+                    newestIdx = dupeGroup.IndexOf(dupeRow);
+                }
+            }
+            if (newestIdx > -1) dupeGroup[newestIdx].Cells["colCheck"].Value = false;
+
+        }
+
+        private void btnDeselectAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dgvResult.Rows.Count; i++)
+            {
+                DataGridViewRow row = dgvResult.Rows[i];
+                row.Cells["colCheck"].Value = false;
             }
         }
     }
+
 
     public enum DeleteMode
     {

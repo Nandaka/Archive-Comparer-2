@@ -1,6 +1,7 @@
 ﻿using ArchiveComparer2.DB;
 using ArchiveComparer2.DB.Model;
 using CodeProject.ReiMiyasaka;
+using log4net;
 using SevenZip;
 using System;
 using System.Collections.Generic;
@@ -250,6 +251,34 @@ namespace ArchiveComparer2.Library
             }
             else
             {
+                FileEntry entry = null; 
+                if(option.UseDB)
+                {
+                    var fi = new FileInfo(filename);
+                    entry = DataAccess.DB.SelectFile(fi);
+                    entry = DataAccess.DB.SelectChecksum(entry);
+                    if (entry.Checksum != null && 
+                        !String.IsNullOrWhiteSpace(entry.Checksum.CRCList))
+                    {
+                        info.Filename = filename;
+                        info.Items = new List<ArchiveFileInfoSmall>();
+                        info.RealSize = entry.Checksum.RealSize;
+                        info.ArchivedSize = fi.Length;
+
+                        for(int i =0; i < entry.Checksum.CRCList.Length; i += 8)
+                        {
+                            ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                            {
+                                Crc = entry.Checksum.CRCList.Substring(i, 8),
+                                Filename = $"fromDB-{i}",
+                                Size = 0
+                            };
+                            info.Items.Add(item);
+                        }
+                        return info;
+                    }
+                }
+
                 SevenZipExtractor.SetLibraryPath(option.SevenZipPath);
                 using (SevenZipExtractor extractor = new SevenZipExtractor(filename))
                 {
@@ -300,6 +329,22 @@ namespace ArchiveComparer2.Library
                     }
 
                     info.SortItems();
+                }
+
+                if(option.UseDB)
+                {
+                    // assumption entry should not be empty
+                    // build checksum if empty
+                    if (entry.Checksum == null)
+                    {
+                        entry.Checksum = new Checksum();
+                        entry.Checksum.CRCList = info.ToCRCString();
+                        entry.Checksum.RealSize = info.RealSize;
+                    }
+                    entry.Checksum.CRC32 = "";
+                    entry.Checksum.MD5 = "";
+                    // save to db
+                    DataAccess.DB.InsertChecksum(entry);
                 }
             }
             return info;
@@ -394,6 +439,7 @@ namespace ArchiveComparer2.Library
                 {
                     entry.Checksum = new Checksum();
                     entry.Checksum.CRCList = "";
+                    entry.Checksum.RealSize = 0;
                 }
                 entry.Checksum.CRC32 = crc32;
                 entry.Checksum.MD5 = md5;

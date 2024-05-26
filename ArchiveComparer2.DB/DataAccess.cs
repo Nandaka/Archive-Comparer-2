@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `checksums` (
     `md5` TEXT NULL,
     `crc_list` TEXT NULL,
     `update_date` INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `real_size` INTEGER NOT NULL,
     FOREIGN KEY(`file_id`) REFERENCES `files`(`id`) ON DELETE CASCADE
 )
 ";
@@ -171,8 +172,8 @@ WHERE filepath = @filepath and filename = @filename
 
         #region checksum
         private readonly string INSERT_CHECKSUM_SQL = @"
-INSERT OR REPLACE INTO checksums (crc32, md5, crc_list, file_id)
-VALUES (@crc32, @md5, @crc_list, @file_id)
+INSERT OR REPLACE INTO checksums (crc32, md5, crc_list, file_id, real_size)
+VALUES (@crc32, @md5, @crc_list, @file_id, @real_size)
 ";
         public int InsertChecksum(FileEntry entry)
         {
@@ -193,6 +194,7 @@ VALUES (@crc32, @md5, @crc_list, @file_id)
                 cmd.Parameters.Add(new SQLiteParameter("@md5", entry.Checksum.MD5));
                 cmd.Parameters.Add(new SQLiteParameter("@crc_list", entry.Checksum.CRCList));
                 cmd.Parameters.Add(new SQLiteParameter("@file_id", entry.Id));
+                cmd.Parameters.Add(new SQLiteParameter("@real_size", entry.Checksum.RealSize));
                 result = cmd.ExecuteNonQuery();
 
                 // TODO: potential integer overflow
@@ -227,6 +229,7 @@ WHERE file_id = @file_id
                         MD5 = reader.GetString(2),
                         CRCList = reader.GetString(3),
                         UpdateDate = reader.GetDateTime(4),
+                        RealSize = reader.GetInt64(5),
                     };
                     entry.Checksum = checksum;
                     break;

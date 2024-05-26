@@ -13,6 +13,7 @@ namespace ArchiveComparer2.DB.Model
         public string MD5 { get; set; }
         public string CRCList { get; set; }
         public DateTime UpdateDate { get; set; }
+        public long RealSize { get; set; }
 
         public override string ToString()
         {

@@ -25,6 +25,7 @@ namespace ArchiveComparer2
         {
             InitializeComponent();
 
+
             txtBlackList.WordWrap = true;
 
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -665,6 +666,10 @@ namespace ArchiveComparer2
                     MessageBox.Show(String.Format("Invalid value for Small File Size Limit: {0}", txtSmallFileSizeLimit.Text, "Invalid Value"));
                     txtSmallFileSizeLimit.Text = "0";
                 }
+            }
+            else
+            {
+                txtSmallFileSizeLimit.Text = Properties.Settings.Default.SmallFileSizeLimit;
             }
         }
 

@@ -14,10 +14,9 @@ namespace ArchiveComparer2.DB.Model
         public string CRCList { get; set; }
         public DateTime UpdateDate { get; set; }
 
-        public int FileId { get; set; }
         public override string ToString()
         {
-            return $"Id={Id}->{FileId} - CRC32={CRC32} - MD5={MD5} bytes - UpdateDate={UpdateDate} - CRCList={CRCList}";
+            return $"Id={Id} - CRC32={CRC32} - MD5={MD5} bytes - UpdateDate={UpdateDate} - CRCList={CRCList}";
         }
     }
 }

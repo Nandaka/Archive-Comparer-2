@@ -1,4 +1,6 @@
-﻿using CodeProject.ReiMiyasaka;
+﻿using ArchiveComparer2.DB;
+using ArchiveComparer2.DB.Model;
+using CodeProject.ReiMiyasaka;
 using SevenZip;
 using System;
 using System.Collections.Generic;
@@ -135,7 +137,7 @@ namespace ArchiveComparer2.Library
 
         public bool FileMode = false;
         public bool FileModeMd5 = true;
-        public bool UseDB = false;
+        public bool UseDB = true;
     }
 
     public class ArchiveFileInfoSmallCRCComparer : IComparer<ArchiveFileInfoSmall>
@@ -311,50 +313,92 @@ namespace ArchiveComparer2.Library
             FileInfo f = new FileInfo(filename);
             info.RealSize = f.Length;
             info.ArchivedSize = f.Length;
+            var md5 = "";
+            var crc32 = "";
+            var hash = "";
+            var remark = "";
+            FileEntry entry = null;
 
-            if (option.FileModeMd5)
+            if (option.UseDB)
             {
-                using (var md5 = MD5.Create())
+                // get data from db
+                var fi = new FileInfo(filename);
+                entry = DataAccess.DB.SelectFile(fi);
+                entry = DataAccess.DB.SelectChecksum(entry);
+                if (entry.Checksum != null)
                 {
-                    using (var stream = File.OpenRead(filename))
+                    crc32 = entry.Checksum.CRC32;
+                    md5 = entry.Checksum.MD5;
+                    if (option.FileModeMd5 && String.IsNullOrWhiteSpace(entry.Checksum.MD5))
                     {
-                        var hash = md5.ComputeHash(stream);
-                        var crc = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-
-                        ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
-                        {
-                            Crc = crc,
-                            Filename = filename,
-                            Size = (ulong)f.Length,
-                            Remark = "FileModeMD5"
-                        };
-
-                        info.Items.Add(item);
+                        hash = entry.Checksum.MD5;
+                        remark = "FileModeMD5FromDB";
+                    }
+                    else if (String.IsNullOrWhiteSpace(entry.Checksum.CRC32))
+                    {
+                        hash = entry.Checksum.CRC32;
+                        remark = "FileModeCRC32FromDB";
                     }
                 }
             }
-            else
+
+            if (String.IsNullOrWhiteSpace(hash))
             {
-                // calculate crc32
-                using (FileStream file = new FileStream(filename, FileMode.Open))
+                if (option.FileModeMd5)
                 {
-                    using (CrcStream stream = new CrcStream(file))
+                    using (var oMd5 = MD5.Create())
                     {
-                        StreamReader reader = new StreamReader(stream);
-                        string text = reader.ReadToEnd();
-                        var crc = stream.ReadCrc.ToString("X8");
-
-                        ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+                        using (var stream = File.OpenRead(filename))
                         {
-                            Crc = crc,
-                            Filename = filename,
-                            Size = (ulong)f.Length,
-                            Remark = "FileModeCRC32"
-                        };
-
-                        info.Items.Add(item);
+                            var bHash = oMd5.ComputeHash(stream);
+                            hash = md5 = BitConverter.ToString(bHash).Replace("-", "").ToLowerInvariant();
+                            remark = "FileModeMD5";
+                        }
                     }
                 }
+                else
+                {
+                    // calculate crc32
+                    using (FileStream file = new FileStream(filename, FileMode.Open))
+                    {
+                        using (CrcStream stream = new CrcStream(file))
+                        {
+                            StreamReader reader = new StreamReader(stream);
+                            string text = reader.ReadToEnd();
+                            hash = crc32 = stream.ReadCrc.ToString("X8");
+                            remark = "FileModeCRC32";
+                        }
+                    }
+                }
+            }
+
+            ArchiveFileInfoSmall item = new ArchiveFileInfoSmall()
+            {
+                Crc = hash,
+                Filename = filename,
+                Size = (ulong)f.Length,
+                Remark = remark
+            };
+            info.Items.Add(item);
+
+
+            if (option.UseDB && 
+                (entry.Checksum == null ||
+                 entry.Checksum.CRC32 == crc32 ||
+                 entry.Checksum.MD5 == md5
+                ))
+            {
+                // assumption entry should not be empty
+                // build checksum if empty
+                if (entry.Checksum == null)
+                {
+                    entry.Checksum = new Checksum();
+                    entry.Checksum.CRCList = "";
+                }
+                entry.Checksum.CRC32 = crc32;
+                entry.Checksum.MD5 = md5;
+                // save to db
+                DataAccess.DB.InsertChecksum(entry);
             }
         }
 

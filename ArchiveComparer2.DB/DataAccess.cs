@@ -76,12 +76,11 @@ CREATE UNIQUE INDEX IF NOT EXISTS `files_idx1` ON `files` (
 
         private readonly string CREATE_CHECKSUM_SQL = $@"
 CREATE TABLE IF NOT EXISTS `checksums` (
-    `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    `file_id` INTEGER NOT NULL PRIMARY KEY UNIQUE,
     `crc32` TEXT NULL,
     `md5` TEXT NULL,
     `crc_list` TEXT NULL,
     `update_date` INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `file_id` INTEGER NOT NULL,
     FOREIGN KEY(`file_id`) REFERENCES `files`(`id`) ON DELETE CASCADE
 )
 ";
@@ -122,8 +121,8 @@ VALUES (@filepath, @filename, @size, @create_date, @last_modified_date)
                 cmd.Parameters.Add(new SQLiteParameter("@filepath", fileInfo.DirectoryName));
                 cmd.Parameters.Add(new SQLiteParameter("@filename", fileInfo.Name));
                 cmd.Parameters.Add(new SQLiteParameter("@size", fileInfo.Length));
-                cmd.Parameters.Add(new SQLiteParameter("@create_date", fileInfo.CreationTimeUtc));
-                cmd.Parameters.Add(new SQLiteParameter("@last_modified_date", fileInfo.LastWriteTimeUtc));
+                cmd.Parameters.Add(new SQLiteParameter("@create_date", fileInfo.CreationTime));
+                cmd.Parameters.Add(new SQLiteParameter("@last_modified_date", fileInfo.LastWriteTime));
                 result = cmd.ExecuteNonQuery();
 
                 // TODO: potential integer overflow
@@ -172,7 +171,7 @@ WHERE filepath = @filepath and filename = @filename
 
         #region checksum
         private readonly string INSERT_CHECKSUM_SQL = @"
-INSERT INTO checksums (crc32, md5, crc_list, file_id)
+INSERT OR REPLACE INTO checksums (crc32, md5, crc_list, file_id)
 VALUES (@crc32, @md5, @crc_list, @file_id)
 ";
         public int InsertChecksum(FileEntry entry)
@@ -228,7 +227,6 @@ WHERE file_id = @file_id
                         MD5 = reader.GetString(2),
                         CRCList = reader.GetString(3),
                         UpdateDate = reader.GetDateTime(4),
-                        FileId = reader.GetInt32(5)
                     };
                     entry.Checksum = checksum;
                     break;
@@ -263,9 +261,10 @@ WHERE id = @id
                     if(existingFile != null)
                     {
                         if(existingFile.Size == f.Length &&
-                           existingFile.CreateDate == f.CreationTimeUtc &&
-                           existingFile.LastModifiedDate == f.LastAccessTimeUtc)
+                           existingFile.CreateDate == f.CreationTime &&
+                           existingFile.LastModifiedDate == f.LastWriteTime)
                         {
+
                             continue;
                         }
 
@@ -284,8 +283,8 @@ WHERE id = @id
                     cmd.Parameters.Add(new SQLiteParameter("@filepath", f.DirectoryName));
                     cmd.Parameters.Add(new SQLiteParameter("@filename", f.Name));
                     cmd.Parameters.Add(new SQLiteParameter("@size", f.Length));
-                    cmd.Parameters.Add(new SQLiteParameter("@create_date", f.CreationTimeUtc));
-                    cmd.Parameters.Add(new SQLiteParameter("@last_modified_date", f.LastWriteTimeUtc));
+                    cmd.Parameters.Add(new SQLiteParameter("@create_date", f.CreationTime));
+                    cmd.Parameters.Add(new SQLiteParameter("@last_modified_date", f.LastWriteTime));
                     result += cmd.ExecuteNonQuery();
                 }
             }

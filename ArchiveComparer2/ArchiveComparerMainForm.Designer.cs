@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchiveComparer2Form));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.btnDeselectAll = new System.Windows.Forms.Button();
             this.btnSelectSubset = new System.Windows.Forms.Button();
             this.btnSelectEqual = new System.Windows.Forms.Button();
@@ -123,8 +125,6 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -180,6 +180,33 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileModeMd5;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileModeMd5", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(789, 11);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(175, 24);
+            this.checkBox1.TabIndex = 24;
+            this.checkBox1.Text = "File Mode Use MD5";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileMode;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(677, 11);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(104, 24);
+            this.checkBox2.TabIndex = 23;
+            this.checkBox2.Text = "File Mode";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // btnDeselectAll
             // 
@@ -1209,33 +1236,6 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Width = 150;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileModeMd5;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileModeMd5", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(789, 11);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(175, 24);
-            this.checkBox1.TabIndex = 24;
-            this.checkBox1.Text = "File Mode Use MD5";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileMode;
-            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox2.Location = new System.Drawing.Point(677, 11);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(104, 24);
-            this.checkBox2.TabIndex = 23;
-            this.checkBox2.Text = "File Mode";
-            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // ArchiveComparer2Form
             // 

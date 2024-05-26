@@ -657,11 +657,14 @@ namespace ArchiveComparer2
 
         private void txtSmallFileSizeLimit_TextChanged(object sender, EventArgs e)
         {
-            bool result = ulong.TryParse(txtSmallFileSizeLimit.Text, out ulong parsed);
-            if (!result)
+            if (!String.IsNullOrWhiteSpace(txtSmallFileSizeLimit.Text))
             {
-                MessageBox.Show(String.Format("Invalid value for Small File Size Limit: {0}", txtSmallFileSizeLimit.Text, "Invalid Value"));
-                txtSmallFileSizeLimit.Text = "0";
+                bool result = ulong.TryParse(txtSmallFileSizeLimit.Text, out ulong parsed);
+                if (!result)
+                {
+                    MessageBox.Show(String.Format("Invalid value for Small File Size Limit: {0}", txtSmallFileSizeLimit.Text, "Invalid Value"));
+                    txtSmallFileSizeLimit.Text = "0";
+                }
             }
         }
 

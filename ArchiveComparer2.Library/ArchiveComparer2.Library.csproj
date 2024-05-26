@@ -70,6 +70,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchiveComparer2.DB\ArchiveComparer2.DB.csproj">
+      <Project>{76b828f6-c01b-4aa9-9b2e-90922adcfe21}</Project>
+      <Name>ArchiveComparer2.DB</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

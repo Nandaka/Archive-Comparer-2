@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2.Library", "ArchiveComparer2.Library\ArchiveComparer2.Library.csproj", "{67956840-1C1E-438A-B05B-13113223D3D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2.Test", "ArchiveComparer2.Test\ArchiveComparer2.Test.csproj", "{C8050D64-72E2-4B2F-9FF8-837550ABB172}"
@@ -16,10 +18,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2.Console", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2", "ArchiveComparer2\ArchiveComparer2.csproj", "{2554C230-CD39-489F-90A1-FD6E02CAB5E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiveComparer2.DB", "ArchiveComparer2.DB\ArchiveComparer2.DB.csproj", "{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}"
+EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = ArchiveComparer2.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -73,8 +74,26 @@ Global
 		{2554C230-CD39-489F-90A1-FD6E02CAB5E4}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2554C230-CD39-489F-90A1-FD6E02CAB5E4}.Release|x86.ActiveCfg = Release|x86
 		{2554C230-CD39-489F-90A1-FD6E02CAB5E4}.Release|x86.Build.0 = Release|x86
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Debug|x86.Build.0 = Debug|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Release|x86.ActiveCfg = Release|Any CPU
+		{76B828F6-C01B-4AA9-9B2E-90922ADCFE21}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CAFC9C3-F6B1-490F-81B7-93DAEAC45502}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = ArchiveComparer2.vsmdi
 	EndGlobalSection
 EndGlobal

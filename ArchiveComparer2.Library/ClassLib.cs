@@ -135,6 +135,7 @@ namespace ArchiveComparer2.Library
 
         public bool FileMode = false;
         public bool FileModeMd5 = true;
+        public bool UseDB = false;
     }
 
     public class ArchiveFileInfoSmallCRCComparer : IComparer<ArchiveFileInfoSmall>

@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArchiveComparer2Form));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnDeselectAll = new System.Windows.Forms.Button();
             this.btnSelectSubset = new System.Windows.Forms.Button();
             this.btnSelectEqual = new System.Windows.Forms.Button();
             this.btnSelectOriginal = new System.Windows.Forms.Button();
@@ -122,7 +123,8 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDeselectAll = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -152,6 +154,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox1);
+            this.tabPage1.Controls.Add(this.checkBox2);
             this.tabPage1.Controls.Add(this.btnDeselectAll);
             this.tabPage1.Controls.Add(this.btnSelectSubset);
             this.tabPage1.Controls.Add(this.btnSelectEqual);
@@ -176,6 +180,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnDeselectAll
+            // 
+            this.btnDeselectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeselectAll.Location = new System.Drawing.Point(925, 574);
+            this.btnDeselectAll.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeselectAll.Name = "btnDeselectAll";
+            this.btnDeselectAll.Size = new System.Drawing.Size(141, 35);
+            this.btnDeselectAll.TabIndex = 22;
+            this.btnDeselectAll.Text = "Deselect All";
+            this.btnDeselectAll.UseVisualStyleBackColor = true;
+            this.btnDeselectAll.Click += new System.EventHandler(this.btnDeselectAll_Click);
             // 
             // btnSelectSubset
             // 
@@ -520,7 +536,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage2.Size = new System.Drawing.Size(1321, 621);
+            this.tabPage2.Size = new System.Drawing.Size(1488, 621);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Log";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -534,7 +550,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(1313, 611);
+            this.txtLog.Size = new System.Drawing.Size(1480, 611);
             this.txtLog.TabIndex = 10;
             this.txtLog.WordWrap = false;
             this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
@@ -551,7 +567,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPage3.Size = new System.Drawing.Size(1321, 621);
+            this.tabPage3.Size = new System.Drawing.Size(1488, 621);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Config";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1194,17 +1210,32 @@
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Width = 150;
             // 
-            // btnDeselectAll
+            // checkBox1
             // 
-            this.btnDeselectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDeselectAll.Location = new System.Drawing.Point(925, 574);
-            this.btnDeselectAll.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnDeselectAll.Name = "btnDeselectAll";
-            this.btnDeselectAll.Size = new System.Drawing.Size(141, 35);
-            this.btnDeselectAll.TabIndex = 22;
-            this.btnDeselectAll.Text = "Deselect All";
-            this.btnDeselectAll.UseVisualStyleBackColor = true;
-            this.btnDeselectAll.Click += new System.EventHandler(this.btnDeselectAll_Click);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileModeMd5;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileModeMd5", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(789, 11);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(175, 24);
+            this.checkBox1.TabIndex = 24;
+            this.checkBox1.Text = "File Mode Use MD5";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = global::ArchiveComparer2.Properties.Settings.Default.FileMode;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ArchiveComparer2.Properties.Settings.Default, "FileMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(677, 11);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(104, 24);
+            this.checkBox2.TabIndex = 23;
+            this.checkBox2.Text = "File Mode";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // ArchiveComparer2Form
             // 
@@ -1335,6 +1366,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsKeepOldest;
         private System.Windows.Forms.ToolStripMenuItem tsKeepNewest;
         private System.Windows.Forms.Button btnDeselectAll;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 

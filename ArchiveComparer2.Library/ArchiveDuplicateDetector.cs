@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ArchiveComparer2.DB;
+using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 
 using System.IO;
@@ -97,7 +99,7 @@ namespace ArchiveComparer2.Library
                                            where re.IsMatch(f.Name)
                                            select f;
 
-                        fileList.AddRange(filteredList);
+                        fileList.AddRange(filteredList);                        
                     }
                     ++i;
                 }
@@ -105,6 +107,11 @@ namespace ArchiveComparer2.Library
                 {
                     NotifyCaller($"{ex.Message} for path: ({path})", OperationStatus.ERROR);
                 }
+            }
+
+            if (option.UseDB)
+            {
+                DataAccess.DB.InsertFiles(fileList);
             }
 
             NotifyCaller($"Total File: {fileList.Count}", OperationStatus.BUILDING_FILE_LIST, total: fileList.Count);
